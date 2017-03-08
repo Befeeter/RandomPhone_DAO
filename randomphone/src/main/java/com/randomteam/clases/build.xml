@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build">
+	<path id="build.classpath">
+		<pathelement location="classes"/>
+	</path>
+	<target name="init">
+		<mkdir dir="classes"/>
+	</target>
+	<target name="clean">
+		<delete dir="classes"/>
+	</target>
+	<target depends="init" name="build">
+		<javac srcdir="." destdir="classes" source="1.5" target="1.5" fork="yes">
+			<classpath refid="build.classpath"/>
+			<include name="Informar.java"/>
+			<include name="Reclamacion.java"/>
+			<include name="Incidencia.java"/>
+			<include name="Cliente.java"/>
+			<include name="Servicio.java"/>
+			<include name="SolicitarLlamada.java"/>
+			<include name="Oferta.java"/>
+			<include name="IncidenciaComp.java"/>
+			<include name="IncidenciaAsig.java"/>
+			<include name="IncidenciaSinAsig.java"/>
+			<include name="Administrador.java"/>
+			<include name="SitioWebAdministrador.java"/>
+			<include name="ComercialE.java"/>
+			<include name="IncidenciasAct.java"/>
+			<include name="IncidenciasActivas.java"/>
+			<include name="AltaModificarComercial.java"/>
+			<include name="Comerciales.java"/>
+			<include name="MesesAdaptacion.java"/>
+			<include name="Tarifa.java"/>
+			<include name="AltaModificarTarifaTelefono.java"/>
+			<include name="TarifasTelefono.java"/>
+			<include name="TarifasMovil.java"/>
+			<include name="AltaModificarTarifaMovil.java"/>
+			<include name="AltaModificarTarifas.java"/>
+			<include name="ModificarTarifaFibra.java"/>
+			<include name="TarifasFibra.java"/>
+			<include name="ListadoClientes.java"/>
+			<include name="ClienteE.java"/>
+			<include name="Comercial.java"/>
+			<include name="SitioWebComercial.java"/>
+			<include name="IncidenciaCurso.java"/>
+			<include name="NuevaReclamacion.java"/>
+			<include name="NuevaReclamacionComercial.java"/>
+			<include name="IncidenciasEnCurso.java"/>
+			<include name="CanalD.java"/>
+			<include name="CrearPaquete.java"/>
+			<include name="CanalDisp.java"/>
+			<include name="EditarPaquete.java"/>
+			<include name="CanalesTV.java"/>
+			<include name="PaquetePersonalizado.java"/>
+			<include name="PaquetesContratados.java"/>
+			<include name="ModificarServicios.java"/>
+			<include name="TarifaE.java"/>
+			<include name="Terminales.java"/>
+			<include name="AltaNuevoCliente.java"/>
+			<include name="PanelAdministracionComercial.java"/>
+			<include name="ModificarDatosCliente.java"/>
+			<include name="ModificarDatosPersonales.java"/>
+			<include name="ModificarDatosPersonalesCm.java"/>
+			<include name="MiCuentaComercial.java"/>
+			<include name="ModificarServiciosCm.java"/>
+			<include name="PaquetesContratadosCm.java"/>
+			<include name="PaquetesTV.java"/>
+			<include name="Paquete.java"/>
+			<include name="Canal.java"/>
+			<include name="CrearModificarCanal.java"/>
+			<include name="TarifasTelevision.java"/>
+			<include name="Servicios.java"/>
+			<include name="PanelAdministrador.java"/>
+			<include name="AsignarComercial.java"/>
+			<include name="ListadoIncidencias.java"/>
+			<include name="EditarIncidencia.java"/>
+			<include name="Contacto.java"/>
+			<include name="internauta.java"/>
+			<include name="ActualizarContrasenia.java"/>
+			<include name="RecuperarContrasenia.java"/>
+			<include name="Login.java"/>
+			<include name="SitioWebInternauta.java"/>
+			<include name="SitioWeb.java"/>
+			<include name="SitioWebCliente.java"/>
+			<include name="Factura.java"/>
+			<include name="MisFacturas.java"/>
+			<include name="MiCuenta.java"/>
+			<include name="MisIncidencias.java"/>
+		</javac>
+	</target>
+</project>
