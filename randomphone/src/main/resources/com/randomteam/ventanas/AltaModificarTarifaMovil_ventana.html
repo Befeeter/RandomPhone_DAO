@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-label style-name="title" width-full plain-text>
+     Alta / Modificar Tarifa Movil 
+   </vaadin-label>
+   <vaadin-css-layout caption="Detalles de la Tarifa" style-name="form-section align-center">
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper align-bottom">
+      <vaadin-label plain-text>
+        Nombre: 
+      </vaadin-label>
+      <vaadin-text-field _id="nombreTF"></vaadin-text-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper align-bottom">
+      <vaadin-label plain-text>
+        Precio: 
+      </vaadin-label>
+      <vaadin-text-field _id="precioTF"></vaadin-text-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-label plain-text _id="minutosL">
+        Minutos: 
+      </vaadin-label>
+      <vaadin-text-field _id="minutosTF"></vaadin-text-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-label plain-text>
+        Datos: 
+      </vaadin-label>
+      <vaadin-text-field _id="datosTF"></vaadin-text-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+   <vaadin-css-layout style-name="form-section" width-full>
+    <vaadin-css-layout style-name="input-group" width-full>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-slider max="1"></vaadin-slider>
+      <vaadin-button style-name="primary" plain-text _id="submit">
+        Submit 
+      </vaadin-button>
+      <vaadin-button plain-text _id="cancel">
+        Cancel 
+      </vaadin-button>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>
