@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout responsive>
+   <vaadin-horizontal-layout responsive>
+    <vaadin-vertical-layout size-auto>
+     <vaadin7-label size-auto plain-text _id="paquetesTVL">
+       Paquetes TV 
+     </vaadin7-label>
+     <vaadin-text-field placeholder="Buscar" _id="buscarPaquetesTF"></vaadin-text-field>
+     <vaadin-list-select width="185px" data-item-type="java.lang.String" _id="paqueteLS">
+      <option item="Option1">Option 1</option>
+      <option item="Option2">Option 2</option>
+      <option item="Option3">Option 3</option>
+     </vaadin-list-select>
+     <vaadin-horizontal-layout>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e7b2" width="50px" plain-text _id="crearPaqueteB"></vaadin-button>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e771" width="50px" plain-text _id="editarPaqueteB"></vaadin-button>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e80b" width="50px" plain-text _id="eliminarPaqueteB"></vaadin-button>
+     </vaadin-horizontal-layout>
+    </vaadin-vertical-layout>
+    <vaadin-vertical-layout size-auto>
+     <vaadin7-label size-auto plain-text _id="canalesTVL">
+       Canales TV 
+     </vaadin7-label>
+     <vaadin-text-field placeholder="Buscar" _id="buscarCanalesTF"></vaadin-text-field>
+     <vaadin-list-select width="185px" data-item-type="java.lang.String" _id="canalesLS">
+      <option item="Option1">Option 1</option>
+      <option item="Option2">Option 2</option>
+      <option item="Option3">Option 3</option>
+     </vaadin-list-select>
+     <vaadin-horizontal-layout>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e7b2" width="50px" plain-text _id="añadirCanalB"></vaadin-button>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e771" width="50px" plain-text _id="editarCanalB"></vaadin-button>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e80b" width="50px" plain-text _id="eliminarCanalB"></vaadin-button>
+     </vaadin-horizontal-layout>
+    </vaadin-vertical-layout>
+   </vaadin-horizontal-layout>
+  </vaadin-css-layout>
+ </body>
+</html>

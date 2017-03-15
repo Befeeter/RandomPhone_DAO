@@ -1,9 +1,11 @@
+package com.randomteam.clases;
+
 public class SolicitarLlamada {
-	private Label tituloL;
+	/*private Label tituloL;
 	private Label descripcionL;
 	private TextField telefonoTF;
 	private Button enviarB;
-	public Oferta vOferta;
+	public Oferta vOferta;*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();

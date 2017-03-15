@@ -1,4 +1,7 @@
+package com.randomteam.clases;
+
 public class Reclamacion {
+	/*
 	private Label tituloL;
 	private Label consultaL;
 	private Text consultaT;
@@ -7,6 +10,7 @@ public class Reclamacion {
 	private TextArea nuevaConsultaTA;
 	private Button enviarB;
 	public Incidencia vIncidencia;
+	*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();

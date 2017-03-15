@@ -1,3 +1,5 @@
+package com.randomteam.clases;
+
 public class Oferta {
 	private Label nombreL;
 	private img imagenI;

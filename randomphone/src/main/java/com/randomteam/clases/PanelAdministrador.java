@@ -1,4 +1,7 @@
+package com.randomteam.clases;
+
 public class PanelAdministrador {
+	/*
 	private Label tituloL;
 	private Button serviciosB;
 	private Button comercialesB;
@@ -9,4 +12,5 @@ public class PanelAdministrador {
 	public Servicios vServicios;
 	public ListadoIncidencias vListadoIncidencias;
 	public ListadoClientes vListadoClientes;
+	*/
 }

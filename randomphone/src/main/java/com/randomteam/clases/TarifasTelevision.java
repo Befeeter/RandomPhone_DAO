@@ -1,4 +1,7 @@
+package com.randomteam.clases;
+
 public class TarifasTelevision {
+	/*
 	private Label tituloPaquetesL;
 	private Label tituloCanalesL;
 	private TextField buscarTF;
@@ -15,4 +18,5 @@ public class TarifasTelevision {
 	public CrearModificarCanal vCrearModificarCanal;
 	public CrearPaquete vCrearPaquete;
 	public EditarPaquete vEditarPaquete;
+	*/
 }
