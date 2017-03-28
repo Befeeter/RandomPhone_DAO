@@ -1,5 +1,9 @@
-public class AltaNuevoCliente {
-	private Label tituloL;
+package com.randomteam.clases;
+
+import com.randomteam.ventanas.AltaNuevoCliente_ventana;
+
+public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
+	/*private Label tituloL;
 	private Label nombreL;
 	private TextField nombreTF;
 	private Label apellidoL;
@@ -24,7 +28,7 @@ public class AltaNuevoCliente {
 	public PanelAdministracionComercial vPanelAdministracionComercial;
 	public TarifaE vTarifaE;
 	public Terminales vTerminales;
-
+*/
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
