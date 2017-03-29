@@ -2,11 +2,18 @@ package com.randomteam.randomphone;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.randomteam.ventanas.Administrador;
+import com.randomteam.ventanas.AltaNuevoCliente;
+import com.randomteam.ventanas.AsignarComercial;
+import com.randomteam.ventanas.AsignarComercial_ventana;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.shared.ui.grid.GridConstants.Section;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -24,9 +31,10 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
+        final CssLayout layout = new CssLayout();
+        layout.setStyleName("form-section");
         
-        final TextField name = new TextField();
+        /*final TextField name = new TextField();
         name.setCaption("Type your name here:");
 
         Button button = new Button("Click Me");
@@ -36,6 +44,10 @@ public class MyUI extends UI {
         });
         
         layout.addComponents(name, button);
+        */
+        layout.addComponent(new Administrador());
+        //layout.addComponent(new AltaNuevoCliente());
+        //layout.setMargin(false);
         
         setContent(layout);
     }

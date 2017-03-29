@@ -5,6 +5,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.declarative.Design;
 
@@ -25,9 +26,13 @@ public class AltaNuevoCliente_ventana extends CssLayout {
 	protected TextField documentoTF;
 	protected TextField emailTF;
 	protected TextField telefonoTF;
+	protected Label movilL;
 	protected ComboBox<java.lang.String> movilLS;
+	protected Label fijoL;
 	protected ComboBox<java.lang.String> fijoLS;
+	protected Label fibraL;
 	protected ComboBox<java.lang.String> fibraLS;
+	protected Label televisionL;
 	protected ComboBox<java.lang.String> televisionLS;
 	protected Button terminalesB;
 	protected Button darDeAltaB;
