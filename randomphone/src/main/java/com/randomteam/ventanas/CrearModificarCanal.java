@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class CrearModificarCanal {
+public class CrearModificarCanal extends CrearModificarCanal_ventana{
+	/*
 	private Label tituloL;
 	private Label nombreL;
 	private TextField nombreTF;
@@ -11,7 +12,7 @@ public class CrearModificarCanal {
 	private Button estadoB;
 	private Button crearB;
 	public TarifasTelevision vTarifasTelevision;
-
+*/
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}

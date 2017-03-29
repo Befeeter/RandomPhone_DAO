@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class CrearPaquete {
+public class CrearPaquete extends CrearPaquete_ventana{
+	/*
 	private Label nombreL;
 	private TextField nombreTF;
 	private Label precioL;
@@ -12,6 +13,7 @@ public class CrearPaquete {
 	private Button crearB;
 	public TarifasTelevision vTarifasTelevision;
 	public CanalDisp vCanalDisp;
+	*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
