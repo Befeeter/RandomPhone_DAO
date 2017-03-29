@@ -6,8 +6,8 @@
   <meta name="vaadin-version" content="8.0.0">
  </head>
  <body>
-  <vaadin-vertical-layout size-full>
-   <vaadin-label plain-text _id="asuntoL">
+  <vaadin-vertical-layout height="400px">
+   <vaadin-label responsive plain-text _id="asuntoL">
      Nueva reclamación 
    </vaadin-label>
    <vaadin-horizontal-layout>
@@ -29,6 +29,15 @@
      <option>Modificación</option>
     </vaadin7-native-select>
    </vaadin-horizontal-layout>
+   <vaadin-horizontal-layout>
+    <vaadin-label plain-text _id="mensajeL">
+      Mensaje: 
+    </vaadin-label>
+    <vaadin-text-field></vaadin-text-field>
+   </vaadin-horizontal-layout>
+   <vaadin-button plain-text _id="enviarB">
+     Enviar 
+   </vaadin-button>
   </vaadin-vertical-layout>
  </body>
 </html>
