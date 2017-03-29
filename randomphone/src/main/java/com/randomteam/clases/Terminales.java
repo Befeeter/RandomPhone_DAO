@@ -1,5 +1,7 @@
 package com.randomteam.clases;
 
+import com.vaadin.ui.Label;
+
 public class Terminales {
 	/*private Label tituloL;
 	private Label routerL;
@@ -14,4 +16,5 @@ public class Terminales {
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
+	
 }
