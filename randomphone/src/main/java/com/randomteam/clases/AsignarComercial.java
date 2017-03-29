@@ -1,4 +1,9 @@
-public class AsignarComercial {
+package com.randomteam.clases;
+
+import com.randomteam.ventanas.AsignarComercial_ventana;
+
+public class AsignarComercial extends AsignarComercial_ventana {
+	/*
 	private Label tituloL;
 	private TextField buscarTF;
 	private Comercial comercialesLS;
@@ -8,4 +13,5 @@ public class AsignarComercial {
 	public informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
+	*/
 }

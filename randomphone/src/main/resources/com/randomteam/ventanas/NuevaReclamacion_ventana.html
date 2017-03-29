@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-vertical-layout size-full>
+   <vaadin-label plain-text _id="asuntoL">
+     Nueva reclamación 
+   </vaadin-label>
+   <vaadin-horizontal-layout>
+    <vaadin-label plain-text>
+      Asunto: 
+    </vaadin-label>
+    <vaadin7-text-field _id="asuntoTF"></vaadin7-text-field>
+   </vaadin-horizontal-layout>
+   <vaadin-horizontal-layout>
+    <vaadin-label plain-text _id="tipoL">
+      Label 
+    </vaadin-label>
+    <vaadin7-native-select _id="tipoLS">
+     <option>Alta cliente</option>
+     <option>Llamar</option>
+     <option>Baja cliente</option>
+     <option>Alta servicio</option>
+     <option>Baja servicio</option>
+     <option>Modificación</option>
+    </vaadin7-native-select>
+   </vaadin-horizontal-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>

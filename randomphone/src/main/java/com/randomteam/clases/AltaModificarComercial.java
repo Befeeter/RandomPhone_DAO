@@ -1,6 +1,9 @@
 package com.randomteam.clases;
 
-public class AltaModificarComercial {
+import com.randomteam.ventanas.AltaModificarComercial_ventana;
+
+public class AltaModificarComercial extends AltaModificarComercial_ventana{
+	/*
 	private Label tituloL;
 	private Label nombreL;
 	private TextField nombreTF;
@@ -17,4 +20,5 @@ public class AltaModificarComercial {
 	public informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
+	*/
 }

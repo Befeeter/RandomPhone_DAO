@@ -6,10 +6,15 @@
   <meta name="vaadin-version" content="8.0.0">
  </head>
  <body>
-  <vaadin-vertical-layout size-full>
-   <vaadin-label plain-text>
+  <vaadin-absolute-layout responsive>
+   <vaadin-label plain-text _id="nuevaContraseniaL" :top="160px" :left="235px">
      Nueva Contraseña: 
    </vaadin-label>
-  </vaadin-vertical-layout>
+   <vaadin-label plain-text _id="repitacontraseniaL" :top="242px" :left="235px">
+     Repita Contraseña: 
+   </vaadin-label>
+   <vaadin-password-field _id="nuevaContraseniaPF" :top="160px" :left="392px"></vaadin-password-field>
+   <vaadin-password-field _id="repitacontraseniaPF" :top="242px" :left="392px"></vaadin-password-field>
+  </vaadin-absolute-layout>
  </body>
 </html>
