@@ -6,8 +6,39 @@
   <meta name="vaadin-version" content="8.0.0">
  </head>
  <body>
-  <vaadin-vertical-layout size-full>
-   <vaadin-image _id="bannerI"></vaadin-image>
-  </vaadin-vertical-layout>
+  <vaadin-grid-layout size-full>
+   <row>
+    <column>
+     <vaadin-image :center></vaadin-image>
+    </column>
+   </row>
+   <row>
+    <column>
+     <vaadin-menu-bar auto-open :center>
+      <menu>
+        Servicios 
+       <menu>
+         Movil 
+       </menu>
+       <menu>
+         TV 
+       </menu>
+       <menu>
+         Fijo 
+       </menu>
+       <menu>
+         Fibra 
+       </menu>
+      </menu>
+      <menu>
+        Edit 
+      </menu>
+      <menu description="Some description">
+        About 
+      </menu>
+     </vaadin-menu-bar>
+    </column>
+   </row>
+  </vaadin-grid-layout>
  </body>
 </html>
