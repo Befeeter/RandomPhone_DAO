@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class EditarPaquete {
+public class EditarPaquete extends EditarPaquete_ventana{
+	/*
 	private Label tituloL;
 	private Label estadoL;
 	private Button estadoB;
@@ -10,6 +11,7 @@ public class EditarPaquete {
 	public TarifasTelevision vTarifasTelevision;
 	public CanalDisp vCanalDisp;
 	public CanalesTV vCanalesTV;
+	*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
