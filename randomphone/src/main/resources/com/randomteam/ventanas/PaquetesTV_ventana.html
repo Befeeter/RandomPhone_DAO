@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-vertical-layout size-full>
+   <vaadin-grid-layout spacing width="100px" height="30px">
+    <row>
+     <column>
+      <vaadin-label plain-text _id="tituloL">
+        Paquetes TV 
+      </vaadin-label>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-text-field id="" placeholder="Buscar" input-prompt="" _id="buscarTF"></vaadin-text-field>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-list-select width="185px" data-item-type="java.lang.String">
+       <option item="Paquete1">Paquete 1</option>
+       <option item="Paquete2">Paquete 2</option>
+       <option item="Paquete3">Paquete 3</option>
+      </vaadin-list-select>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-button plain-text _id="guardarB">
+        Guardar 
+      </vaadin-button>
+     </column>
+    </row>
+    <row></row>
+   </vaadin-grid-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>
