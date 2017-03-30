@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class NuevaReclamacion {
+public class NuevaReclamacion extends NuevaReclamacion_ventana {
 	/*
 	private Label asuntoL;
 	private TextField asuntoTF;
