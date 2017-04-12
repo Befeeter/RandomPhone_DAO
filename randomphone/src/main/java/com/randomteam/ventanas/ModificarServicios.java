@@ -1,7 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class ModificarServicios {
+public class ModificarServicios extends ModificarServicios_ventana {
+	/*
 	private Label serviciosL;
 	private img movilI;
 	private TarifaE movilLS;
@@ -16,6 +17,7 @@ public class ModificarServicios {
 	public MiCuenta vMiCuenta;
 	public Vector<TarifaE> vTarifaE = new Vector<TarifaE>();
 	public PaquetesContratados vPaquetesContratados;
+	*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
