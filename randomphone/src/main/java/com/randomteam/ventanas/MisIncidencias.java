@@ -1,7 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class MisIncidencias {
+public class MisIncidencias extends MisIncidencias_ventana {
+	/*
 	private Label incidenciasL;
 	private TextField buscarTF;
 	private Label estadoL;
@@ -14,4 +15,5 @@ public class MisIncidencias {
 	public MiCuenta vMiCuenta;
 	public Vector<Incidencia> vIncidencia = new Vector<Incidencia>();
 	public NuevaReclamacion vNuevaReclamacion;
+	*/
 }

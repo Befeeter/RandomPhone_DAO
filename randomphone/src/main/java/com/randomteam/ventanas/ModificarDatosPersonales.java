@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class ModificarDatosPersonales {
+public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
+	/*
 	private Label tituloL;
 	private Label nombreL;
 	private TextField nombreTF;
@@ -12,6 +13,7 @@ public class ModificarDatosPersonales {
 	private Label telefonoL;
 	private TextField telefonoTF;
 	public MiCuenta vMiCuenta;
+	*/
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
