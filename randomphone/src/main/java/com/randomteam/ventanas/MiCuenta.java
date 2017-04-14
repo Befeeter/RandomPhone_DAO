@@ -1,7 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class MiCuenta {
+public class MiCuenta extends MiCuenta_ventana {
+	/*
 	private Label nombreL;
 	private Button modificarDatosB;
 	private Button modificarServiciosB;
@@ -20,4 +21,5 @@ public class MiCuenta {
 	public MisIncidencias vMisIncidencias;
 	public ModificarServicios vModificarServicios;
 	public ModificarDatosPersonales vModificarDatosPersonales;
+	*/
 }
