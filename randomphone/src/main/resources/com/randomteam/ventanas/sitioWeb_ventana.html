@@ -6,39 +6,42 @@
   <meta name="vaadin-version" content="8.0.0">
  </head>
  <body>
-  <vaadin-grid-layout size-full>
-   <row>
-    <column>
-     <vaadin-image :center></vaadin-image>
-    </column>
-   </row>
-   <row>
-    <column>
-     <vaadin-menu-bar auto-open :center>
-      <menu>
-        Servicios 
+  <vaadin-vertical-layout>
+   <vaadin-grid-layout size-full>
+    <row>
+     <column>
+      <vaadin-image source="https://previews.123rf.com/images/carmenbobo/carmenbobo1504/carmenbobo150400158/39031221-Sello-de-goma-con-la-palabra-ejemplo-interior-ilustraci-n-vectorial-Foto-de-archivo.jpg" height="200px" :center></vaadin-image>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-menu-bar width="1024px" :center>
        <menu>
-         Movil 
+         Servicios 
+        <menu>
+          Movil 
+        </menu>
+        <menu>
+          TV 
+        </menu>
+        <menu>
+          Fijo 
+        </menu>
+        <menu>
+          Fibra 
+        </menu>
        </menu>
        <menu>
-         TV 
+         Contacto 
        </menu>
        <menu>
-         Fijo 
+         Mi cuenta 
        </menu>
-       <menu>
-         Fibra 
-       </menu>
-      </menu>
-      <menu>
-        Edit 
-      </menu>
-      <menu description="Some description">
-        About 
-      </menu>
-     </vaadin-menu-bar>
-    </column>
-   </row>
-  </vaadin-grid-layout>
+      </vaadin-menu-bar>
+     </column>
+    </row>
+   </vaadin-grid-layout>
+   <vaadin-grid-layout></vaadin-grid-layout>
+  </vaadin-vertical-layout>
  </body>
 </html>
