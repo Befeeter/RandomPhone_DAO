@@ -2,7 +2,7 @@ package com.randomteam.ventanas;
 
 import java.util.Vector;
 
-public class SitioWeb {
+public class SitioWeb extends sitioWeb_ventana{
 	/*private img bannerI;
 	private Button serviciosB;
 	private Button contactoB;

@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class Login {
+public class Login extends Login_ventana {
+	/*
 	private Label emailL;
 	private TextField emailTF;
 	private Label contraseniaL;
@@ -10,4 +11,5 @@ public class Login {
 	public MiCuenta vMiCuenta;
 	public ActualizarContrasenia vActualizarContrasenia;
 	public RecuperarContrasenia vRecuperarContrasenia;
+	*/
 }

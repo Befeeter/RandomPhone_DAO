@@ -1,8 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class ListadoIncidencias {
-	private Label tituloL;
+public class ListadoIncidencias extends ListadoIncidencias_ventana {
+	/*private Label tituloL;
 	private TextField buscarTF;
 	private Label sinAsignarL;
 	private Label cibernautaL;
@@ -21,4 +21,5 @@ public class ListadoIncidencias {
 	public Vector<IncidenciaComp> vIncidenciaComp = new Vector<IncidenciaComp>();
 	public EditarIncidencia vEditarIncidencia;
 	public AsignarComercial vAsignarComercial;
+	*/
 }
