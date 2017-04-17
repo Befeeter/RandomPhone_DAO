@@ -1,8 +1,11 @@
 package com.randomteam.ventanas;
+
+public class ModificarTarifaFibra extends ModificarTarifaFibra_ventana {
+/*
 public class ModificarTarifaFibra extends AltaModificarTarifas {
 	private Label bajadaL;
 	private TextField bajadaTF;
 	private Label subidaL;
 	private TextFIeld subidaTF;
-	public TarifasFibra vTarifasFibra;
+	public TarifasFibra vTarifasFibra;*/
 }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-vertical-layout size-full>
+   <vaadin-grid-layout spacing width="100px" height="30px">
+    <row>
+     <column>
+      <vaadin-label style-name="bold h3" plain-text _id="tituloL">
+        Alta/Modificar tarifa fibra 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-label visible="false" plain-text>
+        Label 
+      </vaadin-label>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="nombreL">
+        Nombre: 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-text-field _id="nombreTF"></vaadin-text-field>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="precioL">
+        Precio: 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-text-field _id="precioTF"></vaadin-text-field>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="bajadaL">
+        Velocidad de bajada: 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-text-field _id="bajadaTF"></vaadin-text-field>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="subidaL">
+        Velocidad de subida: 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-text-field _id="subidaTF"></vaadin-text-field>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="estadoL">
+        Estado: 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-slider max="1" _id="estadoB"></vaadin-slider>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-button style-name="primary" plain-text _id="aceptarB">
+        Aceptar 
+      </vaadin-button>
+     </column>
+    </row>
+   </vaadin-grid-layout>
+  </vaadin-vertical-layout>
+ </body>
+</html>
