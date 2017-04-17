@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class Comerciales {
+public class Comerciales extends Comerciales_ventana{
+	/*
 	private Label tituloL;
 	private TextField buscarTF;
 	private ComercialE comercialesLS;
@@ -9,4 +10,5 @@ public class Comerciales {
 	public ComercialE vComercialE;
 	public IncidenciasActivas vIncidenciasActivas;
 	public AltaModificarComercial vAltaModificarComercial;
+	*/
 }

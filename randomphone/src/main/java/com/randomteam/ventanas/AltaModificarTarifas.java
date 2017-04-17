@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class AltaModificarTarifas {
+public class AltaModificarTarifas extends AltaModificarTarifas_ventana{
+	/*
 	private Label tituloL;
 	private Label nombreL;
 	private TextField nombreTF;
@@ -12,4 +13,5 @@ public class AltaModificarTarifas {
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
+	*/
 }
