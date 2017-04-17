@@ -1,7 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class TarifasFibra {
+public class TarifasFibra extends TarifasFibra_ventana {
+	/*
 	private Label tituloL;
 	private Tarifa tarifasLS;
 	private Label estadoL;
@@ -9,4 +10,5 @@ public class TarifasFibra {
 	public Servicios vServicios;
 	public Vector<Tarifa> vTarifa = new Vector<Tarifa>();
 	public ModificarTarifaFibra vModificarTarifaFibra;
+	*/
 }

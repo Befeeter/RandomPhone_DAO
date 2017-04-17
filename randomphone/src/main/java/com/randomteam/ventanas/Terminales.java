@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class Terminales {
+public class Terminales extends Terminales_ventana {
 	/*private Label tituloL;
 	private Label routerL;
 	private Button routerB;

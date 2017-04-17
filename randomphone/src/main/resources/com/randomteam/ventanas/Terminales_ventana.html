@@ -7,27 +7,50 @@
  </head>
  <body>
   <vaadin-vertical-layout height="325px">
-   <vaadin-label plain-text _id="tituloL">
-     Terminales 
-   </vaadin-label>
-   <vaadin-label plain-text _id="estadoL">
-     Estado 
-   </vaadin-label>
-   <vaadin-horizontal-layout>
-    <vaadin-label plain-text _id="routerL">
-      Router 
-    </vaadin-label>
-    <vaadin-slider max="1"></vaadin-slider>
-   </vaadin-horizontal-layout>
-   <vaadin-horizontal-layout>
-    <vaadin-label plain-text _id="decodificadorL" :middle :center>
-      Decodificador 
-    </vaadin-label>
-    <vaadin-slider max="1"></vaadin-slider>
-   </vaadin-horizontal-layout>
-   <vaadin-button plain-text _id="guardarB">
-     Guardar 
-   </vaadin-button>
+   <vaadin-grid-layout spacing width="100px" height="30px">
+    <row>
+     <column>
+      <vaadin-label style-name="bold h3" plain-text _id="tituloL">
+        Terminales 
+      </vaadin-label>
+     </column>
+    </row>
+    <row>
+     <column></column>
+     <column>
+      <vaadin-label plain-text _id="estadoL" :center>
+        Estado 
+      </vaadin-label>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="routerL">
+        Router 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-slider max="1" _id="routerB"></vaadin-slider>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-label plain-text _id="decodificadorL">
+        Decodificador 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-slider max="1" _id="dcodificadorB"></vaadin-slider>
+     </column>
+    </row>
+    <row>
+     <column>
+      <vaadin-button plain-text _id="guardarB">
+        Guardar 
+      </vaadin-button>
+     </column>
+    </row>
+   </vaadin-grid-layout>
   </vaadin-vertical-layout>
  </body>
 </html>

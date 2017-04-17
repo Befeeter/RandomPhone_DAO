@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class TarifasTelevision {
+public class TarifasTelevision extends TarifasTelevision_ventana {
 	/*
 	private Label tituloPaquetesL;
 	private Label tituloCanalesL;
