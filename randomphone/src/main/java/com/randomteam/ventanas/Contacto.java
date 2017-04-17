@@ -1,5 +1,6 @@
 package com.randomteam.ventanas;
-public class Contacto {
+public class Contacto extends Contacto_ventana{
+	/*
 	private Label contactoL;
 	private Label asuntoL;
 	private TextField asuntoTF;
@@ -18,4 +19,5 @@ public class Contacto {
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}
+	*/
 }
