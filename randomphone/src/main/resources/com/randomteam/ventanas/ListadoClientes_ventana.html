@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-horizontal-layout width-full>
+    <vaadin-label style-name="title" width="50%" plain-text>
+      Listado Clientes: 
+    </vaadin-label>
+    <vaadin-text-field value="Buscar" _id="buscarTF" :right></vaadin-text-field>
+   </vaadin-horizontal-layout>
+   <vaadin-css-layout style-name="form-section">
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-grid width-full data-item-type="java.lang.String" _id="clientesLS">
+      <table>
+       <colgroup>
+        <col column-id="nombre" sortable>
+        <col column-id="nincidencias" sortable>
+        <col column-id="falta" sortable>
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="nombre">Nombre</th>
+         <th plain-text column-ids="nincidencias">N.Incidencias</th>
+         <th plain-text column-ids="falta">Fecha Alta</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="project1">
+         <td>Customer Project 1</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project2">
+         <td>Customer Project 2</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project3">
+         <td>Customer Project 3</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project4">
+         <td>Customer Project 4</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project5">
+         <td>Customer Project 5</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project6">
+         <td>Customer Project 6</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project7">
+         <td>Customer Project 7</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project8">
+         <td>Customer Project 8</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project9">
+         <td>Customer Project 9</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>

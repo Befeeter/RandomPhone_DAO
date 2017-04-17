@@ -6,6 +6,7 @@ import com.randomteam.ventanas.Administrador;
 import com.randomteam.ventanas.AltaNuevoCliente;
 import com.randomteam.ventanas.AsignarComercial;
 import com.randomteam.ventanas.AsignarComercial_ventana;
+import com.randomteam.ventanas.ModificarServicios;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -45,7 +46,7 @@ public class MyUI extends UI {
         
         layout.addComponents(name, button);
         */
-        layout.addComponent(new Administrador());
+        layout.addComponent(new ModificarServicios());
         //layout.addComponent(new AltaNuevoCliente());
         //layout.setMargin(false);
         

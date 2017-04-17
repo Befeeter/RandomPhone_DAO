@@ -1,7 +1,8 @@
 package com.randomteam.ventanas;
 import java.util.Vector;
 
-public class ListadoClientes {
+public class ListadoClientes extends ListadoClientes_ventana{
+	/*
 	private Label tituloL;
 	private TextField buscarTF;
 	private Label incidenciasL;
@@ -11,4 +12,5 @@ public class ListadoClientes {
 	private ClienteE clientesLS;
 	public PanelAdministrador vPanelAdministrador;
 	public Vector<ClienteE> vClienteE = new Vector<ClienteE>();
+	*/
 }
