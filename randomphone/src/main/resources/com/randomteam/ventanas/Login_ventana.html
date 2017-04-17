@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-label style-name="title" width-full plain-text>
+     Login 
+   </vaadin-label>
+   <vaadin-css-layout style-name="form-section">
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width="50%">
+      <vaadin-label plain-text>
+        E-mail: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper" width="50%">
+      <vaadin-text-field _id="emailTF"></vaadin-text-field>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width="50%">
+      <vaadin-label plain-text>
+        Contraseña: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper" width="50%">
+      <vaadin-password-field _id="passwordTF"></vaadin-password-field>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width="50%" _id="resetpassL">
+      <vaadin-link caption="¿Has olvidado la contraseña?"></vaadin-link>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width="50%">
+      <vaadin-button plain-text _id="iniciarSesionB">
+        Iniciar Sesión 
+      </vaadin-button>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>

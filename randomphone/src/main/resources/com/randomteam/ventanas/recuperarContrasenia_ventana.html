@@ -8,16 +8,16 @@
  <body>
   <vaadin-vertical-layout size-full>
    <vaadin-vertical-layout>
+    <vaadin-label style-name="h3" plain-text _id="recuperarL" :center>
+      Recuperar contraseña 
+    </vaadin-label>
     <vaadin-vertical-layout spacing="false" size-full margin="false">
-     <vaadin-label plain-text _id="recuperarL">
-       Recuperar contraseña 
-     </vaadin-label>
-     <vaadin-label plain-text _id="emailL">
+     <vaadin-label plain-text _id="emailL" :center>
        introduzca su correo electronico: 
      </vaadin-label>
     </vaadin-vertical-layout>
-    <vaadin-text-field placeholder="Email" _id="emailTF"></vaadin-text-field>
-    <vaadin-button plain-text _id="aceptarB">
+    <vaadin-text-field placeholder="Email" _id="emailTF" :center></vaadin-text-field>
+    <vaadin-button plain-text _id="aceptarB" :center>
       Enviar 
     </vaadin-button>
    </vaadin-vertical-layout>

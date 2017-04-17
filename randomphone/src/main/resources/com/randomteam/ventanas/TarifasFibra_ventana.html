@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-grid-layout spacing width="100px" height="30px" margin>
+   <row></row>
+   <row>
+    <column>
+     <vaadin-label style-name="bold h3" plain-text _id="tituloL">
+       Tarifas Fibra 
+     </vaadin-label>
+    </column>
+   </row>
+   <row>
+    <column>
+     <vaadin-grid responsive data-item-type="java.lang.String" _id="tarifasLS">
+      <table>
+       <colgroup>
+        <col column-id="eliminar" sortable="false">
+        <col column-id="tarifa" sortable="false">
+        <col column-id="editar" sortable="false">
+        <col column-id="estado" sortable="false">
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="eliminar"></th>
+         <th plain-text column-ids="tarifa"></th>
+         <th plain-text column-ids="editar"></th>
+         <th plain-text column-ids="estado"></th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="tarifa1">
+         <td></td>
+         <td>Tarifa 1</td>
+         <td></td>
+         <td></td>
+        </tr>
+        <tr item="tarifa2">
+         <td></td>
+         <td>Tarifa 2</td>
+         <td></td>
+         <td></td>
+        </tr>
+        <tr item="tarifa3">
+         <td></td>
+         <td>Tarifa 3</td>
+         <td></td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </column>
+   </row>
+   <row>
+    <column>
+     <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
+       Crear tarifa 
+     </vaadin-button>
+    </column>
+   </row>
+  </vaadin-grid-layout>
+ </body>
+</html>

@@ -7,36 +7,34 @@
  </head>
  <body>
   <vaadin-vertical-layout size-full>
-   <vaadin-grid-layout spacing width="100px" height="30px">
+   <vaadin-grid-layout width="100px" height="30px">
     <row>
      <column>
-      <vaadin-label plain-text _id="tituloL">
-        Paquetes TV 
+      <vaadin-image source="http://lamarquesagolf.es.195-192-255-153.servidoresdominios.net/wp-content/uploads/estrella-ofertas.png" height="150px" _id="imagenI"></vaadin-image>
+     </column>
+     <column>
+      <vaadin-label style-name="bold h2" plain-text _id="precioL">
+        20€/mes 
       </vaadin-label>
      </column>
     </row>
     <row>
      <column>
-      <vaadin-text-field id="" placeholder="Buscar" input-prompt="" _id="buscarTF"></vaadin-text-field>
+      <vaadin-label style-name="bold h3" plain-text _id="nombreL">
+        Tarifa 1 
+      </vaadin-label>
+     </column>
+     <column>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e7fb" plain-text></vaadin-button>
      </column>
     </row>
     <row>
      <column>
-      <vaadin-list-select width="185px" data-item-type="java.lang.String" _id="paquetesLS">
-       <option item="Paquete1">Paquete 1</option>
-       <option item="Paquete2">Paquete 2</option>
-       <option item="Paquete3">Paquete 3</option>
-      </vaadin-list-select>
+      <vaadin-label width="200px" plain-text _id="descripcionL">
+        descripcion descripcion descripcion descripcion descripcion descripcion 
+      </vaadin-label>
      </column>
     </row>
-    <row>
-     <column>
-      <vaadin-button plain-text _id="guardarB">
-        Guardar 
-      </vaadin-button>
-     </column>
-    </row>
-    <row></row>
    </vaadin-grid-layout>
   </vaadin-vertical-layout>
  </body>

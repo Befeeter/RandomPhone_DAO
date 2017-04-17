@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-label style-name="title" width-full plain-text>
+     Paquete Personalizado 
+   </vaadin-label>
+   <vaadin-css-layout caption="Canales:" style-name="form-section">
+    <vaadin-css-layout style-name="input-group" width-full>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width-full>
+      <vaadin-vertical-layout>
+       <vaadin-check-box-group data-item-type="java.lang.String" _id="canalesCBG" :center>
+        <option item="Option1">Canal 1</option>
+        <option item="Option2">Canal 2</option>
+        <option item="Option3">Canal 3</option>
+       </vaadin-check-box-group>
+      </vaadin-vertical-layout>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width-full>
+      <vaadin-horizontal-layout width-full>
+       <vaadin-button icon="fonticon://Vaadin-Icons/e801" plain-text _id="añadirB" :right></vaadin-button>
+       <vaadin-button icon="fonticon://Vaadin-Icons/e7f6" plain-text _id="eliminarB"></vaadin-button>
+      </vaadin-horizontal-layout>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper align-bottom" width-full>
+      <vaadin-horizontal-layout width-full>
+       <vaadin-button icon="fonticon://Vaadin-Icons/e701" plain-text _id="guardarB" :center>
+         Guardar 
+       </vaadin-button>
+      </vaadin-horizontal-layout>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>
