@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-horizontal-layout width-full>
+    <vaadin-label style-name="title" width-full plain-text>
+      Listado Incidencias 
+    </vaadin-label>
+    <vaadin-text-field value="Buscar" _id="buscarTF" :right></vaadin-text-field>
+   </vaadin-horizontal-layout>
+   <vaadin-css-layout caption="Sin Asignar:" style-name="form-section">
+    <vaadin-css-layout caption="Cibernautas:" style-name="input-group" height="400px">
+     <vaadin-grid width-full data-item-type="java.lang.String" _id="cibernautaLS">
+      <table>
+       <colgroup>
+        <col column-id="nombre" sortable="false">
+        <col column-id="fecha" sortable="false">
+        <col column-id="editar" sortable="false">
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="nombre">Nombre</th>
+         <th plain-text column-ids="fecha">Fecha</th>
+         <th plain-text column-ids="editar">Editar</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="project1">
+         <td>Customer Project 1</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project2">
+         <td>Customer Project 2</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </vaadin-css-layout>
+    <vaadin-css-layout caption="Clientes:" style-name="input-group" height="400px">
+     <vaadin-grid width-full data-item-type="java.lang.String" _id="clienteLS">
+      <table>
+       <colgroup>
+        <col column-id="nombre" sortable="false">
+        <col column-id="fecha" sortable="false">
+        <col column-id="editar" sortable="false">
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="nombre">Nombre</th>
+         <th plain-text column-ids="fecha">Fecha</th>
+         <th plain-text column-ids="editar">Editar</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="project1">
+         <td>Customer Project 1</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+        <tr item="project2">
+         <td>Customer Project 2</td>
+         <td>OK</td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+   <vaadin-css-layout caption="Asignadas:" style-name="form-section">
+    <vaadin-css-layout style-name="input-group" height="400px">
+     <vaadin-grid width-full data-item-type="java.lang.String" _id="asignadasLS">
+      <table>
+       <colgroup>
+        <col column-id="nombre" sortable="false">
+        <col column-id="fecha" sortable="false">
+        <col column-id="comercial" sortable="false">
+        <col column-id="editar" sortable="false">
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="nombre">Nombre</th>
+         <th plain-text column-ids="fecha">Fecha</th>
+         <th plain-text column-ids="comercial">Comercial</th>
+         <th plain-text column-ids="editar">Editar</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="project1">
+         <td>Customer Project 1</td>
+         <td>OK</td>
+         <td></td>
+         <td></td>
+        </tr>
+        <tr item="project2">
+         <td>Customer Project 2</td>
+         <td>OK</td>
+         <td></td>
+         <td></td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+   <vaadin-css-layout caption="Completadas" style-name="form-section">
+    <vaadin-css-layout style-name="input-group" height="400px">
+     <vaadin-grid width-full data-item-type="java.lang.String" _id="completadasLS">
+      <table>
+       <colgroup>
+        <col column-id="nombre" sortable="false">
+       </colgroup>
+       <thead>
+        <tr default>
+         <th plain-text column-ids="nombre">Nombre</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr item="project1">
+         <td>Customer Project 1</td>
+        </tr>
+        <tr item="project2">
+         <td>Customer Project 2</td>
+        </tr>
+       </tbody>
+      </table>
+     </vaadin-grid>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+   <vaadin-css-layout style-name="form-section" width-full>
+    <vaadin-css-layout style-name="input-group" width-full>
+     <vaadin-css-layout style-name="input-wrapper" width-full>
+      <vaadin-horizontal-layout width-full>
+       <vaadin-button style-name="primary" plain-text _id="asignarB" :right>
+         Asignar 
+       </vaadin-button>
+       <vaadin-button plain-text _id="eliminarB">
+         Eliminar 
+       </vaadin-button>
+      </vaadin-horizontal-layout>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>

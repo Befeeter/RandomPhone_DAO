@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
+  <meta name="vaadin-version" content="8.0.0">
+ </head>
+ <body>
+  <vaadin-css-layout style-name="form-template" responsive size-full>
+   <vaadin-label style-name="title" width-full plain-text>
+     Crear Paquete 
+   </vaadin-label>
+   <vaadin-css-layout style-name="form-section">
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper align-bottom">
+      <vaadin-label plain-text _id="nombreL">
+        Nombre: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-text-field _id="nombreTF"></vaadin-text-field>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-label plain-text _id="precioL">
+        Precio: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-text-field placeholder="" _id="precioTF"></vaadin-text-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-label plain-text _id="fechaL">
+        Fecha Alta: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-date-field></vaadin-date-field>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-label plain-text _id="estadoL">
+        Estado: 
+      </vaadin-label>
+     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper">
+      <vaadin-slider max="1" _id="estadoB"></vaadin-slider>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+    <vaadin-css-layout style-name="input-group">
+     <vaadin-css-layout style-name="input-warper" width-full>
+      <vaadin-horizontal-layout width-full>
+       <vaadin-list-select icon="fonticon://Vaadin-Icons/e70b" caption="Canales Disponibles" width="150px" height="115px" data-item-type="java.lang.String" :center>
+        <option item="Option1">Canal 1</option>
+        <option item="Option2">Canal 2</option>
+        <option item="Option3">Canal 3</option>
+        <option item="Option4">Canal 4</option>
+        <option item="Option5">Canal 5</option>
+        <option item="Option6">Canal 6</option>
+       </vaadin-list-select>
+      </vaadin-horizontal-layout>
+     </vaadin-css-layout>
+    </vaadin-css-layout>
+   </vaadin-css-layout>
+   <vaadin-css-layout style-name="form-section" width-full>
+    <vaadin-css-layout style-name="input-group" width-full></vaadin-css-layout>
+    <vaadin-horizontal-layout width-full>
+     <vaadin-button style-name="primary" plain-text _id="crearB" :center>
+       Crear 
+     </vaadin-button>
+    </vaadin-horizontal-layout>
+   </vaadin-css-layout>
+  </vaadin-css-layout>
+ </body>
+</html>
