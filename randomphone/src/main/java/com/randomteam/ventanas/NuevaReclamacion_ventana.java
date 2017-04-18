@@ -27,8 +27,8 @@ public class NuevaReclamacion_ventana extends VerticalLayout {
 	protected Label tipoL;
 	protected NativeSelect tipoLS;
 	protected Label mensajeL;
-	protected Button enviarB;
 	protected TextArea mensajeTA;
+	protected Button enviarB;
 
 	public NuevaReclamacion_ventana() {
 		Design.read(this);
