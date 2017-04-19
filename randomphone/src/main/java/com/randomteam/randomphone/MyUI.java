@@ -7,6 +7,7 @@ import com.randomteam.ventanas.AltaNuevoCliente;
 import com.randomteam.ventanas.AsignarComercial;
 import com.randomteam.ventanas.AsignarComercial_ventana;
 import com.randomteam.ventanas.ModificarServicios;
+import com.randomteam.ventanas.SitioWebInternauta;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -33,7 +34,9 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final CssLayout layout = new CssLayout();
-        layout.setStyleName("form-section");
+        layout.setStyleName("form-template");
+        layout.setSizeFull();
+        layout.setResponsive(true);
         
         /*final TextField name = new TextField();
         name.setCaption("Type your name here:");
@@ -46,7 +49,7 @@ public class MyUI extends UI {
         
         layout.addComponents(name, button);
         */
-        layout.addComponent(new ModificarServicios());
+        layout.addComponent(new SitioWebInternauta());
         //layout.addComponent(new AltaNuevoCliente());
         //layout.setMargin(false);
         
