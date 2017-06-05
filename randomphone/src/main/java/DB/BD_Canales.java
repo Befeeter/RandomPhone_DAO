@@ -14,6 +14,7 @@ import com.vaadin.data.provider.Query;
 public class BD_Canales {
 	public BD_Principal bD_Principal_canales;
 	public Canal[] canal = new Canal[0];
+	int sizerow = 0;
 	
 	Connection conexion;
     PreparedStatement ps;
@@ -23,12 +24,17 @@ public class BD_Canales {
 		Canal [] canales = null;
 		try {
 			conexion = Conexion.getConnection();
-            ps = conexion.prepareStatement("SELECT * from canal INNER JOIN paquete_canal ON canal.id=paquete_canal.CanalId WHERE paquete_canal.PaqueteId=?");
-            ps.setInt(1, paqueteid);
+			String consulta = "SELECT * from canal INNER JOIN paquete_canal ON canal.id=paquete_canal.CanalId WHERE paquete_canal.PaqueteId="+paqueteid;
+			ps = conexion.prepareStatement(consulta);
+           // ps.setInt(1, paqueteid);
             rs = ps.executeQuery();
-            canales = new Canal [rs.getRow()];
-            for (int i=0; i < rs.getRow(); i++) {
-            	System.out.println(i);
+            rs.last();
+            sizerow = rs.getRow();
+            System.out.println("Columnas devueltas "+sizerow);
+            canales = new Canal [sizerow];
+            rs.first();
+            for (int i=0; i <sizerow; i++) {
+            	System.out.println("paso por el for numero "+i);
             	Canal canal = (Canal) rs.getObject(i);
             	canales[i] = canal;
             	rs.next();
@@ -39,13 +45,13 @@ public class BD_Canales {
             //JOptionPane.showMessageDialog(null, "Impossivel registar armazém " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
         	System.out.println(exception.getMessage());
         }
-		System.out.println(canales.length);
+		System.out.println("Tamaño del array "+canales.length);
         return canales;
 	}
 	
 	public static void main (String Args []) {
 		BD_Canales canales = new BD_Canales();
-		Canal[] canalsefs = canales.cargarCanales(1);
+		Canal[] canalsefs = canales.cargarCanales(2);
 		for (Canal canal : canalsefs) {
 			System.out.println(canal);
 		}

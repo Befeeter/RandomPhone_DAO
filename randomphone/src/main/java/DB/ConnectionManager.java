@@ -14,7 +14,7 @@ public class ConnectionManager {
 
 	private void init() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		this.con = DriverManager.getConnection("jdbc:mysql://localhost:3306/randomphone", "root", "secret");
+		this.con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/randomphone", "root", "secret");
 	}
 
 	public Connection getConnection() {
