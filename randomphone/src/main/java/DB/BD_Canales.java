@@ -39,6 +39,7 @@ public class BD_Canales {
             //JOptionPane.showMessageDialog(null, "Impossivel registar armazém " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
         	System.out.println(exception.getMessage());
         }
+		System.out.println(canales.length);
         return canales;
 	}
 	

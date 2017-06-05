@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    private final static String driver = "com.mysql.jdbc.Driver";
-    private final static String path = "jdbc:mysql://localhost:3306/randomphone";
+	private final static String driver = "com.mysql.jdbc.Driver";
+    private final static String path = "jdbc:mysql://127.0.0.1:3306/randomphone";
     private final static String usuario = "root";
-    private final static String pass = "";
+    private final static String pass = "secret";
     private static Connection conexion;
 
     public static Connection getConnection() {
