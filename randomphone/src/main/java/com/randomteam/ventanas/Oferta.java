@@ -1,6 +1,7 @@
 package com.randomteam.ventanas;
 
 public class Oferta {
+	/*
 	private Label nombreL;
 	private img imagenI;
 	private Button llamadaB;
@@ -9,4 +10,5 @@ public class Oferta {
 	public SitioWeb vSitioWeb;
 	public Servicio vServicio;
 	public SolicitarLlamada vSolicitarLlamada;
+	*/
 }
