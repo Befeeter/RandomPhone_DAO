@@ -29,14 +29,14 @@ public class BD_Canales {
            // ps.setInt(1, paqueteid);
             rs = ps.executeQuery();
             rs.last();
+            //Establecemos tamaño del Array de canales.
             sizerow = rs.getRow();
-            System.out.println("Columnas devueltas "+sizerow);
             canales = new Canal [sizerow];
             rs.first();
-            for (int i=0; i <sizerow; i++) {
-            	System.out.println("paso por el for numero "+i);
-            	Canal canal = (Canal) rs.getObject(i);
-            	canales[i] = canal;
+            for (int i=1; i <=sizerow; i++) {
+            	//Creamos Tantos Canales como resultados tiene la consulta
+            	Canal canal = new Canal (rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+            	canales[i-1] = canal;
             	rs.next();
             }
             ps.close();
@@ -45,7 +45,6 @@ public class BD_Canales {
             //JOptionPane.showMessageDialog(null, "Impossivel registar armazém " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
         	System.out.println(exception.getMessage());
         }
-		System.out.println("Tamaño del array "+canales.length);
         return canales;
 	}
 	
@@ -53,7 +52,9 @@ public class BD_Canales {
 		BD_Canales canales = new BD_Canales();
 		Canal[] canalsefs = canales.cargarCanales(2);
 		for (Canal canal : canalsefs) {
-			System.out.println(canal);
+			System.out.print("Nombre: "+canal.getNombre().toString());
+			System.out.println(" Precio: "+canal.getPrecio()+"€");
+			
 		}
 	}
 
