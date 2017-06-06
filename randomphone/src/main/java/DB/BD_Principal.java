@@ -1,5 +1,10 @@
 package DB;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 // import BD.Cliente.Paquete;
 // import DB.Cliente.Paquete;
 
@@ -37,7 +42,29 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean comprobarUsuario(String email, String contrasenia) {
-		throw new UnsupportedOperationException();
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		String password = "";
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN cliente ON persona.Id=cliente.PersonaId WHERE cliente.Estado=1 AND persona.Email='"
+					+ email + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.first();
+			password = rs.getString(5);
+			if (contrasenia.equals(password))
+				return true;
+			else
+				return false;
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return false;
 	}
 
 	public void crearIncidencia(Incidencia incidencia) {
