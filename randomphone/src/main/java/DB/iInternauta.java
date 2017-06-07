@@ -2,7 +2,7 @@ package DB;
 
 public interface iInternauta {
 
-	public boolean comprobarUsuario(String email, String contrasenia);
+	public int comprobarUsuario(String email, String contrasenia);
 
 	public void crearIncidencia(Incidencia incidencia);
 

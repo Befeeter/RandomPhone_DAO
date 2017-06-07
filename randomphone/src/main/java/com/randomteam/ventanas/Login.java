@@ -11,13 +11,17 @@ import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.event.MouseEvents.ClickEvent;
+import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 
 import DB.Conexion;
+import DB.Cliente;
 import DB.Persona;
 import DB.iInternauta;
 import DB.BD_Principal;
+import DB.iInternauta;
+import DB.iCliente;
 
 public class Login extends Login_ventana {
 	/*
@@ -32,8 +36,11 @@ public class Login extends Login_ventana {
 	Binder<Persona> binder = new Binder<>();
 	String email = "";
 	String password = "";
-	String debug="";
-	BD_Principal it = new BD_Principal();
+	String debug = "";
+	int idcliente = -1;
+	iInternauta it = new BD_Principal();
+	iCliente ic = new BD_Principal();
+	Cliente cliente = new Cliente();
 
 	public Login() {
 
@@ -76,12 +83,23 @@ public class Login extends Login_ventana {
 				Persona::setContrasena);
 		binder.forField(emailTF).withValidator(formatoem).bind(Persona::getEmail, Persona::setEmail);
 
-		
 		iniciarSesionB.addClickListener(ClickEvent -> {
 			email = emailTF.getValue();
 			password = passwordTF.getValue();
-			if (it.comprobarUsuario(email, password) == true)
+			idcliente = it.comprobarUsuario(email, password);
+			if (idcliente != -1) {
 				Notification.show("Prueba correcta, Usuario existe");
+				// Creamos un objeto cliente que se mantiene en la sesión HTML
+				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario",
+						ic.cargarDatosCliente(idcliente));
+				// recuperamos objeto cliente de la sesión HTML
+				// cliente = (Cliente)
+				// VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
+				// Cerrar session HTTP
+				// VaadinService.getCurrentRequest().getWrappedSession().invalidate();
+
+			}
+
 			else
 				Notification.show("Usuario o Contraseña Erroneo!");
 		});

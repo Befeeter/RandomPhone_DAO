@@ -41,7 +41,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean comprobarUsuario(String email, String contrasenia) {
+	public int comprobarUsuario(String email, String contrasenia) {
+		int idCliente = -1;
 		Connection conexion;
 		PreparedStatement ps;
 		ResultSet rs;
@@ -54,17 +55,18 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs = ps.executeQuery();
 			rs.first();
 			password = rs.getString(5);
+			idCliente = rs.getInt(1);
 			if (contrasenia.equals(password))
-				return true;
+				return idCliente;
 			else
-				return false;
+				return -1;
 
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
 			System.out.println(exception.getMessage());
 		}
-		return false;
+		return -1;
 	}
 
 	public void crearIncidencia(Incidencia incidencia) {
@@ -80,7 +82,34 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Cliente cargarDatosCliente(int id) {
-		throw new UnsupportedOperationException();
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN cliente ON persona.Id=cliente.PersonaId INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id WHERE persona.Id="
+					+ cliente.getId() + " AND cliente.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.first();
+			//Cargamos El cliente
+			cliente.setDocumento(rs.getString(2));
+			cliente.setNombre(rs.getString(3));
+			cliente.setApellidos(rs.getString(4));
+			cliente.setContrasena(rs.getString(5));
+			cliente.setEmail(rs.getString(6));
+			cliente.setFecha_altta(rs.getDate(7));
+			cliente.setEstado(true);
+			cliente.setTelefono(rs.getInt(9));
+			
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return cliente;
 	}
 
 	public void modificarDatosP(Cliente cliente) {
