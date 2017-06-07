@@ -5,3 +5,5 @@ randomphone/.settings/com.vaadin.designer.prefs
 randomphone/.vaadin-designer2/designer-theme.css
 randomphone/.settings/com.vaadin.integration.eclipse.prefs
 /bin/
+randomphone/.settings/com.vaadin.designer.prefs
+*.prefs

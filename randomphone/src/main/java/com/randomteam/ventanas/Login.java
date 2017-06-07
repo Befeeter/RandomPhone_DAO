@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.randomteam.randomphone.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.event.MouseEvents.ClickEvent;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
@@ -97,7 +99,8 @@ public class Login extends Login_ventana {
 				// VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 				// Cerrar session HTTP
 				// VaadinService.getCurrentRequest().getWrappedSession().invalidate();
-
+				this.getUI().setContent(new SitioWebCliente());
+				//this.addComponent(new MiCuenta(email, password));
 			}
 
 			else

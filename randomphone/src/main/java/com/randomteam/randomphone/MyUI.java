@@ -6,6 +6,7 @@ import com.randomteam.ventanas.Administrador;
 import com.randomteam.ventanas.AltaNuevoCliente;
 import com.randomteam.ventanas.AsignarComercial;
 import com.randomteam.ventanas.AsignarComercial_ventana;
+import com.randomteam.ventanas.MiCuenta;
 import com.randomteam.ventanas.ModificarServicios;
 import com.randomteam.ventanas.SitioWebInternauta;
 import com.vaadin.annotations.Theme;
@@ -31,9 +32,10 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+	final CssLayout layout = new CssLayout();
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final CssLayout layout = new CssLayout();
+        
         layout.setStyleName("form-template");
         layout.setSizeFull();
         layout.setResponsive(true);
