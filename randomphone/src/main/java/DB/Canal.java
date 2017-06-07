@@ -1,5 +1,7 @@
 package DB;
 
+
+
 import java.sql.Date;
 
 import DB.Paquete;
@@ -14,12 +16,12 @@ public class Canal {
 	//public Paquete[] paquete = new Paquete[0];
 	//public BD_Canales bD_Canales;
 	
-	public Canal(int id, String nombre, float precio, Date fecha_alta, boolean estado) {
+	public Canal(int id, String nombre, float precio, Date date, boolean estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.fecha_alta = fecha_alta;
+		this.fecha_alta = date;
 		this.estado = estado;
 		//this.paquete = paquete;
 	}

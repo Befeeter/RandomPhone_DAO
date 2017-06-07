@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+
 import javax.swing.JOptionPane;
 
 import com.vaadin.data.provider.Query;
@@ -42,32 +44,75 @@ public class BD_Canales {
             ps.close();
             conexion.close();
         } catch (SQLException exception) {
-            //JOptionPane.showMessageDialog(null, "Impossivel registar armazém " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
         	System.out.println(exception.getMessage());
         }
         return canales;
 	}
 	
 	public static void main (String Args []) {
+		// pruebas
 		BD_Canales canales = new BD_Canales();
+		Date date = new Date(2003, 6, 30);
+		Canal canal1 = new Canal(3, "prueba", 30.0f, date, true);
+		Canal canal2 = new Canal(4, "prueba", 30.0f, date, true);
+		//canales.borrarCanal(canal2);
+		//canales.EditarCanal(canal1, canal2);
+		//BD_Canales canales = new BD_Canales();
 		Canal[] canalsefs = canales.cargarCanales(2);
 		for (Canal canal : canalsefs) {
 			System.out.print("Nombre: "+canal.getNombre().toString());
 			System.out.println(" Precio: "+canal.getPrecio()+"€");
 			
 		}
+		
 	}
 
 	public boolean crearCanal(Canal canal) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "INSERT INTO canal (Id, Nombre, Precio, Fecha_alta, Estado) "
+					+ "VALUES ("+canal.getId()+",'"+canal.getNombre()+"', "+canal.getPrecio()+", '"+canal.getFecha_alta()+"', "+canal.isEstado()+")";
+			ps = conexion.prepareStatement(consulta);
+            ps.execute(consulta);
+			ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+		return true;
 	}
 
 	public boolean EditarCanal(Canal canal, Canal canalNuevo) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "UPDATE canal "
+					+ "SET Id="+canalNuevo.getId()+", Nombre='"+canalNuevo.getNombre()+"', Precio="+canalNuevo.getPrecio()+", Fecha_alta='"+canalNuevo.getFecha_alta()+"', Estado="+canalNuevo.isEstado()+" WHERE id="+ canal.getId();
+			ps = conexion.prepareStatement(consulta);
+            ps.execute(consulta);
+			ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+		return true;
 	}
 
 	public boolean borrarCanal(Canal canal) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from canal "
+					+ "WHERE id="+ canal.getId();
+			ps = conexion.prepareStatement(consulta);
+            ps.execute(consulta);
+			ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+		return true;
 	}
 
 	public Canal[] cargarCanalesDisp() {
@@ -77,4 +122,5 @@ public class BD_Canales {
 	public Canal[] cargarCanales() {
 		throw new UnsupportedOperationException();
 	}
+	
 }
