@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
@@ -13,48 +13,33 @@
    <vaadin-css-layout style-name="form-section">
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-vertical-layout>
-      <vaadin-link caption="Modificar Datos Personales" :center></vaadin-link>
-      <vaadin-link caption="Modificar Servicios" :center></vaadin-link>
-      <vaadin-link caption="Mis Facturas" :center></vaadin-link>
-      <vaadin-link caption="Mis Incidencias" :center></vaadin-link>
+      <vaadin-button style-name="borderless" plain-text _id="mDatosPersonales" :center>
+        Modificar Datos Personales 
+      </vaadin-button>
+      <vaadin-button style-name="borderless" plain-text _id="mServicios" :center>
+        Modificar Servicios 
+      </vaadin-button>
+      <vaadin-button style-name="borderless" plain-text _id="misFacturas" :center>
+        Mis Factruras 
+      </vaadin-button>
+      <vaadin-button style-name="borderless" plain-text _id="misIncidencias" :center>
+        Mis Incidencias 
+      </vaadin-button>
      </vaadin-vertical-layout>
     </vaadin-css-layout>
    </vaadin-css-layout>
    <vaadin-css-layout caption="Consumo" style-name="form-section caption-left">
     <vaadin-css-layout style-name="input-group" width-full>
-     <vaadin-css-layout caption="250 MB de 1 GB" style-name="input-wrapper" width-full>
+     <vaadin-css-layout caption="250 MB de 1 GB" style-name="input-wrapper" width-full _id="consumocss">
       <vaadin-progress-bar value="0.25" width-full _id="consumoBar"></vaadin-progress-bar>
      </vaadin-css-layout>
-     <vaadin-grid primary-style-name="Reindeer.TABLE_BORDERLEES" enabled="false" width-full data-item-type="java.lang.String" _id="serviciosLS">
+     <vaadin-grid primary-style-name="Reindeer.TABLE_BORDERLEES" enabled="false" width-full data-item-type="DB.Servicio" _id="serviciosLS">
       <table>
-       <colgroup>
-        <col column-id="servicio" sortable>
-        <col column-id="importe" sortable>
-       </colgroup>
+       <colgroup></colgroup>
        <thead>
-        <tr default>
-         <th plain-text column-ids="servicio">Servicio</th>
-         <th plain-text column-ids="importe">Importe</th>
-        </tr>
+        <tr default></tr>
        </thead>
-       <tbody>
-        <tr item="project1">
-         <td>Customer Project 1</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project2">
-         <td>Customer Project 2</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project3">
-         <td>Customer Project 3</td>
-         <td>OK</td>
-        </tr>
-        <tr item="project4">
-         <td>Customer Project 4</td>
-         <td>OK</td>
-        </tr>
-       </tbody>
+       <tbody></tbody>
       </table>
      </vaadin-grid>
     </vaadin-css-layout>

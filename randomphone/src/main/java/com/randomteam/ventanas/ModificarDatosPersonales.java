@@ -15,6 +15,12 @@ public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
 	public MiCuenta vMiCuenta;
 	*/
 
+	public ModificarDatosPersonales(){
+		cancelarB.addClickListener(ClickEvent -> {
+			this.getUI().setContent(new SitioWebCliente());
+		});
+	}
+	
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}

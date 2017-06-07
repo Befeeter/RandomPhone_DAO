@@ -94,7 +94,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			ps = conexion.prepareStatement(consulta);
 			rs = ps.executeQuery();
 			rs.first();
-			//Cargamos El cliente
+			// Cargamos El cliente
 			cliente.setDocumento(rs.getString(2));
 			cliente.setNombre(rs.getString(3));
 			cliente.setApellidos(rs.getString(4));
@@ -103,7 +103,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			cliente.setFecha_altta(rs.getDate(7));
 			cliente.setEstado(true);
 			cliente.setTelefono(rs.getInt(9));
-			
+
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -117,7 +117,34 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Servicio[] cargarServiciosCliente(int id) {
-		throw new UnsupportedOperationException();
+		
+		Servicio servicios[] = null;
+		int sizerow = 0;
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+		String consulta = "SELECT * FROM servicio INNER JOIN servicio_factura ON servicio.Id=servicio_factura.ServicioId INNER JOIN factura ON servicio_factura.FacturaId=factura.Id WHERE factura.ClientePersonaId='"
+				+ id + "'";
+		ps = conexion.prepareStatement(consulta);
+		rs = ps.executeQuery();
+		rs.last();
+		sizerow = rs.getRow();
+		servicios = new Servicio[sizerow];
+		rs.first();
+		 for (int i=1; i <=sizerow; i++) {
+         	//Creamos Tantos Canales como resultados tiene la consulta
+         	Servicio servicio = new Servicio(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getBoolean(4));
+         	servicios[i-1] = servicio;
+         	rs.next();
+         }
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return servicios;
 	}
 
 	public DB.Paquete[] cargarPaquetes(int id) {
