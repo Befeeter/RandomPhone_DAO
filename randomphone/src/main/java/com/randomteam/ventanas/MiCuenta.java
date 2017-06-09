@@ -45,9 +45,18 @@ public class MiCuenta extends MiCuenta_ventana {
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 		cargarCuenta();
 	
+		
+		
+		//Botón ModificarDatosPersonales
 		mDatosPersonales.addClickListener(ClickEvent -> {
 			this.removeAllComponents();
 			this.addComponent(new ModificarDatosPersonales());
+		});
+		
+		//Botón MisServicios
+		mServicios.addClickListener(ClickEvent ->{
+			this.removeAllComponents();
+			this.addComponent(new ModificarServicios());
 		});
 	}
 	

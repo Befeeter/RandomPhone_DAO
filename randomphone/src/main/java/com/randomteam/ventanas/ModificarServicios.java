@@ -33,6 +33,12 @@ public class ModificarServicios extends ModificarServicios_ventana {
 		this.televisionL.setValue(VaadinIcons.MOVIE.getHtml());
 		this.televisionB.setContentMode(ContentMode.HTML);
 		this.televisionB.setValue(VaadinIcons.MODAL_LIST.getHtml());
+	
+		
+		//Botón Cancelar.
+		cancelarB.addClickListener(ClickEvent -> {
+			this.getUI().setContent(new SitioWebCliente());
+		});
 	}
 	
 	public Informar enviarDatos() {
