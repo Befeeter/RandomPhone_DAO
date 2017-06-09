@@ -6,6 +6,17 @@ import DB.Factura;
 import DB.Incidencia;
 
 public class Cliente extends Persona {
+	
+	public Cliente(Date fecha_altta, boolean estado, int telefono) {
+		super();
+		this.fecha_altta = fecha_altta;
+		this.estado = estado;
+		this.telefono = telefono;
+		this.factura = new Factura[0];
+		this.incidencia = new Incidencia[0];
+	}
+
+
 	private Date fecha_altta;
 	private boolean estado;
 	private int telefono;
@@ -15,13 +26,12 @@ public class Cliente extends Persona {
 	
 	
 	public Cliente(){
-		this.setNombre(null);
+		this.setNombre("");
 		this.fecha_altta = null;
 		this.estado = false;
-		this.telefono = 0;
+		this.telefono = 35131313;
 		
 	}
-
 
 	public Date getFecha_altta() {
 		return fecha_altta;

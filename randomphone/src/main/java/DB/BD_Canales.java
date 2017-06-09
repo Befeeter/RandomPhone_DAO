@@ -35,10 +35,10 @@ public class BD_Canales {
             sizerow = rs.getRow();
             canales = new Canal [sizerow];
             rs.first();
-            for (int i=1; i <=sizerow; i++) {
+            for (int i=0; i <sizerow; i++) {
             	//Creamos Tantos Canales como resultados tiene la consulta
             	Canal canal = new Canal (rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
-            	canales[i-1] = canal;
+            	canales[i] = canal;
             	rs.next();
             }
             ps.close();
@@ -49,7 +49,7 @@ public class BD_Canales {
         return canales;
 	}
 	
-	public static void main (String Args []) {
+	/*public static void main (String Args []) {
 		// pruebas
 		BD_Canales canales = new BD_Canales();
 		Date date = new Date(2003, 6, 30);
@@ -65,7 +65,7 @@ public class BD_Canales {
 			
 		}
 		
-	}
+	}*/
 
 	public boolean crearCanal(Canal canal) {
 		try {

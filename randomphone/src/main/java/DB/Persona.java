@@ -1,6 +1,16 @@
 package DB;
 
 public class Persona {
+	public Persona(int id, String documento, String nombre, String apellidos, String contrasena, String email) {
+		super();
+		this.id = id;
+		this.documento = documento;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.contrasena = contrasena;
+		this.email = email;
+	}
+
 	private int id;
 	private String documento;
 	private String nombre;
@@ -9,7 +19,11 @@ public class Persona {
 	private String email;
 	
 	public Persona (){
-		
+		this.documento = "123456";
+		this.nombre = "";
+		this.apellidos = "";
+		this.contrasena = "";
+		this.email = "";
 	}
 
 	public int getId() {
