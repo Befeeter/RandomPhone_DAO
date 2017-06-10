@@ -19,6 +19,13 @@ public class SitioWebCliente extends SitioWeb {
 		
 		
 		
+		MenuBar.Command pcontorl = new MenuBar.Command(){
+			@Override
+			public void menuSelected(MenuItem selectedItem){
+				getUI().setContent(new SitioWebCliente());
+			}
+		};
+		
 		MenuBar.Command logout = new MenuBar.Command() {
 
 			@Override
@@ -28,6 +35,7 @@ public class SitioWebCliente extends SitioWeb {
 			}
 		};
 		
+		menu.getItems().get(0).setCommand(pcontorl);
 		menu.getItems().get(2).getChildren().get(0).setCommand(logout);
 		
 	}

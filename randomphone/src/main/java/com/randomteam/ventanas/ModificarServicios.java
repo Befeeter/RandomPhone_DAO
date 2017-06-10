@@ -1,4 +1,5 @@
 package com.randomteam.ventanas;
+
 import java.util.Vector;
 
 import com.vaadin.icons.VaadinIcons;
@@ -6,23 +7,18 @@ import com.vaadin.shared.ui.ContentMode;
 
 public class ModificarServicios extends ModificarServicios_ventana {
 	/*
-	private Label serviciosL;
-	private img movilI;
-	private TarifaE movilLS;
-	private img telefonoI;
-	private TarifaE telefonoLS;
-	private img fibraI;
-	private TarifaE fibraLS;
-	private img televisionI;
-	private TarifaE televisionLS;
-	private Button televisionB;
-	private Button aceptarB;
-	public MiCuenta vMiCuenta;
-	public Vector<TarifaE> vTarifaE = new Vector<TarifaE>();
-	public PaquetesContratados vPaquetesContratados;
-	*/
+	 * private Label serviciosL; private img movilI; private TarifaE movilLS;
+	 * private img telefonoI; private TarifaE telefonoLS; private img fibraI;
+	 * private TarifaE fibraLS; private img televisionI; private TarifaE
+	 * televisionLS; private Button televisionB; private Button aceptarB; public
+	 * MiCuenta vMiCuenta; public Vector<TarifaE> vTarifaE = new
+	 * Vector<TarifaE>(); public PaquetesContratados vPaquetesContratados;
+	 */
 
-	public ModificarServicios(){
+	int personalizado = 0;
+	PaquetePersonalizado ppersonal = new PaquetePersonalizado();
+
+	public ModificarServicios() {
 		this.movilL.setContentMode(ContentMode.HTML);
 		this.movilL.setValue(VaadinIcons.PHONE.getHtml());
 		this.fijoL.setContentMode(ContentMode.HTML);
@@ -31,16 +27,24 @@ public class ModificarServicios extends ModificarServicios_ventana {
 		this.fibraL.setValue(VaadinIcons.BUILDING.getHtml());
 		this.televisionL.setContentMode(ContentMode.HTML);
 		this.televisionL.setValue(VaadinIcons.MOVIE.getHtml());
-		this.televisionB.setContentMode(ContentMode.HTML);
-		this.televisionB.setValue(VaadinIcons.MODAL_LIST.getHtml());
-	
-		
-		//Botón Cancelar.
+
+		// Botón Cancelar.
 		cancelarB.addClickListener(ClickEvent -> {
 			this.getUI().setContent(new SitioWebCliente());
 		});
+
+		// Botón Paquete Personalizado
+		televisionB.addClickListener(ClickEvent -> {
+			if (personalizado == 0) {
+				paqueteLayout.addComponent(ppersonal);
+				personalizado = 1;
+			} else {
+				paqueteLayout.removeComponent(ppersonal);
+				personalizado = 0;
+			}
+		});
 	}
-	
+
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
 	}

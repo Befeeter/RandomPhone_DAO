@@ -28,7 +28,8 @@ public class ModificarServicios_ventana extends CssLayout {
 	protected ComboBox<java.lang.String> fibraCB;
 	protected Label televisionL;
 	protected ComboBox<java.lang.String> televisionCB;
-	protected Label televisionB;
+	protected CssLayout paqueteLayout;
+	protected Button televisionB;
 	protected Button cancelarB;
 	protected Button aceptarB;
 
