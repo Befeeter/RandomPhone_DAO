@@ -31,9 +31,6 @@ public class MisIncidencias extends MisIncidencias_ventana {
 
 	public MisIncidencias() {
 
-		
-		
-
 		// Creamos Grid Incidencias
 		incidenciasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
 		incidenciasLS.addColumn(Incidencia::getEstado).setCaption("Estado").setSortable(true);
@@ -53,28 +50,42 @@ public class MisIncidencias extends MisIncidencias_ventana {
 		MultiSelectionModel<Incidencia> selectionModel = (MultiSelectionModel<Incidencia>) incidenciasLS
 				.setSelectionMode(SelectionMode.MULTI);
 		selectionModel.addMultiSelectionListener(event -> {
-//			MultiSelectionEvent<Incidencia> selection = null;
-//			Notification.show(selection.getAddedSelection().size() + " items added, "
-//					+ selection.getRemovedSelection().size() + " removed.");
-
-			// Allow deleting only if there's any selected
 			eliminarB.setEnabled(event.getNewSelection().size() > 0);
 		});
-		
-		eliminarB.addClickListener(ClickEvent ->{
+
+		// Botón Eliminar
+		eliminarB.addClickListener(ClickEvent -> {
 			Incidencia[] eliminar;
-			int size=incidenciasLS.getSelectedItems().size();
-			eliminar =new Incidencia[size];
+			int size = incidenciasLS.getSelectedItems().size();
+			eliminar = new Incidencia[size];
 			eliminar = incidenciasLS.getSelectedItems().toArray(eliminar);
-			if (c.eliminarIncidencias(eliminar) == true){
+			if (c.eliminarIncidencias(eliminar) == true) {
 				Notification.show("Eliminadas Con exito!");
 				incidencias = c.cargarIncidencias(cliente.getId());
 				incidenciasLS.setItems(incidencias);
-				
-				
-			}
-			else
+
+			} else
 				Notification.show("Error! Ups algo fue mal!");
+		});
+		
+		//Botón Nueva Reclamación
+		nuevaIncidenciaB.addClickListener(ClickEvent ->{
+
+		
+			// Creamos Ventana Emergente para crear reclamación
+			Window subWindow = new Window("Crear Incidencia");
+			VerticalLayout subContent = new VerticalLayout();
+			subContent.addComponent(new NuevaReclamacion());
+			subWindow.setContent(subContent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("600px");
+			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event ->{
+				incidencias = c.cargarIncidencias(cliente.getId());
+				incidenciasLS.setItems(incidencias);
+			});
+			this.getUI().addWindow(subWindow);
 		});
 	}
 }

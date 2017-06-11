@@ -1,9 +1,15 @@
 package com.randomteam.ventanas;
 
-import com.vaadin.server.VaadinService;
+import java.util.Collection;
 
+import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
+
+import DB.BD_Principal;
 import DB.Cliente;
 import DB.Incidencia;
+import DB.iCliente;
 
 public class NuevaReclamacion extends NuevaReclamacion_ventana {
 	/*
@@ -23,14 +29,24 @@ public class NuevaReclamacion extends NuevaReclamacion_ventana {
 	
 	Incidencia incidencia = new Incidencia();
 	Cliente c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
+	iCliente iC = new BD_Principal();
 	
 	public NuevaReclamacion(){
 		
 		enviarB.addClickListener(ClickEvent ->{
 			incidencia.setAsunto(this.asuntoTF.getValue());
 			incidencia.setTipo(tipoLS.getValue().toString());
-			incidencia.setTexto(this.asuntoTF.getValue());
+			incidencia.setTexto(this.mensajeTA.getValue());
+			incidencia.setCliente(c);
 			
+		if (iC.crearIncidencia(incidencia) == true){
+			Notification.show("Incidencia creada con Exito!!");
+			Collection<Window> win =this.getUI().getCurrent().getWindows();
+			win.iterator().next().close();
+			
+		}
+		else
+			Notification.show("Ups! Error, algo fue mal");
 		});
 	}
 	

@@ -8,6 +8,7 @@ public class Incidencia {
 	private String tipo;
 	private int telefono;
 	private String texto;
+	private String respuesta;
 	private String estado;
 	private Date fecha_alta;
 	public Cliente cliente;
@@ -19,12 +20,13 @@ public class Incidencia {
 		
 	}
 	
-	public Incidencia(int id, String asunto, String tipo, int telefono, String texto, String estado, Date fecha_alta){
+	public Incidencia(int id, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta){
 		this.id = id;
 		this.asunto = asunto;
 		this.tipo = tipo;
 		this.telefono = telefono;
 		this.texto = texto;
+		this.respuesta = respuesta;
 		this.estado = estado;		
 		this.fecha_alta = fecha_alta;
 	}
@@ -91,6 +93,16 @@ public class Incidencia {
 	public void setFecha_alta(Date fecha_alta) {
 		this.fecha_alta = fecha_alta;
 	}
+
+	public String getRespuesta() {
+		return respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+	
+
 	
 	
 }

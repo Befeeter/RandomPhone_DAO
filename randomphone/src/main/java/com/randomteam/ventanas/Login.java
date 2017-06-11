@@ -89,7 +89,11 @@ public class Login extends Login_ventana {
 			email = emailTF.getValue();
 			password = passwordTF.getValue();
 			idcliente = it.comprobarUsuario(email, password);
-			if (idcliente != -1) {
+			//Necesario revisar expresión regular para @Comercial.es
+			if (email.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=comercial).{8,}"))
+				Notification.show("Usuario Comercial!");
+			else 
+				if (idcliente != -1) {
 				Notification.show("Prueba correcta, Usuario existe");
 				// Creamos un objeto cliente que se mantiene en la sesión HTML
 				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario",

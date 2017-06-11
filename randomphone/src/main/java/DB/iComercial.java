@@ -23,7 +23,7 @@ public interface iComercial {
 
 	public Incidencia[] cargarIncidencias(int id_comercial);
 
-	public void responderIncidencia(Incidencia incidencia);
+	public boolean responderIncidencia(Incidencia incidencia);
 
 	public void crearIncidenciaCliente(Incidencia incidencia);
 

@@ -4,7 +4,7 @@ public interface iInternauta {
 
 	public int comprobarUsuario(String email, String contrasenia);
 
-	public void crearIncidencia(Incidencia incidencia);
+	public boolean crearIncidencia(Incidencia incidencia);
 
 	public Servicio[] cargarOfertas();
 

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 // import BD.Cliente.Paquete;
 // import DB.Cliente.Paquete;
@@ -98,8 +99,30 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return -1;
 	}
 
-	public void crearIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+	public boolean crearIncidencia(Incidencia incidencia) {
+		Connection conexion;
+		PreparedStatement ps;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = new java.util.Date();
+
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '0', '"
+					+ incidencia.getCliente().getId() + "', '" + incidencia.getAsunto() + "', '" + incidencia.getTipo()
+					+ "', '" + incidencia.getCliente().getId() + "', '" + incidencia.getTexto() + "', 'Nueva', '"
+					+ dateFormat.format(date) + "')";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+
+		}
+		return true;
+
 	}
 
 	public Servicio[] cargarOfertas(Servicio tipo) {
@@ -236,7 +259,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getDate(9));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
 				incidencias[i - 1] = incidencia;
 				rs.next();
 			}
@@ -248,8 +271,23 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return incidencias;
 	}
 
-	public void actualizarIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+	public boolean actualizarIncidencia(Incidencia incidencia) {
+		Connection conexion;
+		PreparedStatement ps;
+
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Respuesta.
+			String consulta = "UPDATE `incidencia` SET `Texto`= '"+incidencia.getTexto()+"' WHERE incidencia.id='" +incidencia.getId()+"'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public void altaCliente(Cliente cliente) {
@@ -276,8 +314,24 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		throw new UnsupportedOperationException();
 	}
 
-	public void responderIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+	public boolean responderIncidencia(Incidencia incidencia) {
+		Connection conexion;
+		PreparedStatement ps;
+
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Respuesta.
+			String consulta = "UPDATE `incidencia` SET `Respuesta`= '"+incidencia.getRespuesta()+"' WHERE incidencia.id='" +incidencia.getId()+"'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
+
 	}
 
 	public void crearIncidenciaCliente(Incidencia incidencia) {

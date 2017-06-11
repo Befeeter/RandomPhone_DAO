@@ -24,9 +24,9 @@ public interface iCliente {
 
 	public Incidencia[] cargarIncidencias(int id_cliente);
 
-	public void crearIncidencia(Incidencia incidencia);
+	public boolean crearIncidencia(Incidencia incidencia);
 
-	public void actualizarIncidencia(Incidencia incidencia);
+	public boolean actualizarIncidencia(Incidencia incidencia);
 	
 	public boolean eliminarIncidencias(Incidencia[] incidencias);
 }
