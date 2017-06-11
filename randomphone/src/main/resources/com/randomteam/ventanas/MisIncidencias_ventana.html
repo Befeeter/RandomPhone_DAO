@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
@@ -15,95 +15,21 @@
    </vaadin-horizontal-layout>
    <vaadin-css-layout style-name="form-section">
     <vaadin-css-layout style-name="input-group">
-     <vaadin-grid width-full data-item-type="java.lang.String" _id="incidenciasLS">
-      <table>
-       <colgroup>
-        <col column-id="nombre" sortable="false">
-        <col column-id="estado" sortable="false">
-        <col column-id="fecha" sortable="false">
-        <col column-id="eliminar" sortable="false">
-       </colgroup>
-       <thead>
-        <tr default>
-         <th plain-text column-ids="nombre">Nombre</th>
-         <th plain-text column-ids="estado">Estado</th>
-         <th plain-text column-ids="fecha">Fecha</th>
-         <th plain-text column-ids="eliminar"></th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr item="project1">
-         <td>Customer Project 1</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project2">
-         <td>Customer Project 2</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project3">
-         <td>Customer Project 3</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project4">
-         <td>Customer Project 4</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project5">
-         <td>Customer Project 5</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project6">
-         <td>Customer Project 6</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project7">
-         <td>Customer Project 7</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project8">
-         <td>Customer Project 8</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="project9">
-         <td>Customer Project 9</td>
-         <td>OK</td>
-         <td></td>
-         <td></td>
-        </tr>
-       </tbody>
-      </table>
-     </vaadin-grid>
+     <vaadin-grid width-full data-item-type="DB.Incidencia" _id="incidenciasLS"></vaadin-grid>
     </vaadin-css-layout>
+    <vaadin-vertical-layout>
+     <vaadin-horizontal-layout :right>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e7f6" enabled="false" style-name="primary" plain-text _id="eliminarB"></vaadin-button>
+      <vaadin-button style-name="primary" plain-text _id="nuevaIncidenciaB">
+        Crear Reclamación 
+      </vaadin-button>
+     </vaadin-horizontal-layout>
+    </vaadin-vertical-layout>
    </vaadin-css-layout>
    <vaadin-css-layout style-name="form-section">
     <vaadin-text-area caption="Historial Modificaciones:" width-full readonly _id="historialTA">
       Cambio de tarifa movil 2+ a tarifa XS 
     </vaadin-text-area>
-   </vaadin-css-layout>
-   <vaadin-css-layout style-name="form-section" width-full>
-    <vaadin-css-layout style-name="input-group" width-full>
-     <vaadin-horizontal-layout width-full>
-      <vaadin-button style-name="primary" plain-text _id="nuevaIncidenciaB" :right>
-        Crear Reclamación 
-      </vaadin-button>
-     </vaadin-horizontal-layout>
-    </vaadin-css-layout>
    </vaadin-css-layout>
   </vaadin-css-layout>
  </body>

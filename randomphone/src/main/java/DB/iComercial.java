@@ -11,7 +11,7 @@ public interface iComercial {
 
 	public Cliente selecionarCliente(String dni);
 
-	public void modificarDatosP(Cliente cliente);
+	public boolean modificarDatosP(Cliente cliente);
 
 	public void modificarServiciosCliente(Cliente cliente);
 

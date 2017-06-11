@@ -22,9 +22,10 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class MisIncidencias_ventana extends CssLayout {
 	protected TextField buscarTF;
-	protected Grid<java.lang.String> incidenciasLS;
-	protected TextArea historialTA;
+	protected Grid<DB.Incidencia> incidenciasLS;
+	protected Button eliminarB;
 	protected Button nuevaIncidenciaB;
+	protected TextArea historialTA;
 
 	public MisIncidencias_ventana() {
 		Design.read(this);

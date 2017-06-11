@@ -4,7 +4,7 @@ public interface iCliente {
 
 	public Cliente cargarDatosCliente(int id);
 
-	public void modificarDatosP(Cliente cliente);
+	public boolean modificarDatosP(Cliente cliente);
 
 	public Servicio[] cargarServiciosCliente(int id);
 
@@ -27,4 +27,6 @@ public interface iCliente {
 	public void crearIncidencia(Incidencia incidencia);
 
 	public void actualizarIncidencia(Incidencia incidencia);
+	
+	public boolean eliminarIncidencias(Incidencia[] incidencias);
 }

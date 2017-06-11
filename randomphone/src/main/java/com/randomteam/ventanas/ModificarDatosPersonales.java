@@ -1,8 +1,12 @@
 package com.randomteam.ventanas;
 
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Notification;
 
+import DB.BD_Principal;
 import DB.Cliente;
+import DB.iCliente;
 
 public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
 	/*
@@ -21,6 +25,7 @@ public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
 	*/
 	
 	Cliente c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
+	iCliente iC = new BD_Principal();
 
 	public ModificarDatosPersonales(){
 		
@@ -43,7 +48,13 @@ public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
 			c.setEmail(this.correoTF.getValue());
 			c.setTelefono(Integer.parseInt(this.telefonoTF.getValue()));
 			
-			//Falta añadir consulta a la BDD con UPDATE.
+			//Actualizamos BD con los nuevos datos
+			if(iC.modificarDatosP(c) == true){
+				Notification.show("Cambios Guardados con exito!!");
+				this.getUI().setContent(new SitioWebCliente());
+			}
+			else
+				Notification.show("Ups! Error, algo fue mal");
 		});
 	}
 	

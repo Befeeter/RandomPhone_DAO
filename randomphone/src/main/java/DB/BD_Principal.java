@@ -1,9 +1,11 @@
 package DB;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 
 // import BD.Cliente.Paquete;
 // import DB.Cliente.Paquete;
@@ -34,7 +36,34 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Factura[] cargarFacturas(int id_cliente) {
-		throw new UnsupportedOperationException();
+
+		Factura[] facturas = null;
+		int sizerow;
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM factura WHERE factura.ClientePersonaId='" + id_cliente + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			facturas = new Factura[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas Facturas como resultados tiene la consulta
+				Factura factura = new Factura(rs.getInt(1), rs.getDate(3), rs.getDate(4), rs.getFloat(5));
+				facturas[i - 1] = factura;
+				rs.next();
+			}
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return facturas;
 	}
 
 	public Servicio[] cargarServiciosDisp() {
@@ -112,12 +141,34 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return cliente;
 	}
 
-	public void modificarDatosP(Cliente cliente) {
-		throw new UnsupportedOperationException();
+	public boolean modificarDatosP(Cliente cliente) {
+		Connection conexion;
+		PreparedStatement ps;
+
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Telefono.
+			String consulta = "UPDATE `cliente` SET `Telefono` = '" + cliente.getTelefono()
+					+ "' WHERE `cliente`.`PersonaId` ='" + cliente.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+			// Actualizamos Resto de datos
+			consulta = "UPDATE `persona` SET `Apellidos` = '" + cliente.getApellidos() + "' WHERE `persona`.`Id` = '"
+					+ cliente.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public Servicio[] cargarServiciosCliente(int id) {
-		
+
 		Servicio servicios[] = null;
 		int sizerow = 0;
 		Connection conexion;
@@ -125,20 +176,20 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
-		String consulta = "SELECT * FROM servicio INNER JOIN servicio_factura ON servicio.Id=servicio_factura.ServicioId INNER JOIN factura ON servicio_factura.FacturaId=factura.Id WHERE factura.ClientePersonaId='"
-				+ id + "'";
-		ps = conexion.prepareStatement(consulta);
-		rs = ps.executeQuery();
-		rs.last();
-		sizerow = rs.getRow();
-		servicios = new Servicio[sizerow];
-		rs.first();
-		 for (int i=1; i <=sizerow; i++) {
-         	//Creamos Tantos Canales como resultados tiene la consulta
-         	Servicio servicio = new Servicio(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getBoolean(4));
-         	servicios[i-1] = servicio;
-         	rs.next();
-         }
+			String consulta = "SELECT * FROM servicio INNER JOIN servicio_factura ON servicio.Id=servicio_factura.ServicioId INNER JOIN factura ON servicio_factura.FacturaId=factura.Id WHERE factura.ClientePersonaId='"
+					+ id + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			servicios = new Servicio[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantos Canales como resultados tiene la consulta
+				Servicio servicio = new Servicio(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				servicios[i - 1] = servicio;
+				rs.next();
+			}
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -168,7 +219,33 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Incidencia[] cargarIncidencias(int id_cliente) {
-		throw new UnsupportedOperationException();
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where incidencia.ClientePersonaId='" + id_cliente + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getDate(9));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
 	}
 
 	public void actualizarIncidencia(Incidencia incidencia) {
@@ -244,7 +321,27 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias) {
-		throw new UnsupportedOperationException();
+		Connection conexion;
+		PreparedStatement ps;
+
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Telefono.
+			for (int i = 0; i < incidencias.length; i++) {
+				String consulta = "DELETE FROM `incidencia` WHERE `incidencia`.`Id` = '" + incidencias[i].getId() + "'";
+				ps = conexion.prepareStatement(consulta);
+				ps.executeUpdate();
+				// Actualizamos Resto de datos
+			}
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
+
 	}
 
 	public Incidencia[] incidenciasActivasComercial(Comercial comercial) {
