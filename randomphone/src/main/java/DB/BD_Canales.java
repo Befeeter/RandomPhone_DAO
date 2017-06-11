@@ -116,11 +116,57 @@ public class BD_Canales {
 	}
 
 	public Canal[] cargarCanalesDisp() {
-		throw new UnsupportedOperationException();
+		Canal [] canales = null;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * from canal WHERE estado=true";
+			ps = conexion.prepareStatement(consulta);
+           // ps.setInt(1, paqueteid);
+            rs = ps.executeQuery();
+            rs.last();
+            //Establecemos tamaño del Array de canales.
+            sizerow = rs.getRow();
+            canales = new Canal [sizerow];
+            rs.first();
+            for (int i=0; i <sizerow; i++) {
+            	//Creamos Tantos Canales como resultados tiene la consulta
+            	Canal canal = new Canal (rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+            	canales[i] = canal;
+            	rs.next();
+            }
+            ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        }
+        return canales;
 	}
 
 	public Canal[] cargarCanales() {
-		throw new UnsupportedOperationException();
+		Canal [] canales = null;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * from canal";
+			ps = conexion.prepareStatement(consulta);
+           // ps.setInt(1, paqueteid);
+            rs = ps.executeQuery();
+            rs.last();
+            //Establecemos tamaño del Array de canales.
+            sizerow = rs.getRow();
+            canales = new Canal [sizerow];
+            rs.first();
+            for (int i=0; i <sizerow; i++) {
+            	//Creamos Tantos Canales como resultados tiene la consulta
+            	Canal canal = new Canal (rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+            	canales[i] = canal;
+            	rs.next();
+            }
+            ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        }
+        return canales;
 	}
 	
 }
