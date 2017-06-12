@@ -19,11 +19,13 @@ import com.vaadin.ui.PasswordField;
 
 import DB.Conexion;
 import DB.Cliente;
+import DB.Comercial;
 import DB.Persona;
 import DB.iInternauta;
 import DB.BD_Principal;
 import DB.iInternauta;
 import DB.iCliente;
+import DB.iComercial;
 
 public class Login extends Login_ventana {
 	/*
@@ -42,7 +44,10 @@ public class Login extends Login_ventana {
 	int idcliente = -1;
 	iInternauta it = new BD_Principal();
 	iCliente ic = new BD_Principal();
+	iComercial iCm = new BD_Principal();
 	Cliente cliente = new Cliente();
+	Comercial[] comerciales = null;
+	Comercial comercial = new Comercial();;
 
 	public Login() {
 
@@ -85,15 +90,43 @@ public class Login extends Login_ventana {
 				Persona::setContrasena);
 		binder.forField(emailTF).withValidator(formatoem).bind(Persona::getEmail, Persona::setEmail);
 
+		emailTF.addValueChangeListener(Event -> {
+			if (!emailTF.isEmpty() && !passwordTF.isEmpty())
+				iniciarSesionB.setEnabled(true);
+			else
+				iniciarSesionB.setEnabled(false);
+		});
+		passwordTF.addValueChangeListener(Event -> {
+			if (!emailTF.isEmpty() && !passwordTF.isEmpty())
+				iniciarSesionB.setEnabled(true);
+			else
+				iniciarSesionB.setEnabled(false);
+		});
+
 		iniciarSesionB.addClickListener(ClickEvent -> {
 			email = emailTF.getValue();
 			password = passwordTF.getValue();
 			idcliente = it.comprobarUsuario(email, password);
-			//Necesario revisar expresión regular para @Comercial.es
-			if (email.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=comercial).{8,}"))
+			// Necesario revisar expresión regular para @Comercial.es
+			if (email.contains("@comercial.es")) {
 				Notification.show("Usuario Comercial!");
-			else 
-				if (idcliente != -1) {
+				comerciales = iCm.cargarComerciales();
+
+				int i;
+				for (i = 0; i < comerciales.length && !comerciales[i].getEmail().equals(email); i++)
+					;
+
+				if (i < comerciales.length) {
+					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("comercial", comerciales[i]);
+					if(comerciales[i].getContrasena().toString().equals(password)){
+					Notification.show("Bienvenido Comercial");
+					this.getUI().setContent(new SitioWeb(comercial));
+					}
+					else
+						Notification.show("Usuario o contraseña Erroneos!");
+				} else
+					Notification.show("Comercial No Encontrado!");
+			} else if (idcliente != -1) {
 				Notification.show("Prueba correcta, Usuario existe");
 				// Creamos un objeto cliente que se mantiene en la sesión HTML
 				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario",
@@ -104,7 +137,7 @@ public class Login extends Login_ventana {
 				// Cerrar session HTTP
 				// VaadinService.getCurrentRequest().getWrappedSession().invalidate();
 				this.getUI().setContent(new SitioWebCliente());
-				//this.addComponent(new MiCuenta(email, password));
+				// this.addComponent(new MiCuenta(email, password));
 			}
 
 			else

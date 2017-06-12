@@ -28,4 +28,6 @@ public interface iComercial {
 	public void crearIncidenciaCliente(Incidencia incidencia);
 
 	public void añadirObservacion(Incidencia incidencia);
+	
+	public Comercial[] cargarComerciales();
 }

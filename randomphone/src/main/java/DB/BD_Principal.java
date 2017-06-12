@@ -278,7 +278,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
-			String consulta = "UPDATE `incidencia` SET `Texto`= '"+incidencia.getTexto()+"' WHERE incidencia.id='" +incidencia.getId()+"'";
+			String consulta = "UPDATE `incidencia` SET `Texto`= '" + incidencia.getTexto() + "' WHERE incidencia.id='"
+					+ incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 		} catch (SQLException exception) {
@@ -321,7 +322,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
-			String consulta = "UPDATE `incidencia` SET `Respuesta`= '"+incidencia.getRespuesta()+"' WHERE incidencia.id='" +incidencia.getId()+"'";
+			String consulta = "UPDATE `incidencia` SET `Respuesta`= '" + incidencia.getRespuesta()
+					+ "' WHERE incidencia.id='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 		} catch (SQLException exception) {
@@ -415,7 +417,32 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Comercial[] cargarComerciales() {
-		throw new UnsupportedOperationException();
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		Comercial[] comerciales = null;
+		int sizerow = 0;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN comercial on persona.Id=comercial.PersonaId WHERE comercial.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			comerciales = new Comercial[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				Comercial comercial = new Comercial(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getDate(7), rs.getBoolean(9));
+				comerciales[i-1] = comercial;
+				rs.next();
+			}
+
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+
+		return comerciales;
 	}
 
 	public Incidencia[] cargarIncidenciasComercial() {

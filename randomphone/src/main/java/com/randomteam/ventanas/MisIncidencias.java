@@ -2,6 +2,8 @@ package com.randomteam.ventanas;
 
 import java.util.Vector;
 
+import com.vaadin.data.HasValue;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.event.selection.MultiSelectionEvent;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Grid.SelectionMode;
@@ -31,6 +33,12 @@ public class MisIncidencias extends MisIncidencias_ventana {
 
 	public MisIncidencias() {
 
+		
+		//Creamos TextField de Busqueda
+		buscarTF.setPlaceholder("Asunto...");
+		buscarTF.addValueChangeListener(this::onNameFilterTextChange);
+		
+		
 		// Creamos Grid Incidencias
 		incidenciasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
 		incidenciasLS.addColumn(Incidencia::getEstado).setCaption("Estado").setSortable(true);
@@ -45,6 +53,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 			subContent.addComponent(new Reclamacion(iselec));
 			subWindow.setContent(subContent);
 			subWindow.center();
+			subWindow.setModal(true);
 			this.getUI().addWindow(subWindow);
 		});
 		MultiSelectionModel<Incidencia> selectionModel = (MultiSelectionModel<Incidencia>) incidenciasLS
@@ -88,4 +97,13 @@ public class MisIncidencias extends MisIncidencias_ventana {
 			this.getUI().addWindow(subWindow);
 		});
 	}
+	
+	 private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
+	        ListDataProvider<Incidencia> dataProvider = (ListDataProvider<Incidencia>) incidenciasLS.getDataProvider();
+	        dataProvider.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+	    }
+	 
+	 private Boolean caseInsensitiveContains(String where, String what) {
+	        return where.toLowerCase().contains(what.toLowerCase());
+	    }
 }
