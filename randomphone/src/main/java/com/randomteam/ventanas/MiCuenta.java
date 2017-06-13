@@ -14,6 +14,8 @@ import DB.BD_Principal;
 import DB.Cliente;
 import DB.Servicio;
 import DB.iCliente;
+import DB.Comercial;
+import DB.Incidencia;
 
 public class MiCuenta extends MiCuenta_ventana {
 	/*
@@ -35,6 +37,7 @@ public class MiCuenta extends MiCuenta_ventana {
 	float consumo;
 
 	public MiCuenta() {
+		
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 		cargarCuenta();
 
@@ -61,6 +64,41 @@ public class MiCuenta extends MiCuenta_ventana {
 			this.removeAllComponents();
 			this.addComponent(new MisIncidencias());
 		});
+	}
+
+	public MiCuenta(Comercial comercial) {
+
+		Comercial cM = comercial;
+		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
+		Incidencia[] incidencias = ic.cargarIncidencias(c.getId());
+		cargarCuenta();
+		this.incidenciasL.setVisible(true);
+		this.incidenciasL.setValue(incidenciasL.getValue()+" "+incidencias.length);
+
+		// Botón ModificarDatosPersonales
+		mDatosPersonales.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ModificarDatosPersonalesCm());
+		});
+
+		// Botón MisServicios
+		mServicios.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ModificarServiciosCm());
+		});
+
+		// Botón Mis Facturas
+		misFacturas.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new MisFacturas());
+		});
+
+		// Botón Mis Incidencias
+		misIncidencias.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new MisIncidencias());
+		});
+
 	}
 
 	public void cargarCuenta() {

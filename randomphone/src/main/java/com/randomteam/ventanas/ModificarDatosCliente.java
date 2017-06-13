@@ -4,9 +4,15 @@ import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.server.Page;
+import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Notification;
 
+import DB.BD_Principal;
+import DB.Cliente;
 import DB.Persona;
+import DB.iComercial;
 
 public class ModificarDatosCliente extends ModificarDatosCliente_ventana {
 	/*
@@ -16,6 +22,8 @@ public class ModificarDatosCliente extends ModificarDatosCliente_ventana {
 	 * vMiCuentaComercial;
 	 */
 	Binder<Persona> binder = new Binder<>();
+	iComercial iCm = new BD_Principal();
+	Cliente cliente = null;
 
 	public ModificarDatosCliente() {
 		// Elimina del estilo la barra scroll fea.
@@ -40,6 +48,18 @@ public class ModificarDatosCliente extends ModificarDatosCliente_ventana {
 
 		binder.forField(documentoTF).withValidator(formatoDNI).bind(Persona::getDocumento, Persona::setDocumento);
 
+		entrarB.setClickShortcut(KeyCode.ENTER);
+		entrarB.addClickListener(ClickEvent ->{
+			cliente = iCm.cargarDatosCliente(this.documentoTF.getValue());
+			if (cliente != null){
+				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", cliente);
+				this.getUI().setContent(new SitioWebComercial());
+				this.getUI().getWindows().iterator().next().close();
+			}
+			else
+				Notification.show("Error! Cliente no encontrado");
+		});
+		
 	}
 
 	public boolean comprobarDocumento(Object string_documento) {

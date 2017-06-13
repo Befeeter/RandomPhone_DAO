@@ -4,6 +4,7 @@ package DB;
 // import DB.Cliente.Paquete;
 
 public interface iComercial {
+	public Cliente cargarDatosCliente(String dni);
 
 	public void altaCliente(Cliente cliente);
 

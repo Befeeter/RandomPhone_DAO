@@ -12,6 +12,7 @@ import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.event.MouseEvents.ClickEvent;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
@@ -103,6 +104,10 @@ public class Login extends Login_ventana {
 				iniciarSesionB.setEnabled(false);
 		});
 
+		
+		
+		//pulsar enter ejecuta el click
+		iniciarSesionB.setClickShortcut(KeyCode.ENTER);
 		iniciarSesionB.addClickListener(ClickEvent -> {
 			email = emailTF.getValue();
 			password = passwordTF.getValue();

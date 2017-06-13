@@ -29,6 +29,7 @@ public class MiCuenta_ventana extends CssLayout {
 	protected CssLayout consumocss;
 	protected ProgressBar consumoBar;
 	protected Grid<DB.Servicio> serviciosLS;
+	protected Label incidenciasL;
 
 	public MiCuenta_ventana() {
 		Design.read(this);

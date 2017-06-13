@@ -1,0 +1,1 @@
+Añadir nuevo metodo para cargar un cliente a partir del DNI. cargarDatosCliente (String DNI); //Editar diagrama de secuencia Comercial_AccesoCliente.

@@ -133,6 +133,40 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		throw new UnsupportedOperationException();
 	}
 
+	public Cliente cargarDatosCliente(String dni) {
+		Cliente cliente = new Cliente();
+		cliente.setDocumento(dni);
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN cliente ON persona.Id=cliente.PersonaId INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id WHERE persona.Documento='"
+					+ cliente.getDocumento() + "' AND cliente.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.first();
+			// Cargamos El cliente
+			cliente.setId(rs.getInt(1));
+			cliente.setDocumento(rs.getString(2));
+			cliente.setNombre(rs.getString(3));
+			cliente.setApellidos(rs.getString(4));
+			cliente.setContrasena(rs.getString(5));
+			cliente.setEmail(rs.getString(6));
+			cliente.setFecha_altta(rs.getDate(7));
+			cliente.setEstado(true);
+			cliente.setTelefono(rs.getInt(9));
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return null;
+		}
+		return cliente;
+
+	}
+
 	public Cliente cargarDatosCliente(int id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
@@ -176,8 +210,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 			// Actualizamos Resto de datos
-			consulta = "UPDATE `persona` SET `Apellidos` = '" + cliente.getApellidos() + "' WHERE `persona`.`Id` = '"
-					+ cliente.getId() + "'";
+			consulta = "UPDATE `persona` SET `Apellidos` = '" + cliente.getApellidos() + "', `Nombre` = '"
+					+ cliente.getNombre() + "', `Email` = '" + cliente.getEmail() + "', `Contrasena` = '"
+					+ cliente.getContrasena() + "' WHERE `persona`.`Id` = '" + cliente.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -434,7 +469,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				Comercial comercial = new Comercial(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getDate(7), rs.getBoolean(9));
-				comerciales[i-1] = comercial;
+				comerciales[i - 1] = comercial;
 				rs.next();
 			}
 
