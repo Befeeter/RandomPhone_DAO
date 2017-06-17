@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class PanelAdministrador {
+public class PanelAdministrador extends panelAdministrador_ventana {
 	/*
 	private Label tituloL;
 	private Button serviciosB;
@@ -13,4 +13,25 @@ public class PanelAdministrador {
 	public ListadoIncidencias vListadoIncidencias;
 	public ListadoClientes vListadoClientes;
 	*/
+	public PanelAdministrador () {
+		serviciosB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new Servicios());
+		});
+		
+		comercialesB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new Comerciales());
+		});
+
+		listadoIncidenciasB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ListadoIncidencias());
+		});
+		
+		listadoClientesB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ListadoClientes());
+		});
+	}
 }

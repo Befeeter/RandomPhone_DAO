@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class Servicios {
+public class Servicios extends servicios_ventana {
 	/*
 	private Button movilB;
 	private Button telefonoB;
@@ -10,4 +10,8 @@ public class Servicios {
 	public TarifasFibra vTarifasFibra;
 	public TarifasTelevision vTarifasTelevision;
 	*/
+	
+	public Servicios () {
+		
+	}
 }

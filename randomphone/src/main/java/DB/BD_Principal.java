@@ -23,6 +23,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public BD_Comerciales bD_Comerciales;
 	public BD_Incidencias bD_Incidencias;
 	public BD_Administradores bD_Administradores;
+	
+	Connection conexion;
+    PreparedStatement ps;
+    ResultSet rs;
 
 	public Servicio[] cargarOfertas() {
 		throw new UnsupportedOperationException();
@@ -88,6 +92,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			idCliente = rs.getInt(1);
 			if (contrasenia.equals(password))
 				return idCliente;
+			else
+				return -1;
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return -1;
+	}
+	
+	public int comprobarAdmin (String email, String contrasenia) {
+		String password = "";
+		int idAdmin = -1;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN administrador ON persona.Id=administrador.PersonaId WHERE persona.Email='"
+					+ email + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.first();
+			password = rs.getString(5);
+			idAdmin = rs.getInt(1);
+			if (contrasenia.equals(password))
+				return idAdmin;
 			else
 				return -1;
 
@@ -380,7 +409,39 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Cliente[] cargarListadoClientes() {
-		throw new UnsupportedOperationException();
+		Cliente [] clientes = null;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM persona INNER JOIN cliente "
+					+ "ON persona.Id=cliente.PersonaId INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId "
+					+ "INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId "
+					+ "INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id AND cliente.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            rs.last();
+            int sizerow = rs.getRow();
+            clientes = new Cliente [sizerow];
+            rs.first();
+            for (int i=0; i <sizerow; i++) {
+        		Cliente cliente = new Cliente();
+        		cliente.setId(rs.getInt(1));
+            	cliente.setDocumento(rs.getString(2));
+    			cliente.setNombre(rs.getString(3));
+    			cliente.setApellidos(rs.getString(4));
+    			cliente.setContrasena(rs.getString(5));
+    			cliente.setEmail(rs.getString(6));
+    			cliente.setFecha_altta(rs.getDate(7));
+    			cliente.setEstado(true);
+    			cliente.setTelefono(rs.getInt(9));
+            	clientes[i] = cliente;
+            	rs.next();
+            }
+            ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        }
+        return clientes;
 	}
 
 	public Comercial[] cargarListaDeComerciales() {

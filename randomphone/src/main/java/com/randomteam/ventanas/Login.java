@@ -22,6 +22,7 @@ import DB.Conexion;
 import DB.Cliente;
 import DB.Comercial;
 import DB.Persona;
+import DB.iAdministrador;
 import DB.iInternauta;
 import DB.BD_Principal;
 import DB.iInternauta;
@@ -48,7 +49,9 @@ public class Login extends Login_ventana {
 	iComercial iCm = new BD_Principal();
 	Cliente cliente = new Cliente();
 	Comercial[] comerciales = null;
-	Comercial comercial = new Comercial();;
+	Comercial comercial = new Comercial();
+	Administrador administrador = new Administrador();
+	iAdministrador iA = new BD_Principal();
 
 	public Login() {
 
@@ -131,6 +134,15 @@ public class Login extends Login_ventana {
 						Notification.show("Usuario o contraseña Erroneos!");
 				} else
 					Notification.show("Comercial No Encontrado!");
+			} else if (email.contains("@administrador.es")) {
+				int idAdmin = iA.comprobarAdmin(email, password);
+				if (idAdmin != -1) {
+					Notification.show("Administrador!");
+					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario",
+							ic.cargarDatosCliente(idAdmin));
+					this.getUI().setContent(new SitioWebAdministrador());
+				} else
+					Notification.show("Usuario o Contraseña Erroneo!");
 			} else if (idcliente != -1) {
 				Notification.show("Prueba correcta, Usuario existe");
 				// Creamos un objeto cliente que se mantiene en la sesión HTML

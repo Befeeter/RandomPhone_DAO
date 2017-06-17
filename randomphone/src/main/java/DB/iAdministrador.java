@@ -77,4 +77,6 @@ public interface iAdministrador {
 	public boolean editarTarifaFijo(Fijo fijo, Fijo fijoNuevo);
 
 	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo);
+	
+	public int comprobarAdmin (String email, String contrasenia);
 }
