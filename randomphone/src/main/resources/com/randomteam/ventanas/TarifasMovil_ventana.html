@@ -3,10 +3,10 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
-  <vaadin-grid-layout spacing width="100px" height="30px" margin>
+  <vaadin-grid-layout spacing width-full margin>
    <row></row>
    <row>
     <column>
@@ -17,51 +17,37 @@
    </row>
    <row>
     <column>
-     <vaadin-grid responsive data-item-type="java.lang.String" _id="tarifasLS">
+     <vaadin-grid responsive data-item-type="DB.Movil" _id="tarifasLS">
       <table>
        <colgroup>
-        <col column-id="eliminar" sortable="false">
-        <col column-id="tarifa" sortable="false">
-        <col column-id="editar" sortable="false">
-        <col column-id="estado" sortable="false">
+        <col column-id="borrar" sortable>
+        <col column-id="nombre" sortable>
+        <col column-id="editar" sortable>
+        <col column-id="estado" sortable>
        </colgroup>
        <thead>
         <tr default>
-         <th plain-text column-ids="eliminar"></th>
-         <th plain-text column-ids="tarifa"></th>
+         <th plain-text column-ids="borrar"></th>
+         <th plain-text column-ids="nombre">Nombre</th>
          <th plain-text column-ids="editar"></th>
-         <th plain-text column-ids="estado"></th>
+         <th plain-text column-ids="estado">Estado</th>
         </tr>
        </thead>
-       <tbody>
-        <tr item="tarifa1">
-         <td></td>
-         <td>Tarifa 1</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="tarifa2">
-         <td></td>
-         <td>Tarifa 2</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="tarifa3">
-         <td></td>
-         <td>Tarifa 3</td>
-         <td></td>
-         <td></td>
-        </tr>
-       </tbody>
+       <tbody></tbody>
       </table>
      </vaadin-grid>
     </column>
    </row>
    <row>
     <column>
-     <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
-       Crear tarifa 
-     </vaadin-button>
+     <vaadin-horizontal-layout>
+      <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
+        Crear tarifa 
+      </vaadin-button>
+      <vaadin-button plain-text _id="eliminarB">
+        Button 
+      </vaadin-button>
+     </vaadin-horizontal-layout>
     </column>
    </row>
   </vaadin-grid-layout>

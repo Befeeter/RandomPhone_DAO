@@ -21,8 +21,9 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class TarifasMovil_ventana extends GridLayout {
 	protected Label tituloL;
-	protected Grid<java.lang.String> tarifasLS;
+	protected Grid<DB.Movil> tarifasLS;
 	protected Button crearTarifaB;
+	protected Button eliminarB;
 
 	public TarifasMovil_ventana() {
 		Design.read(this);

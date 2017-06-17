@@ -558,7 +558,30 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Movil[] cargarTarifasMovil() {
-		throw new UnsupportedOperationException();
+		Movil[] tarifasMovil = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM servicio INNER JOIN movil ON servicio.id=movil.servicioid";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			tarifasMovil = new Movil[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Movil movil = new Movil(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				tarifasMovil[i - 1] = movil;
+				rs.next();
+			}
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return tarifasMovil;
 	}
 
 	public Fijo[] cargarTarifasFijo() {

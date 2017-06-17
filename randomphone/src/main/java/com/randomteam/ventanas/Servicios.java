@@ -1,5 +1,7 @@
 package com.randomteam.ventanas;
 
+import DB.Movil;
+
 public class Servicios extends servicios_ventana {
 	/*
 	private Button movilB;
@@ -12,6 +14,24 @@ public class Servicios extends servicios_ventana {
 	*/
 	
 	public Servicios () {
+		movilB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new TarifasMovil());
+		});
 		
+		telefonoB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new TarifasTelefono());
+		});
+
+		fibraB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new TarifasFibra());
+		});
+		
+		televisionB.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new TarifasTelevision());
+		});
 	}
 }

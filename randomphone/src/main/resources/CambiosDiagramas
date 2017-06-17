@@ -1,1 +1,3 @@
 Añadir nuevo metodo para cargar un cliente a partir del DNI. cargarDatosCliente (String DNI); //Editar diagrama de secuencia Comercial_AccesoCliente.
+
+Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal
