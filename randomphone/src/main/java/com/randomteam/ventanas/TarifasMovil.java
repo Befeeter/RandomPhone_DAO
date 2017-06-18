@@ -78,7 +78,7 @@ public class TarifasMovil extends TarifasMovil_ventana {
 			}
 		});
 
-		// Botón Nueva Reclamación
+		// Botón Tarifa
 		crearTarifaB.addClickListener(ClickEvent -> {
 
 			// Creamos Ventana Emergente para crear tarifa

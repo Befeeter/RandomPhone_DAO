@@ -32,6 +32,7 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 			// crear tarifa
 			if (iA.crearTarifaMovil(tarifa)) {
 				Notification.show("Creada con exito!");
+				tarifa.setEstado(true);
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
