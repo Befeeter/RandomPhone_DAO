@@ -49,33 +49,26 @@ public class TarifasMovil extends TarifasMovil_ventana {
 
 		// Botón Eliminar
 		eliminarB.addClickListener(ClickEvent -> {
+			//obtener elementos a eliminar
+			Movil[] tarifasEliminar;
+			int size = tarifasLS.getSelectedItems().size();
+			tarifasEliminar = new Movil[size];
+			tarifasEliminar = tarifasLS.getSelectedItems().toArray(tarifasEliminar);
+			
 			// Creamos Ventana Emergente para crear tarifa
 			Window subWindow = new Window("Eliminar tarifa");
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new MesesAdaptacion());
+			subContent.addComponent(new MesesAdaptacion(tarifasEliminar));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event -> {
+				tarifas = iA.cargarTarifasMovil();
+				tarifasLS.setItems(tarifas);
+			});
 			this.getUI().addWindow(subWindow);
-			
-			int mesesAdaptacion = (int) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("mesesAdaptacion");
-			//
-			Movil[] eliminar;
-			int size = tarifasLS.getSelectedItems().size();
-			eliminar = new Movil[size];
-			eliminar = tarifasLS.getSelectedItems().toArray(eliminar);
-			// Para cada tarifa seleccionada la elimino
-			for (Movil movil : eliminar) {
-				if (iA.eliminarTarifaMovil(mesesAdaptacion, movil) == true) {
-					Notification.show("Eliminadas Con exito!");
-					tarifas = iA.cargarTarifasMovil();
-					tarifasLS.setItems(tarifas);
-
-				} else
-					Notification.show("Error! Ups algo fue mal!");
-			}
 		});
 
 		// Botón Tarifa

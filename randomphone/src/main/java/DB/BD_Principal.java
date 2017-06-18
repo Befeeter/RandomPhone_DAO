@@ -679,7 +679,24 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean eliminarTarifaMovil(int mesesAdaptacion, Movil movil) {
-		
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from movil "
+					+ "WHERE ServicioId="+ movil.getId();
+			String consulta2 = "DELETE from servicio "
+					+ "WHERE id="+ movil.getId();
+
+			ps = conexion.prepareStatement(consulta);
+            ps.execute(consulta);
+            ps = conexion.prepareStatement(consulta2);
+            ps.execute(consulta2);
+			ps.close();
+            conexion.close();
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+		return true;
 	}
 
 	public boolean eliminarTarifaFijo(Fijo fijo, int mesesAdaptacion) {
