@@ -625,7 +625,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean eliminarTarifaMovil(int mesesAdaptacion, Movil movil) {
-		throw new UnsupportedOperationException();
+		return bD_Moviles.eliminarTarifaMovil(movil);
 	}
 
 	public boolean eliminarTarifaFijo(Fijo fijo, int mesesAdaptacion) {
@@ -637,7 +637,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean crearTarifaMovil(Movil movil) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			// creo el servicio
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
+					+ "VALUES ('"+movil.getNombre()+"','"+movil.getPrecio()+"', "+movil.isEstado()+")";
+			ps = conexion.prepareStatement(insertarServicio);
+            ps.execute(insertarServicio);
+			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el cliente
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + movil.getNombre()+"'";
+			ps = conexion.prepareStatement(consultaIdServicio);
+			rs = ps.executeQuery();
+			rs.first();
+			int servicioId = rs.getInt(1);
+			// creo la tarifa
+			String insertarTarifa = "INSERT INTO movil (Minutos, Datos, ServicioId) "
+					+ "VALUES ('"+movil.getMinutos()+"','"+movil.getDatos()+"', '"+servicioId+"')";
+            ps = conexion.prepareStatement(insertarTarifa);
+            ps.execute(insertarTarifa);
+			ps.close();
+            conexion.close();
+            return true;
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage()+ "fallo crear tarifa movil");
+        	return false;
+        }
 	}
 
 	public boolean crearTarifaFijo(Fijo fijo) {

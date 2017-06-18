@@ -1,4 +1,7 @@
 package com.randomteam.ventanas;
+
+import com.vaadin.server.VaadinService;
+
 public class MesesAdaptacion extends MesesAdaptacion_ventana {
 	/*
 	private Label mesesL;
@@ -6,4 +9,9 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 	private Button aceptarB;
 	public Tarifa vTarifa;
 	*/
+	public MesesAdaptacion() {
+		aceptarB.addClickListener(ClickEvent ->{
+			VaadinService.getCurrentRequest().getWrappedSession().setAttribute("mesesAdaptacion", mesesTF.getValue());
+		});
+	}
 }

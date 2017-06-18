@@ -1,6 +1,12 @@
 package com.randomteam.ventanas;
 
-public class AltaModificarTarifaMovil extends AltaModificarTarifas {
+import com.vaadin.ui.Notification;
+
+import DB.BD_Principal;
+import DB.Movil;
+import DB.iAdministrador;
+
+public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 	/*
 	private Label minutosL;
 	private TextField minutosTF;
@@ -8,4 +14,26 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifas {
 	private TextField datosTF;
 	public TarifasMovil vTarifasMovil;
 	*/
+	iAdministrador iA = new BD_Principal();
+	
+	public AltaModificarTarifaMovil () {
+		submit.addClickListener(ClickEvent -> {
+			//obtener datos tarifa
+			Movil tarifa = new Movil();
+			tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
+			tarifa.setDatos(Integer.parseInt(datosTF.getValue()));
+			tarifa.setNombre(nombreTF.getValue());
+			tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
+			if (estadoB.getValue() == 1.0) {
+				tarifa.setEstado(true);
+			} else
+				tarifa.setEstado(false);
+
+			// crear tarifa
+			if (iA.crearTarifaMovil(tarifa)) {
+				Notification.show("Creada con exito!");
+			} else
+				Notification.show("Error! Ups algo fue mal!");
+		});
+	}
 }

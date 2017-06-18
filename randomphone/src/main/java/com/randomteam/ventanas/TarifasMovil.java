@@ -1,5 +1,7 @@
 package com.randomteam.ventanas;
 
+import com.vaadin.server.VaadinService;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Grid.SelectionMode;
@@ -17,41 +19,82 @@ public class TarifasMovil extends TarifasMovil_ventana {
 	 * AltaModificarTarifaMovil vAltaModificarTarifaMovil;
 	 */
 	iAdministrador iA = new BD_Principal();
+	Movil[] tarifas;
 
 	public TarifasMovil() {
-		Movil [] tarifas = iA.cargarTarifasMovil();
+		tarifas = iA.cargarTarifasMovil();
 		// grid
-		/*tarifasLS.addColumn(tarifa -> "Delete",
-			      new ButtonRenderer(clickEvent -> {
-			          tarifasLS.remove(clickEvent.getItem());
-			          tarifasLS.setItems(tarifas);
-			    }));
-		tarifasLS.addComponentColumn(movil -> {
-		      Button button = new Button("Click me!");
-		      button.addClickListener(click ->
-		            Notification.show("Clicked: " + tarifa.toString()));
-		      return button;
-		});*/
 		tarifasLS.addColumn(Movil::getNombre).setCaption("Nombre").setSortable(true);
 		tarifasLS.addColumn(Movil::isEstado).setCaption("Estado").setSortable(true);
 		tarifasLS.setItems(tarifas);
 
-		/*tarifasLS.addItemClickListener(event -> {
-			//iselec = event.getItem();
-			
+		tarifasLS.addItemClickListener(event -> {
+			// iselec = event.getItem();
+
 			// Creamos Ventana Emergente con los detalles de la reclamación
 			// seleccionada en el Grid
 			Window subWindow = new Window("Asunto");
 			VerticalLayout subContent = new VerticalLayout();
-			//subContent.addComponent(new Reclamacion(iselec));
+			// subContent.addComponent(new Reclamacion(iselec));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
 			this.getUI().addWindow(subWindow);
-		});*/
-		MultiSelectionModel<Movil> selectionModel = (MultiSelectionModel<Movil>) tarifasLS.setSelectionMode(SelectionMode.MULTI);
+		});
+		MultiSelectionModel<Movil> selectionModel = (MultiSelectionModel<Movil>) tarifasLS
+				.setSelectionMode(SelectionMode.MULTI);
 		selectionModel.addMultiSelectionListener(event -> {
 			eliminarB.setEnabled(event.getNewSelection().size() > 0);
+		});
+
+		// Botón Eliminar
+		eliminarB.addClickListener(ClickEvent -> {
+			// Creamos Ventana Emergente para crear tarifa
+			Window subWindow = new Window("Eliminar tarifa");
+			VerticalLayout subContent = new VerticalLayout();
+			subContent.addComponent(new MesesAdaptacion());
+			subWindow.setContent(subContent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("600px");
+			subWindow.setWidth("400px");
+			this.getUI().addWindow(subWindow);
+			
+			int mesesAdaptacion = (int) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("mesesAdaptacion");
+			//
+			Movil[] eliminar;
+			int size = tarifasLS.getSelectedItems().size();
+			eliminar = new Movil[size];
+			eliminar = tarifasLS.getSelectedItems().toArray(eliminar);
+			// Para cada tarifa seleccionada la elimino
+			for (Movil movil : eliminar) {
+				if (iA.eliminarTarifaMovil(mesesAdaptacion, movil) == true) {
+					Notification.show("Eliminadas Con exito!");
+					tarifas = iA.cargarTarifasMovil();
+					tarifasLS.setItems(tarifas);
+
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			}
+		});
+
+		// Botón Nueva Reclamación
+		crearTarifaB.addClickListener(ClickEvent -> {
+
+			// Creamos Ventana Emergente para crear tarifa
+			Window subWindow = new Window("Crear tarifa");
+			VerticalLayout subContent = new VerticalLayout();
+			subContent.addComponent(new AltaModificarTarifaMovil());
+			subWindow.setContent(subContent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("600px");
+			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event -> {
+				tarifas = iA.cargarTarifasMovil();
+				tarifasLS.setItems(tarifas);
+			});
+			this.getUI().addWindow(subWindow);
 		});
 	}
 }

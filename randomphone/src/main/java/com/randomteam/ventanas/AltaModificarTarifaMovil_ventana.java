@@ -5,6 +5,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Slider;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.declarative.Design;
 
@@ -25,6 +26,7 @@ public class AltaModificarTarifaMovil_ventana extends CssLayout {
 	protected Label minutosL;
 	protected TextField minutosTF;
 	protected TextField datosTF;
+	protected Slider estadoB;
 	protected Button submit;
 	protected Button cancel;
 

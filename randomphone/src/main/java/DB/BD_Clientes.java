@@ -126,8 +126,8 @@ public class BD_Clientes {
 			// creo la persona
 			String insertarPersona = "INSERT INTO persona (Documento, Nombre, Apellidos, Contrasena, Email) "
 					+ "VALUES ('"+cliente.getDocumento()+"','"+cliente.getNombre()+"', '"+cliente.getApellidos()+"', '"+cliente.getContrasena()+"', '"+cliente.getEmail()+"')";
-			//ps = conexion.prepareStatement(insertarPersona);
-            //ps.execute(insertarPersona);
+			ps = conexion.prepareStatement(insertarPersona);
+            ps.execute(insertarPersona);
 			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el cliente
 			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + cliente.getDocumento()+"'";
 			ps = conexion.prepareStatement(consultaIdPersona);

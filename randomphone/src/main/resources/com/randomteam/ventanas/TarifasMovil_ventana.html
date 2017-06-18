@@ -6,7 +6,7 @@
   <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
-  <vaadin-grid-layout spacing width-full margin>
+  <vaadin-grid-layout spacing size-full margin>
    <row></row>
    <row>
     <column>
@@ -17,25 +17,7 @@
    </row>
    <row>
     <column>
-     <vaadin-grid responsive data-item-type="DB.Movil" _id="tarifasLS">
-      <table>
-       <colgroup>
-        <col column-id="borrar" sortable>
-        <col column-id="nombre" sortable>
-        <col column-id="editar" sortable>
-        <col column-id="estado" sortable>
-       </colgroup>
-       <thead>
-        <tr default>
-         <th plain-text column-ids="borrar"></th>
-         <th plain-text column-ids="nombre">Nombre</th>
-         <th plain-text column-ids="editar"></th>
-         <th plain-text column-ids="estado">Estado</th>
-        </tr>
-       </thead>
-       <tbody></tbody>
-      </table>
-     </vaadin-grid>
+     <vaadin-grid responsive data-item-type="DB.Movil" _id="tarifasLS"></vaadin-grid>
     </column>
    </row>
    <row>
@@ -44,8 +26,8 @@
       <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
         Crear tarifa 
       </vaadin-button>
-      <vaadin-button plain-text _id="eliminarB">
-        Button 
+      <vaadin-button style-name="danger" plain-text _id="eliminarB">
+        Eliminar 
       </vaadin-button>
      </vaadin-horizontal-layout>
     </column>
