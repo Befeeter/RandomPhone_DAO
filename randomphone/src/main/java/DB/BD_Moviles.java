@@ -71,7 +71,7 @@ public class BD_Moviles {
 			conexion = Conexion.getConnection();
 			// creo el servicio
 			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+movil.getNombre()+"','"+movil.getPrecio()+"', '"+movil.isEstado()+"')";
+					+ "VALUES ('"+movil.getNombre()+"','"+movil.getPrecio()+"', "+movil.isEstado()+")";
 			ps = conexion.prepareStatement(insertarServicio);
             ps.execute(insertarServicio);
 			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el cliente
@@ -99,10 +99,10 @@ public class BD_Moviles {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
 					+ "SET Nombre='"+movil.getNombre()+"', Precio="+movil.getPrecio()+", Estado="+movil.isEstado()+" "
-							+ "WHERE personaId="+ movil.getId();
+							+ "WHERE id="+ movil.getId();
 			String modificarTarifa = "UPDATE movil "
 					+ "SET Minutos='"+movil.getMinutos()+"', Datos='"+movil.getDatos()+"' "
-							+ "WHERE id="+ movil.getId();
+							+ "WHERE servicioid="+ movil.getId();
 			ps = conexion.prepareStatement(modificarServicio);
             ps.execute(modificarServicio);
             ps = conexion.prepareStatement(modificarTarifa);

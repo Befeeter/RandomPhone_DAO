@@ -69,7 +69,7 @@ public class BD_Fijos {
 			conexion = Conexion.getConnection();
 			// creo el servicio
 			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+fijo.getNombre()+"','"+fijo.getPrecio()+"', '"+fijo.isEstado()+"')";
+					+ "VALUES ('"+fijo.getNombre()+"','"+fijo.getPrecio()+"', "+fijo.isEstado()+")";
 			ps = conexion.prepareStatement(insertarServicio);
             ps.execute(insertarServicio);
 			// obtendo el id del servicio
@@ -97,10 +97,10 @@ public class BD_Fijos {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
 					+ "SET Nombre='"+fijo.getNombre()+"', Precio="+fijo.getPrecio()+", Estado="+fijo.isEstado()+" "
-							+ "WHERE personaId="+ fijo.getId();
+							+ "WHERE id="+ fijo.getId();
 			String modificarTarifa = "UPDATE fijo "
 					+ "SET Minutos='"+fijo.getMinutos()+"'"
-							+ "WHERE id="+ fijo.getId();
+							+ "WHERE servicioid="+ fijo.getId();
 			ps = conexion.prepareStatement(modificarServicio);
             ps.execute(modificarServicio);
             ps = conexion.prepareStatement(modificarTarifa);

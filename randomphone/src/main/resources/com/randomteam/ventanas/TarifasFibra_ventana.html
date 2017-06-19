@@ -17,51 +17,19 @@
    </row>
    <row>
     <column>
-     <vaadin-grid responsive data-item-type="java.lang.String" _id="tarifasLS">
-      <table>
-       <colgroup>
-        <col column-id="eliminar" sortable="false">
-        <col column-id="tarifa" sortable="false">
-        <col column-id="editar" sortable="false">
-        <col column-id="estado" sortable="false">
-       </colgroup>
-       <thead>
-        <tr default>
-         <th plain-text column-ids="eliminar"></th>
-         <th plain-text column-ids="tarifa"></th>
-         <th plain-text column-ids="editar"></th>
-         <th plain-text column-ids="estado"></th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr item="tarifa1">
-         <td></td>
-         <td>Tarifa 1</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="tarifa2">
-         <td></td>
-         <td>Tarifa 2</td>
-         <td></td>
-         <td></td>
-        </tr>
-        <tr item="tarifa3">
-         <td></td>
-         <td>Tarifa 3</td>
-         <td></td>
-         <td></td>
-        </tr>
-       </tbody>
-      </table>
-     </vaadin-grid>
+     <vaadin-grid responsive data-item-type="DB.Fibra" _id="tarifasLS"></vaadin-grid>
     </column>
    </row>
    <row>
     <column>
-     <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
-       Crear tarifa 
-     </vaadin-button>
+     <vaadin-horizontal-layout>
+      <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
+        Crear tarifa 
+      </vaadin-button>
+      <vaadin-button style-name="danger" plain-text _id="eliminarB">
+        Eliminar 
+      </vaadin-button>
+     </vaadin-horizontal-layout>
     </column>
    </row>
   </vaadin-grid-layout>

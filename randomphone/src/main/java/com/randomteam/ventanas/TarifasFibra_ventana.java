@@ -21,8 +21,9 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class TarifasFibra_ventana extends GridLayout {
 	protected Label tituloL;
-	protected Grid<java.lang.String> tarifasLS;
+	protected Grid<DB.Fibra> tarifasLS;
 	protected Button crearTarifaB;
+	protected Button eliminarB;
 
 	public TarifasFibra_ventana() {
 		Design.read(this);

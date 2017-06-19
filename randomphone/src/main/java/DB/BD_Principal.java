@@ -919,7 +919,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			// creo el servicio
 			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+fibra.getNombre()+"','"+fibra.getPrecio()+"', '"+fibra.isEstado()+"')";
+					+ "VALUES ('"+fibra.getNombre()+"','"+fibra.getPrecio()+"', "+fibra.isEstado()+")";
 			ps = conexion.prepareStatement(insertarServicio);
             ps.execute(insertarServicio);
 			// obtendo el id del servicio
@@ -992,10 +992,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
 					+ "SET Nombre='"+fibra.getNombre()+"', Precio="+fibra.getPrecio()+", Estado="+fibra.isEstado()+" "
-							+ "WHERE personaId="+ fibra.getId();
+							+ "WHERE id="+ fibra.getId();
 			String modificarTarifa = "UPDATE fibra "
 					+ "SET Vsub='"+fibra.getVsub()+"', Vbaj='"+fibra.getVbaj()+"' "
-							+ "WHERE id="+ fibra.getId();
+							+ "WHERE servicioid="+ fibra.getId();
 			ps = conexion.prepareStatement(modificarServicio);
             ps.execute(modificarServicio);
             ps = conexion.prepareStatement(modificarTarifa);
