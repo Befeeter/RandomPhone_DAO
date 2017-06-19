@@ -21,7 +21,7 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class tarifasTelefono_ventana extends GridLayout {
 	protected Label tituloL;
-	protected Grid<java.lang.String> tarifasLS;
+	protected Grid<DB.Fijo> tarifasLS;
 	protected Button crearTarifaB;
 
 	public tarifasTelefono_ventana() {

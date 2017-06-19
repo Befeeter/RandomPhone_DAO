@@ -48,7 +48,22 @@ public class BD_Moviles {
 	}
 
 	public boolean eliminarTarifaMovil(Movil tarifa) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from movil " + "WHERE ServicioId=" + tarifa.getId();
+			String consulta2 = "DELETE from servicio " + "WHERE id=" + tarifa.getId();
+
+			ps = conexion.prepareStatement(consulta);
+			ps.execute(consulta);
+			ps = conexion.prepareStatement(consulta2);
+			ps.execute(consulta2);
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public boolean crearTarifaMovil(Movil movil) {
@@ -80,6 +95,24 @@ public class BD_Moviles {
 	}
 
 	public boolean editarTarifaMovil(Movil movil, Movil movilNuevo) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String modificarServicio = "UPDATE servicio "
+					+ "SET Nombre='"+movil.getNombre()+"', Precio="+movil.getPrecio()+", Estado="+movil.isEstado()+" "
+							+ "WHERE personaId="+ movil.getId();
+			String modificarTarifa = "UPDATE movil "
+					+ "SET Minutos='"+movil.getMinutos()+"', Datos='"+movil.getDatos()+"' "
+							+ "WHERE id="+ movil.getId();
+			ps = conexion.prepareStatement(modificarServicio);
+            ps.execute(modificarServicio);
+            ps = conexion.prepareStatement(modificarTarifa);
+            ps.execute(modificarTarifa);
+			ps.close();
+            conexion.close();
+            return true;
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
 	}
 }

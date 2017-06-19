@@ -33,12 +33,14 @@ public class TarifasMovil extends TarifasMovil_ventana {
 
 			// Creamos Ventana Emergente con los detalles de la reclamación
 			// seleccionada en el Grid
-			Window subWindow = new Window("Asunto");
+			Window subWindow = new Window("Editar tarifa");
 			VerticalLayout subContent = new VerticalLayout();
-			// subContent.addComponent(new Reclamacion(iselec));
+			subContent.addComponent(new AltaModificarTarifaMovil(event.getItem()));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
+			subWindow.setHeight("600px");
+			subWindow.setWidth("400px");
 			this.getUI().addWindow(subWindow);
 		});
 		MultiSelectionModel<Movil> selectionModel = (MultiSelectionModel<Movil>) tarifasLS
