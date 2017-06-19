@@ -10,7 +10,7 @@ public interface iAdministrador {
 
 	public Incidencia cargarIncidencia(Incidencia incidencia);
 
-	public boolean editarIncidencia(Incidencia incidencia, Incidencia nuevaIncidencia);
+	public boolean editarIncidencia(Incidencia incidencia);
 
 	public Incidencia[] cargarIncidenciasSinAsignarCibernauta();
 

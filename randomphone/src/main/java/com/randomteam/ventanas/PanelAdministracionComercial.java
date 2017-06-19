@@ -21,6 +21,7 @@ public class PanelAdministracionComercial extends PanelAdministracionComercial_v
 	public PanelAdministracionComercial(){
 		
 		altaClienteB.addClickListener(ClickEvent->{
+			//Muestra ventana Nuevo Cliente.
 			this.removeAllComponents();
 			this.addComponent(new AltaNuevoCliente());
 		});
@@ -36,6 +37,12 @@ public class PanelAdministracionComercial extends PanelAdministracionComercial_v
 			subWindow.setHeight("330px");
 			subWindow.setWidth("400px");
 			this.getUI().addWindow(subWindow);
+		});
+		
+		incidenciasEnCurso.addClickListener(ClickEvent ->{
+			//Muestra ventana Incidencias en curso.
+			this.removeAllComponents();
+			this.addComponent(new IncidenciasEnCurso());
 		});
 		
 	}

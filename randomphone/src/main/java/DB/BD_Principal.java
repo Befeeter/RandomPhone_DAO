@@ -23,10 +23,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public BD_Comerciales bD_Comerciales;
 	public BD_Incidencias bD_Incidencias;
 	public BD_Administradores bD_Administradores;
-	
+
 	Connection conexion;
-    PreparedStatement ps;
-    ResultSet rs;
+	PreparedStatement ps;
+	ResultSet rs;
 
 	public Servicio[] cargarOfertas() {
 		throw new UnsupportedOperationException();
@@ -102,8 +102,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 		return -1;
 	}
-	
-	public int comprobarAdmin (String email, String contrasenia) {
+
+	public int comprobarAdmin(String email, String contrasenia) {
 		String password = "";
 		int idAdmin = -1;
 		try {
@@ -136,10 +136,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '0', '"
-					+ incidencia.getCliente().getId() + "', '" + incidencia.getAsunto() + "', '" + incidencia.getTipo()
-					+ "', '" + incidencia.getCliente().getId() + "', '" + incidencia.getTexto() + "', 'Nueva', '"
-					+ dateFormat.format(date) + "')";
+			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '"
+					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
+					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
+					+ "', '" + incidencia.getTexto() + "', 'Nueva', '" + dateFormat.format(date) + "')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -335,6 +335,36 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return incidencias;
 	}
 
+	public Incidencia[] cargarIncidenciasCm(int id_comercial) {
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		Connection conexion;
+		PreparedStatement ps;
+		ResultSet rs;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where incidencia.ComercialPersonaId='" + id_comercial + "'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
+	}
+
 	public boolean actualizarIncidencia(Incidencia incidencia) {
 		Connection conexion;
 		PreparedStatement ps;
@@ -400,8 +430,29 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 	}
 
-	public void crearIncidenciaCliente(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+	public boolean crearIncidenciaCliente(Incidencia incidencia) {
+		Connection conexion;
+		PreparedStatement ps;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = new java.util.Date();
+
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '"
+					+ incidencia.getComercial().getId() + "', '" + incidencia.getCliente().getId() + "', '"
+					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
+					+ "', '" + incidencia.getTexto() + "', 'Nueva', '" + dateFormat.format(date) + "')";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+
+		}
+		return true;
 	}
 
 	public void añadirObservacion(Incidencia incidencia) {
@@ -409,7 +460,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Cliente[] cargarListadoClientes() {
-		Cliente [] clientes = null;
+		Cliente[] clientes = null;
 		try {
 			conexion = Conexion.getConnection();
 			String consulta = "SELECT * FROM persona INNER JOIN cliente "
@@ -417,31 +468,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ "INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId "
 					+ "INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id AND cliente.Estado=1";
 			ps = conexion.prepareStatement(consulta);
-            rs = ps.executeQuery();
-            rs.last();
-            int sizerow = rs.getRow();
-            clientes = new Cliente [sizerow];
-            rs.first();
-            for (int i=0; i <sizerow; i++) {
-        		Cliente cliente = new Cliente();
-        		cliente.setId(rs.getInt(1));
-            	cliente.setDocumento(rs.getString(2));
-    			cliente.setNombre(rs.getString(3));
-    			cliente.setApellidos(rs.getString(4));
-    			cliente.setContrasena(rs.getString(5));
-    			cliente.setEmail(rs.getString(6));
-    			cliente.setFecha_altta(rs.getDate(7));
-    			cliente.setEstado(true);
-    			cliente.setTelefono(rs.getInt(9));
-            	clientes[i] = cliente;
-            	rs.next();
-            }
-            ps.close();
-            conexion.close();
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        }
-        return clientes;
+			rs = ps.executeQuery();
+			rs.last();
+			int sizerow = rs.getRow();
+			clientes = new Cliente[sizerow];
+			rs.first();
+			for (int i = 0; i < sizerow; i++) {
+				Cliente cliente = new Cliente();
+				cliente.setId(rs.getInt(1));
+				cliente.setDocumento(rs.getString(2));
+				cliente.setNombre(rs.getString(3));
+				cliente.setApellidos(rs.getString(4));
+				cliente.setContrasena(rs.getString(5));
+				cliente.setEmail(rs.getString(6));
+				cliente.setFecha_altta(rs.getDate(7));
+				cliente.setEstado(true);
+				cliente.setTelefono(rs.getInt(9));
+				clientes[i] = cliente;
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+		return clientes;
 	}
 
 	public Comercial[] cargarListaDeComerciales() {
@@ -456,8 +507,28 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean editarIncidencia(Incidencia incidencia, Incidencia nuevaIncidencia) {
+	public boolean editarIncidencia(Incidencia incidencia) {
 		throw new UnsupportedOperationException();
+	}
+
+	public boolean editarEstadoIncidencia(Incidencia incidencia) {
+		Connection conexion;
+		PreparedStatement ps;
+
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Respuesta.
+			String consulta = "UPDATE `incidencia` SET `Estado`= '" + incidencia.getEstado() + "' WHERE incidencia.id='"
+					+ incidencia.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public Incidencia[] cargarIncidenciasSinAsignarCibernauta() {
@@ -503,39 +574,39 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean eliminarComercial(Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "DELETE from comercial "
-					+ "WHERE id="+ comercial.getId();
+			String consulta = "DELETE from comercial " + "WHERE id=" + comercial.getId();
 			ps = conexion.prepareStatement(consulta);
-            ps.execute(consulta);
+			ps.execute(consulta);
 			ps.close();
-            conexion.close();
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 		return true;
 	}
 
 	public boolean editarComercial(Comercial comercial, Comercial comercialMod) {
 		try {
 			conexion = Conexion.getConnection();
-			String modificarComercial = "UPDATE comercial "
-					+ "SET Fecha_alta='"+comercial.getFecha_alta()+"', Estado="+comercial.isEstado()+", Fecha_baja="+comercial.getFecha_baja()+" "
-							+ "WHERE personaId="+ comercial.getId();
-			String modificarPersona = "UPDATE persona "
-					+ "SET Documento='"+comercial.getDocumento()+"', Nombre='"+comercial.getNombre()+"', Apellidos='"+comercial.getApellidos()+"', Contrasena='"+comercial.getContrasena()+"', Email='"+comercial.getEmail()+ "' "
-							+ "WHERE id="+ comercial.getId();
+			String modificarComercial = "UPDATE comercial " + "SET Fecha_alta='" + comercial.getFecha_alta()
+					+ "', Estado=" + comercial.isEstado() + ", Fecha_baja=" + comercial.getFecha_baja() + " "
+					+ "WHERE personaId=" + comercial.getId();
+			String modificarPersona = "UPDATE persona " + "SET Documento='" + comercial.getDocumento() + "', Nombre='"
+					+ comercial.getNombre() + "', Apellidos='" + comercial.getApellidos() + "', Contrasena='"
+					+ comercial.getContrasena() + "', Email='" + comercial.getEmail() + "' " + "WHERE id="
+					+ comercial.getId();
 			ps = conexion.prepareStatement(modificarComercial);
-            ps.execute(modificarComercial);
-            ps = conexion.prepareStatement(modificarPersona);
-            ps.execute(modificarPersona);
+			ps.execute(modificarComercial);
+			ps = conexion.prepareStatement(modificarPersona);
+			ps.execute(modificarPersona);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean altaComercial(Comercial comercial) {
@@ -543,27 +614,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			// creo la persona
 			String insertarPersona = "INSERT INTO persona (Documento, Nombre, Apellidos, Contrasena, Email) "
-					+ "VALUES ('"+comercial.getDocumento()+"','"+comercial.getNombre()+"', '"+comercial.getApellidos()+"', '"+comercial.getContrasena()+"', '"+comercial.getEmail()+"')";
-			//ps = conexion.prepareStatement(insertarPersona);
-            //ps.execute(insertarPersona);
-			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el comercial
-			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + comercial.getDocumento()+"'";
+					+ "VALUES ('" + comercial.getDocumento() + "','" + comercial.getNombre() + "', '"
+					+ comercial.getApellidos() + "', '" + comercial.getContrasena() + "', '" + comercial.getEmail()
+					+ "')";
+			// ps = conexion.prepareStatement(insertarPersona);
+			// ps.execute(insertarPersona);
+			// obtendo el id de la persona que se ha creado para ponerlo como
+			// persona id para que sea corresponda con el comercial
+			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + comercial.getDocumento() + "'";
 			ps = conexion.prepareStatement(consultaIdPersona);
 			rs = ps.executeQuery();
 			rs.first();
 			int personaId = rs.getInt(1);
 			// creo el comercial
-			String insertarCliente = "INSERT INTO comercial (Fecha_alta, Estado, Fecha_baja, PersonaId) "
-					+ "VALUES ('"+comercial.getFecha_alta()+"',"+comercial.isEstado()+", "+comercial.getFecha_baja()+", "+personaId+")";
-            ps = conexion.prepareStatement(insertarCliente);
-            ps.execute(insertarCliente);
+			String insertarCliente = "INSERT INTO comercial (Fecha_alta, Estado, Fecha_baja, PersonaId) " + "VALUES ('"
+					+ comercial.getFecha_alta() + "'," + comercial.isEstado() + ", " + comercial.getFecha_baja() + ", "
+					+ personaId + ")";
+			ps = conexion.prepareStatement(insertarCliente);
+			ps.execute(insertarCliente);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public Comercial[] cargarComerciales() {
@@ -625,7 +700,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas tarifas como resultados tiene la consulta
-				Movil movil = new Movil(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				Movil movil = new Movil(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						rs.getBoolean(4));
 				tarifasMovil[i - 1] = movil;
 				rs.next();
 			}
@@ -681,21 +757,19 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean eliminarTarifaMovil(int mesesAdaptacion, Movil movil) {
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "DELETE from movil "
-					+ "WHERE ServicioId="+ movil.getId();
-			String consulta2 = "DELETE from servicio "
-					+ "WHERE id="+ movil.getId();
+			String consulta = "DELETE from movil " + "WHERE ServicioId=" + movil.getId();
+			String consulta2 = "DELETE from servicio " + "WHERE id=" + movil.getId();
 
 			ps = conexion.prepareStatement(consulta);
-            ps.execute(consulta);
-            ps = conexion.prepareStatement(consulta2);
-            ps.execute(consulta2);
+			ps.execute(consulta);
+			ps = conexion.prepareStatement(consulta2);
+			ps.execute(consulta2);
 			ps.close();
-            conexion.close();
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 		return true;
 	}
 
@@ -711,28 +785,29 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+movil.getNombre()+"','"+movil.getPrecio()+"', "+movil.isEstado()+")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + movil.getNombre()
+					+ "','" + movil.getPrecio() + "', " + movil.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
-            ps.execute(insertarServicio);
-			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el cliente
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + movil.getNombre()+"'";
+			ps.execute(insertarServicio);
+			// obtendo el id de la persona que se ha creado para ponerlo como
+			// persona id para que sea corresponda con el cliente
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + movil.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();
 			int servicioId = rs.getInt(1);
 			// creo la tarifa
-			String insertarTarifa = "INSERT INTO movil (Minutos, Datos, ServicioId) "
-					+ "VALUES ('"+movil.getMinutos()+"','"+movil.getDatos()+"', '"+servicioId+"')";
-            ps = conexion.prepareStatement(insertarTarifa);
-            ps.execute(insertarTarifa);
+			String insertarTarifa = "INSERT INTO movil (Minutos, Datos, ServicioId) " + "VALUES ('" + movil.getMinutos()
+					+ "','" + movil.getDatos() + "', '" + servicioId + "')";
+			ps = conexion.prepareStatement(insertarTarifa);
+			ps.execute(insertarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage()+ "fallo crear tarifa movil");
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage() + "fallo crear tarifa movil");
+			return false;
+		}
 	}
 
 	public boolean crearTarifaFijo(Fijo fijo) {
@@ -754,4 +829,5 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo) {
 		throw new UnsupportedOperationException();
 	}
+
 }

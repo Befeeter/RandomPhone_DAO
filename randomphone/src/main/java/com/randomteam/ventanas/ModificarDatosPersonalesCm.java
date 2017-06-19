@@ -22,8 +22,8 @@ public class ModificarDatosPersonalesCm extends ModificarDatosPersonalesCM_venta
 		this.correoTF.setValue(c.getEmail());
 		this.telefonoTF.setValue(String.valueOf(c.getTelefono()));
 		this.passwordTF.setValue(c.getContrasena());
-		
-		cancelarB.addClickListener(ClickEvent->{
+
+		cancelarB.addClickListener(ClickEvent -> {
 			this.getUI().setContent(new SitioWebComercial());
 		});
 
@@ -35,11 +35,10 @@ public class ModificarDatosPersonalesCm extends ModificarDatosPersonalesCM_venta
 			c.setContrasena(this.passwordTF.getValue());
 
 			if (comprobarContrasenia(c.getContrasena()))
-				if (iCm.modificarDatosP(c)){
+				if (iCm.modificarDatosP(c)) {
 					Notification.show("Datos Actualizados Correctamente");
 					this.getUI().setContent(new SitioWebComercial());
-				}
-				else
+				} else
 					Notification.show("Error al actualizar los datos");
 			else
 				Notification.show("La contraseña no cumple el formato adecuado");

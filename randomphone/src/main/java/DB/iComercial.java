@@ -22,11 +22,13 @@ public interface iComercial {
 
 	public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete);
 
-	public Incidencia[] cargarIncidencias(int id_comercial);
+	public Incidencia[] cargarIncidenciasCm(int id_comercial);
+	
+	public boolean editarEstadoIncidencia(Incidencia incidencia);
 
 	public boolean responderIncidencia(Incidencia incidencia);
 
-	public void crearIncidenciaCliente(Incidencia incidencia);
+	public boolean crearIncidenciaCliente(Incidencia incidencia);
 
 	public void añadirObservacion(Incidencia incidencia);
 	

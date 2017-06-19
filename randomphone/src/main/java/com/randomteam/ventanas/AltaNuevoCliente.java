@@ -2,6 +2,13 @@ package com.randomteam.ventanas;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+
+import DB.BD_Clientes;
+import DB.BD_Principal;
+import DB.Movil;
+import DB.iComercial;
 
 public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 	/*private Label tituloL;
@@ -34,6 +41,10 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 		throw new UnsupportedOperationException();
 	}
 	*/
+	private iComercial iC = new BD_Principal();
+	//cargar Servicios Disponibles
+	//private Movil[] tMovil = iC.cargarServiciosDisp();
+	
 	public AltaNuevoCliente(){
 		this.movilL.setContentMode(ContentMode.HTML);
 		this.movilL.setValue(VaadinIcons.PHONE.getHtml());
@@ -43,6 +54,24 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 		this.fibraL.setValue(VaadinIcons.BUILDING.getHtml());
 		this.televisionL.setContentMode(ContentMode.HTML);
 		this.televisionL.setValue(VaadinIcons.MOVIE.getHtml());
+		
+		
+		
+		
+		
+		//Ventana emergente para establecer Terminales
+		terminalesB.addClickListener(ClickEvent->{
+			Window subWindow = new Window("Terminales");
+			VerticalLayout subcontent = new VerticalLayout();
+			subcontent.addComponent(new Terminales());
+			subWindow.setContent(subcontent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("400px");
+			subWindow.setWidth("400px");
+			
+			this.getUI().addWindow(subWindow);
+		});
 		
 	}
 

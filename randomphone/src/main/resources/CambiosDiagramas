@@ -1,3 +1,8 @@
 Añadir nuevo metodo para cargar un cliente a partir del DNI. cargarDatosCliente (String DNI); //Editar diagrama de secuencia Comercial_AccesoCliente.
+Se añade metodo "cargarIncidenciasCm(int id_comercial) //Editar diagrama de secuencia comercial_IncidenciasEnCurso.
+Editar editarIncidencias (Incidencia incidencia) // se elimina parametro "Incidencia nuevaIncidencia"
+Añado metodo editarEstadoIncidencia (Incidencia incidencia) //Crear diagrama de secuencia comercial_ActualizarEstadoIncidencia.
+Cambiar tipo metodo "crearIncidenciaCliente(Incidencia incidencia)" a Boolean
+Alta Nuevo Cliente debería acceder a cargar tarifas Movil, Fijo, etc, en lugar de solo CargarServicios, ya que de esta maner ano se peude identificar a que corresponde cada servicio.
 
 Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal

@@ -38,6 +38,7 @@ public class NuevaReclamacion extends NuevaReclamacion_ventana {
 			incidencia.setTipo(tipoLS.getValue().toString());
 			incidencia.setTexto(this.mensajeTA.getValue());
 			incidencia.setCliente(c);
+			incidencia.comercial.setId(0);
 			
 		if (iC.crearIncidencia(incidencia) == true){
 			Notification.show("Incidencia creada con Exito!!");
