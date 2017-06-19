@@ -23,6 +23,7 @@ public class tarifasTelefono_ventana extends GridLayout {
 	protected Label tituloL;
 	protected Grid<DB.Fijo> tarifasLS;
 	protected Button crearTarifaB;
+	protected Button eliminarB;
 
 	public tarifasTelefono_ventana() {
 		Design.read(this);

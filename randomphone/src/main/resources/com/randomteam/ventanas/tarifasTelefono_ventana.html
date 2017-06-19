@@ -6,7 +6,7 @@
   <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
-  <vaadin-grid-layout spacing width="100px" height="30px" margin>
+  <vaadin-grid-layout spacing size-full margin>
    <row></row>
    <row>
     <column>
@@ -22,9 +22,14 @@
    </row>
    <row>
     <column>
-     <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
-       Crear tarifa 
-     </vaadin-button>
+     <vaadin-horizontal-layout>
+      <vaadin-button style-name="primary" plain-text _id="crearTarifaB">
+        Crear tarifa 
+      </vaadin-button>
+      <vaadin-button style-name="danger" plain-text _id="eliminarB">
+        Eliminar 
+      </vaadin-button>
+     </vaadin-horizontal-layout>
     </column>
    </row>
   </vaadin-grid-layout>

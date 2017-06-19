@@ -30,15 +30,19 @@ public class TarifasTelefono extends tarifasTelefono_ventana {
 			// seleccionada en el Grid
 			Window subWindow = new Window("Editar tarifa");
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new AltaModificarTarifaMovil(event.getItem()));
+			subContent.addComponent(new AltaModificarTarifaTelefono(event.getItem()));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event -> {
+				tarifas = iA.cargarTarifasFijo();
+				tarifasLS.setItems(tarifas);
+			});
 			this.getUI().addWindow(subWindow);
 		});
-		MultiSelectionModel<Movil> selectionModel = (MultiSelectionModel<Movil>) tarifasLS
+		MultiSelectionModel<Fijo> selectionModel = (MultiSelectionModel<Fijo>) tarifasLS
 				.setSelectionMode(SelectionMode.MULTI);
 		selectionModel.addMultiSelectionListener(event -> {
 			eliminarB.setEnabled(event.getNewSelection().size() > 0);
@@ -47,9 +51,9 @@ public class TarifasTelefono extends tarifasTelefono_ventana {
 		// Botón Eliminar
 		eliminarB.addClickListener(ClickEvent -> {
 			//obtener elementos a eliminar
-			Movil[] tarifasEliminar;
+			Fijo[] tarifasEliminar;
 			int size = tarifasLS.getSelectedItems().size();
-			tarifasEliminar = new Movil[size];
+			tarifasEliminar = new Fijo[size];
 			tarifasEliminar = tarifasLS.getSelectedItems().toArray(tarifasEliminar);
 			
 			// Creamos Ventana Emergente para crear tarifa
@@ -62,7 +66,7 @@ public class TarifasTelefono extends tarifasTelefono_ventana {
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
-				tarifas = iA.cargarTarifasMovil();
+				tarifas = iA.cargarTarifasFijo();
 				tarifasLS.setItems(tarifas);
 			});
 			this.getUI().addWindow(subWindow);
@@ -74,14 +78,14 @@ public class TarifasTelefono extends tarifasTelefono_ventana {
 			// Creamos Ventana Emergente para crear tarifa
 			Window subWindow = new Window("Crear tarifa");
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new AltaModificarTarifaMovil());
+			subContent.addComponent(new AltaModificarTarifaTelefono());
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
-				tarifas = iA.cargarTarifasMovil();
+				tarifas = iA.cargarTarifasFijo();
 				tarifasLS.setItems(tarifas);
 			});
 			this.getUI().addWindow(subWindow);

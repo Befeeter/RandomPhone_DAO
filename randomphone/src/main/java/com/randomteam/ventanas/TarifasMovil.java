@@ -41,6 +41,10 @@ public class TarifasMovil extends TarifasMovil_ventana {
 			subWindow.setModal(true);
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event -> {
+				tarifas = iA.cargarTarifasMovil();
+				tarifasLS.setItems(tarifas);
+			});
 			this.getUI().addWindow(subWindow);
 		});
 		MultiSelectionModel<Movil> selectionModel = (MultiSelectionModel<Movil>) tarifasLS

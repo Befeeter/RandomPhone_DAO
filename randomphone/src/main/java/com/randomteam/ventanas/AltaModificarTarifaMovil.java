@@ -32,7 +32,6 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 			// crear tarifa
 			if (iA.crearTarifaMovil(tarifa)) {
 				Notification.show("Creada con exito!");
-				tarifa.setEstado(true);
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
@@ -50,21 +49,18 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 			estadoB.setValue(0.0);
 		//
 		submit.addClickListener(ClickEvent -> {
-			//obtener datos tarifa
-			Movil tarifa = new Movil();
-			tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
-			tarifa.setDatos(Integer.parseInt(datosTF.getValue()));
-			tarifa.setNombre(nombreTF.getValue());
-			tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
+			movil.setMinutos(Integer.parseInt(minutosTF.getValue()));
+			movil.setDatos(Integer.parseInt(datosTF.getValue()));
+			movil.setNombre(nombreTF.getValue());
+			movil.setPrecio(Float.parseFloat(precioTF.getValue()));
 			if (estadoB.getValue() == 1.0) {
-				tarifa.setEstado(true);
+				movil.setEstado(true);
 			} else
-				tarifa.setEstado(false);
+				movil.setEstado(false);
 
-			// crear tarifa
-			if (iA.crearTarifaMovil(tarifa)) {
+			// editar tarifa
+			if (iA.editarTarifaMovil(movil, movil)) {
 				Notification.show("Editada con exito!");
-				tarifa.setEstado(true);
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});

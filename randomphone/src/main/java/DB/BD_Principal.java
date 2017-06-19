@@ -728,8 +728,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas tarifas como resultados tiene la consulta
-				Fijo Fijo = new Fijo(rs.getInt(5), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
-				tarifasFijo[i - 1] = Fijo;
+				Fijo fijo = new Fijo(rs.getInt(5), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				tarifasFijo[i - 1] = fijo;
 				rs.next();
 			}
 
@@ -853,7 +853,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			// creo el servicio
 			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+fijo.getNombre()+"','"+fijo.getPrecio()+"', '"+fijo.isEstado()+"')";
+					+ "VALUES ('"+fijo.getNombre()+"','"+fijo.getPrecio()+"', "+fijo.isEstado()+")";
 			ps = conexion.prepareStatement(insertarServicio);
             ps.execute(insertarServicio);
 			// obtendo el id del servicio
@@ -863,7 +863,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			int servicioId = rs.getInt(1);
 			// creo la tarifa
-			String insertarTarifa = "INSERT INTO Fijo (Minutos, ServicioId) "
+			String insertarTarifa = "INSERT INTO fijo (Minutos, ServicioId) "
 					+ "VALUES ('"+fijo.getMinutos()+"', '"+servicioId+"')";
             ps = conexion.prepareStatement(insertarTarifa);
             ps.execute(insertarTarifa);
@@ -885,10 +885,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
 					+ "SET Nombre='"+movil.getNombre()+"', Precio="+movil.getPrecio()+", Estado="+movil.isEstado()+" "
-							+ "WHERE personaId="+ movil.getId();
+							+ "WHERE id="+ movil.getId();
 			String modificarTarifa = "UPDATE movil "
 					+ "SET Minutos='"+movil.getMinutos()+"', Datos='"+movil.getDatos()+"' "
-							+ "WHERE id="+ movil.getId();
+							+ "WHERE servicioid="+ movil.getId();
 			ps = conexion.prepareStatement(modificarServicio);
             ps.execute(modificarServicio);
             ps = conexion.prepareStatement(modificarTarifa);
@@ -907,10 +907,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
 					+ "SET Nombre='"+fijo.getNombre()+"', Precio="+fijo.getPrecio()+", Estado="+fijo.isEstado()+" "
-							+ "WHERE personaId="+ fijo.getId();
+							+ "WHERE id="+ fijo.getId();
 			String modificarTarifa = "UPDATE fijo "
 					+ "SET Minutos='"+fijo.getMinutos()+"'"
-							+ "WHERE id="+ fijo.getId();
+							+ "WHERE servicioid="+ fijo.getId();
+			System.out.println(fijo.getId());
 			ps = conexion.prepareStatement(modificarServicio);
             ps.execute(modificarServicio);
             ps = conexion.prepareStatement(modificarTarifa);

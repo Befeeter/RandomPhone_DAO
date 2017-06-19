@@ -9,6 +9,10 @@ public class Fijo extends Servicio {
 		this.minutos = minutos;
 	}
 
+	public Fijo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getMinutos() {
 		return minutos;
 	}
