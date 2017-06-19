@@ -82,4 +82,10 @@ public class Cliente extends Persona {
 		this.incidencia = incidencia;
 	}
 	
+	public int getNumIncidencias () {
+		iCliente iC = new BD_Principal();
+		Incidencia[] incidencias = iC.cargarIncidencias(this.getId());
+		return incidencias.length;
+	}
+	
 }

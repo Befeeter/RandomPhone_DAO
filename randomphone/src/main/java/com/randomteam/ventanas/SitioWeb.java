@@ -41,6 +41,30 @@ public class SitioWeb extends sitioWeb_ventana{
 		this.addComponent(new PanelAdministracionComercial());
 
 	}
+	
+	public SitioWeb(DB.Administrador administrador){
+		MenuBar.Command pcontorl = new MenuBar.Command(){
+			@Override
+			public void menuSelected(MenuItem selectedItem){
+				getUI().setContent(new SitioWeb(administrador));
+			}
+		};
+		
+		MenuBar.Command logout = new MenuBar.Command() {
+
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+			VaadinService.getCurrentRequest().getWrappedSession().invalidate();
+			logout();
+			}
+		};
+		
+		menu.getItems().get(0).setCommand(pcontorl);
+		menu.getItems().get(2).getChildren().get(0).setCommand(logout);
+		
+		this.addComponent(new PanelAdministrador());
+
+	}
 	private void logout(){
 		this.getUI().setContent(new SitioWebInternauta());
 	}

@@ -20,7 +20,7 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class ListadoClientes_ventana extends CssLayout {
 	protected TextField buscarTF;
-	protected Grid<java.lang.String> clientesLS;
+	protected Grid<DB.Cliente> clientesLS;
 
 	public ListadoClientes_ventana() {
 		Design.read(this);

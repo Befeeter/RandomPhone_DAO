@@ -4,35 +4,53 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import DB.Administrador;
+
 public class SitioWebAdministrador extends sitioWebCliente_ventana {
 	public Administrador vAdministrador;
 	public PanelAdministrador vPanelAdministrador;
 		
-	public SitioWebAdministrador() {
+	public SitioWebAdministrador () {
+		Administrador administrador = (Administrador) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("administrador");
+		
+
+		Administrador a = (Administrador) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("administrador");
+
 		this.addComponent(new PanelAdministrador());
 		
-		MenuBar.Command pcontorl = new MenuBar.Command(){
+		MenuBar.Command padmin = new MenuBar.Command() {
+			
 			@Override
-			public void menuSelected(MenuItem selectedItem){
-				getUI().setContent(new SitioWebCliente());
+			public void menuSelected(MenuItem selectedItem) {
+				getUI().setContent(new SitioWeb(administrador));
+				
 			}
 		};
 		
+		MenuBar.Command pcontorl = new MenuBar.Command() {
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				getUI().setContent(new SitioWebComercial());
+			}
+		};
+
 		MenuBar.Command logout = new MenuBar.Command() {
 
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
-			VaadinService.getCurrentRequest().getWrappedSession().invalidate();
-			logout();
+				VaadinService.getCurrentRequest().getWrappedSession().invalidate();
+				logout();
 			}
 		};
+
 		
 		menu.getItems().get(0).setCommand(pcontorl);
-		menu.getItems().get(2).getChildren().get(0).setCommand(logout);
-		
+		menu.getItems().get(2).addItemBefore("Menu Principal Administrador", null, padmin, menu.getItems().get(2).getChildren().get(0));
+		menu.getItems().get(2).getChildren().get(1).setCommand(logout);
+
 	}
-	
-	private void logout(){
+
+	private void logout() {
 		this.getUI().setContent(new SitioWebInternauta());
 	}
 }

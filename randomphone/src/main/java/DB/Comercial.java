@@ -10,12 +10,13 @@ public class Comercial extends Persona {
 	private boolean estado;
 	public Incidencia[] incidencia = new Incidencia[0];
 	public BD_Comerciales bD_Comerciales;
-	
-	public Comercial(){
-		
+
+	public Comercial() {
+
 	}
-	
-	public Comercial(int id, String documento, String nombre, String apellidos, String contrasena, String email, Date fecha_alta, boolean estado){
+
+	public Comercial(int id, String documento, String nombre, String apellidos, String contrasena, String email,
+			Date fecha_alta, boolean estado) {
 		this.setId(id);
 		this.setDocumento(documento);
 		this.setNombre(nombre);
@@ -26,8 +27,7 @@ public class Comercial extends Persona {
 		this.fecha_baja = null;
 		this.estado = estado;
 	}
-	
-	
+
 	public Date getFecha_alta() {
 		return fecha_alta;
 	}

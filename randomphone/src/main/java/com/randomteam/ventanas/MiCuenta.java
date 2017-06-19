@@ -1,14 +1,7 @@
 package com.randomteam.ventanas;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.Vector;
-
 import com.vaadin.server.VaadinService;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Cliente;
