@@ -28,7 +28,6 @@ public class AltaModificarTarifaMovil_ventana extends CssLayout {
 	protected TextField datosTF;
 	protected Slider estadoB;
 	protected Button submit;
-	protected Button cancel;
 
 	public AltaModificarTarifaMovil_ventana() {
 		Design.read(this);

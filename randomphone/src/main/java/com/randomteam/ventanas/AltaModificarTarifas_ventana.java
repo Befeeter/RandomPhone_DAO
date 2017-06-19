@@ -22,7 +22,6 @@ public class AltaModificarTarifas_ventana extends CssLayout {
 	protected TextField nombreTF;
 	protected TextField precioTF;
 	protected Button submit;
-	protected Button cancel;
 
 	public AltaModificarTarifas_ventana() {
 		Design.read(this);

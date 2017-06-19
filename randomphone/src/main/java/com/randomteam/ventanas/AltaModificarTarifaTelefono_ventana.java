@@ -25,7 +25,6 @@ public class AltaModificarTarifaTelefono_ventana extends CssLayout {
 	protected TextField minutosTF;
 	protected Slider estadoB;
 	protected Button submit;
-	protected Button cancel;
 
 	public AltaModificarTarifaTelefono_ventana() {
 		Design.read(this);

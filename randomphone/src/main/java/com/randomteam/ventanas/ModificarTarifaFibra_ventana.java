@@ -32,7 +32,7 @@ public class ModificarTarifaFibra_ventana extends VerticalLayout {
 	protected TextField subidaTF;
 	protected Label estadoL;
 	protected Slider estadoB;
-	protected Button aceptarB;
+	protected Button submit;
 
 	public ModificarTarifaFibra_ventana() {
 		Design.read(this);
