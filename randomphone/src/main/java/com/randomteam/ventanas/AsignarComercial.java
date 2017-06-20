@@ -4,6 +4,8 @@ import com.vaadin.icons.VaadinIcons;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Label;
 
+import DB.Incidencia;
+
 public class AsignarComercial extends AsignarComercial_ventana {
 	
 	//Label busquedaL;
@@ -27,5 +29,9 @@ public class AsignarComercial extends AsignarComercial_ventana {
 		throw new UnsupportedOperationException();
 	}
 	*/
+
+	public AsignarComercial(Incidencia[] incidenciasAsignarCiber, Incidencia[] incidenciasAsignarCli, Incidencia[] incidenciasAsig) {
+		
+	}
 
 }

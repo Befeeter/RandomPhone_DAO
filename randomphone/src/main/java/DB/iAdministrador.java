@@ -15,6 +15,8 @@ public interface iAdministrador {
 	public Incidencia[] cargarIncidenciasSinAsignarCibernauta();
 
 	public Incidencia[] cargarIncidenciasSinAsignarCLientes();
+	
+	public Incidencia[] cargarIncidenciasAsignadas();
 
 	public Incidencia[] cargarIncidenciasCompletadas();
 

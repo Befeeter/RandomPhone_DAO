@@ -532,15 +532,111 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Incidencia[] cargarIncidenciasSinAsignarCibernauta() {
-		throw new UnsupportedOperationException();
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where estado='Sin Asignar Cibernauta'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
 	}
 
 	public Incidencia[] cargarIncidenciasSinAsignarCLientes() {
-		throw new UnsupportedOperationException();
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where estado='Sin Asignar'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
+	}
+	
+	public Incidencia[] cargarIncidenciasAsignadas() {
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where estado='Asignada'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
 	}
 
 	public Incidencia[] cargarIncidenciasCompletadas() {
-		throw new UnsupportedOperationException();
+		Incidencia[] incidencias = null;
+		int sizerow = 0;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM incidencia where estado='Completada'";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			incidencias = new Incidencia[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas incidencias como resultados tiene la consulta
+				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+				incidencias[i - 1] = incidencia;
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return incidencias;
 	}
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias) {

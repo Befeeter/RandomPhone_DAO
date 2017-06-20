@@ -21,10 +21,10 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class ListadoIncidencias_ventana extends CssLayout {
 	protected TextField buscarTF;
-	protected Grid<java.lang.String> cibernautaLS;
-	protected Grid<java.lang.String> clienteLS;
-	protected Grid<java.lang.String> asignadasLS;
-	protected Grid<java.lang.String> completadasLS;
+	protected Grid<DB.Incidencia> cibernautaLS;
+	protected Grid<DB.Incidencia> clienteLS;
+	protected Grid<DB.Incidencia> asignadasLS;
+	protected Grid<DB.Incidencia> completadasLS;
 	protected Button asignarB;
 	protected Button eliminarB;
 

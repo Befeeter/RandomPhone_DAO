@@ -51,6 +51,11 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
+		
+		cancelarB.addClickListener(ClickEvent -> {
+			Iterator<Window> it = this.getUI().getWindows().iterator();
+			it.next().close();
+		});
 	}
 
 	public AltaModificarComercial(Comercial comercial) {
@@ -89,6 +94,11 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
+		});
+		
+		cancelarB.addClickListener(ClickEvent -> {
+			Iterator<Window> it = this.getUI().getWindows().iterator();
+			it.next().close();
 		});
 	}
 }
