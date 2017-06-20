@@ -9,6 +9,14 @@ public interface iComercial {
 	public void altaCliente(Cliente cliente);
 
 	public Servicio[] cargarServiciosDisp();
+	
+	public Movil[] cargarTarifasMovil();
+	
+	public Fijo[] cargarTarifasFijo();
+	
+	public Fibra[] cargarTarifasFibra();
+	
+	public DB.Paquete[] cargarPaquetesTv();
 
 	public Cliente selecionarCliente(String dni);
 
