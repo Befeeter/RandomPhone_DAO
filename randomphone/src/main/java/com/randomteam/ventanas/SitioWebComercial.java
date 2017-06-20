@@ -15,7 +15,8 @@ public class SitioWebComercial extends sitioWebCliente_ventana {
 
 		Comercial cm = (Comercial) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("comercial");
 
-		this.addComponent(new MiCuenta(cm));
+		//this.addComponent(new MiCuenta(cm));
+		this.addComponent(new MiCuentaComercial());
 		
 		MenuBar.Command pcomercial = new MenuBar.Command() {
 			

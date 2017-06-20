@@ -27,13 +27,13 @@ public class AltaNuevoCliente_ventana extends CssLayout {
 	protected TextField emailTF;
 	protected TextField telefonoTF;
 	protected Label movilL;
-	protected ComboBox<java.lang.String> movilLS;
+	protected ComboBox<DB.Movil> movilLS;
 	protected Label fijoL;
-	protected ComboBox<java.lang.String> fijoLS;
+	protected ComboBox<DB.Fijo> fijoLS;
 	protected Label fibraL;
-	protected ComboBox<java.lang.String> fibraLS;
+	protected ComboBox<DB.Fibra> fibraLS;
 	protected Label televisionL;
-	protected ComboBox<java.lang.String> televisionLS;
+	protected ComboBox<DB.Paquete> televisionLS;
 	protected Button terminalesB;
 	protected Button darDeAltaB;
 
