@@ -9,3 +9,4 @@ Modificar Diagrama Secuencia "cliente_ModificarServicios".
 
 
 Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal
+Añado metodos en DB.cliente y DB.comercial para devolver el numero de incidencias necesario para los grid

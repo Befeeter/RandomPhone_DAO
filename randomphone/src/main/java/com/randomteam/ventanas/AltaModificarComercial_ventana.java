@@ -7,6 +7,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.declarative.Design;
@@ -26,6 +27,8 @@ public class AltaModificarComercial_ventana extends CssLayout {
 	protected TextField nombreTF;
 	protected TextField apellidosTF;
 	protected TextField dniTF;
+	protected TextField emailTF;
+	protected PasswordField contrasenaTF;
 	protected HorizontalLayout dateOfBirthWrapper;
 	protected DateField fechacontratacionD;
 	protected Label estadoL;

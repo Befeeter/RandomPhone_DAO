@@ -574,9 +574,12 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean eliminarComercial(Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "DELETE from comercial " + "WHERE id=" + comercial.getId();
+			String consulta = "DELETE from comercial " + "WHERE personaid=" + comercial.getId();
+			String consulta2 = "DELETE from persona " + "WHERE id=" + comercial.getId();
 			ps = conexion.prepareStatement(consulta);
 			ps.execute(consulta);
+			ps = conexion.prepareStatement(consulta2);
+			ps.execute(consulta2);
 			ps.close();
 			conexion.close();
 		} catch (SQLException exception) {
@@ -617,8 +620,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ "VALUES ('" + comercial.getDocumento() + "','" + comercial.getNombre() + "', '"
 					+ comercial.getApellidos() + "', '" + comercial.getContrasena() + "', '" + comercial.getEmail()
 					+ "')";
-			// ps = conexion.prepareStatement(insertarPersona);
-			// ps.execute(insertarPersona);
+			ps = conexion.prepareStatement(insertarPersona);
+			ps.execute(insertarPersona);
 			// obtendo el id de la persona que se ha creado para ponerlo como
 			// persona id para que sea corresponda con el comercial
 			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + comercial.getDocumento() + "'";

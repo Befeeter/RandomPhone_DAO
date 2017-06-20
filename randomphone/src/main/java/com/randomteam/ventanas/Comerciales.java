@@ -47,7 +47,7 @@ public class Comerciales extends Comerciales_ventana{
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("600px");
+			subWindow.setHeight("800px");
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
 				comerciales = iA.cargarComerciales();
@@ -78,9 +78,10 @@ public class Comerciales extends Comerciales_ventana{
 			}
 			if (correcto) {
 				Notification.show("Eliminados Con exito!");
+				comerciales = iA.cargarComerciales();
+				comercialesLS.setItems(comerciales);
 			} else
 				Notification.show("Error! Ups algo fue mal!");
-			
 		});
 
 		// Botón crear

@@ -31,6 +31,19 @@ public class Incidencia {
 		this.fecha_alta = fecha_alta;
 	}
 	
+	public Incidencia(int id, int idCliente, int idComercial, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta){
+		this.id = id;
+		this.asunto = asunto;
+		this.tipo = tipo;
+		this.telefono = telefono;
+		this.texto = texto;
+		this.respuesta = respuesta;
+		this.estado = estado;		
+		this.fecha_alta = fecha_alta;
+		this.cliente.setId(idCliente);
+		this.comercial.setId(idComercial);
+	}
+	
 	public int getId() {
 		return id;
 	}

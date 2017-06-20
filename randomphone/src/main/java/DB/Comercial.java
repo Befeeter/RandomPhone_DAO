@@ -69,7 +69,7 @@ public class Comercial extends Persona {
 	}
 	
 	public int getNumincidenciasActivas () {
-		BD_Incidencias incidencias = new BD_Incidencias();
-		return incidencias.cargarIncidenciasComercial(this.getId()).length;
+		iComercial ic = new BD_Principal();
+		return ic.cargarIncidenciasCm(this.getId()).length;
 	}
 }

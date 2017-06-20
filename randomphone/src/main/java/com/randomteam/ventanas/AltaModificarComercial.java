@@ -14,34 +14,29 @@ import DB.Comercial;
 import DB.Fibra;
 import DB.iAdministrador;
 
-public class AltaModificarComercial extends AltaModificarComercial_ventana{
+public class AltaModificarComercial extends AltaModificarComercial_ventana {
 	/*
-	private Label tituloL;
-	private Label nombreL;
-	private TextField nombreTF;
-	private Label apellidosL;
-	private TextField apellidosTF;
-	private Label dniL;
-	private TextField dniTF;
-	private Date fechaContratacionD;
-	private Label estadoL;
-	private Button estadoB;
-	private Button aceptarB;
-	public Comerciales vComerciales;
-
-	public informar enviarDatos() {
-		throw new UnsupportedOperationException();
-	}
-	*/
+	 * private Label tituloL; private Label nombreL; private TextField nombreTF;
+	 * private Label apellidosL; private TextField apellidosTF; private Label
+	 * dniL; private TextField dniTF; private Date fechaContratacionD; private
+	 * Label estadoL; private Button estadoB; private Button aceptarB; public
+	 * Comerciales vComerciales;
+	 * 
+	 * public informar enviarDatos() { throw new
+	 * UnsupportedOperationException(); }
+	 */
 	iAdministrador iA = new BD_Principal();
-	
+
 	public AltaModificarComercial() {
 		aceptarB.addClickListener(ClickEvent -> {
 			Comercial comercial = new Comercial();
 			comercial.setNombre(nombreTF.getValue());
 			comercial.setApellidos(apellidosTF.getValue());
 			comercial.setDocumento(dniTF.getValue());
-			comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
+			comercial.setContrasena(contrasenaTF.getValue());
+			comercial.setEmail(emailTF.getValue());
+			if (fechacontratacionD.getValue() != null)
+				comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
 			if (estadoB.getValue() == 1.0) {
 				comercial.setEstado(true);
 			} else
@@ -52,32 +47,45 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana{
 				Notification.show("Creado con exito!");
 				// cerrar ventana
 				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next();
 				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
 	}
-	
+
 	public AltaModificarComercial(Comercial comercial) {
+		// obtener datos del comercial
+		nombreTF.setValue(comercial.getNombre());
+		apellidosTF.setValue(comercial.getApellidos());
+		dniTF.setValue(comercial.getDocumento());
+		contrasenaTF.setValue(comercial.getContrasena());
+		emailTF.setValue(comercial.getEmail());
+		if (comercial.getFecha_alta() != null)
+			fechacontratacionD.setValue(comercial.getFecha_alta().toLocalDate());
+		if (comercial.isEstado()) {
+			estadoB.setValue(1.0);
+		} else
+			estadoB.setValue(0.0);
+		
+		//aceptar
 		aceptarB.addClickListener(ClickEvent -> {
-			// obtener datos del comercial
-			asdf
 			comercial.setNombre(nombreTF.getValue());
 			comercial.setApellidos(apellidosTF.getValue());
 			comercial.setDocumento(dniTF.getValue());
-			comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
+			comercial.setContrasena(contrasenaTF.getValue());
+			comercial.setEmail(emailTF.getValue());
+			if (fechacontratacionD.getValue() != null)
+				comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
 			if (estadoB.getValue() == 1.0) {
 				comercial.setEstado(true);
 			} else
 				comercial.setEstado(false);
 
 			// crear comercial
-			if (iA.altaComercial(comercial)) {
-				Notification.show("Creado con exito!");
+			if (iA.editarComercial(comercial, comercial)) {
+				Notification.show("Editado con exito!");
 				// cerrar ventana
 				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next();
 				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
