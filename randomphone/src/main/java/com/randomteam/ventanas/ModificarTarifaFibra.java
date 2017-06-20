@@ -1,6 +1,9 @@
 package com.randomteam.ventanas;
 
+import java.util.Iterator;
+
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Fibra;
@@ -33,6 +36,10 @@ public class ModificarTarifaFibra extends AltaModificarTarifas {
 			// crear tarifa
 			if (iA.crearTarifaFibra(tarifa)) {
 				Notification.show("Creada con exito!");
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
@@ -62,6 +69,10 @@ public class ModificarTarifaFibra extends AltaModificarTarifas {
 			// editar tarifa
 			if (iA.editarTarifaFibra(fibra, fibra)) {
 				Notification.show("Editada con exito!");
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});

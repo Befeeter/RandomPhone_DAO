@@ -21,8 +21,9 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class Comerciales_ventana extends CssLayout {
 	protected TextField buscarTF;
-	protected Grid<java.lang.String> comercialesLS;
+	protected Grid<DB.Comercial> comercialesLS;
 	protected Button crearComercialB;
+	protected Button eliminarB;
 
 	public Comerciales_ventana() {
 		Design.read(this);

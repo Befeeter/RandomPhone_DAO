@@ -39,7 +39,7 @@ public class TarifasMovil extends TarifasMovil_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("600px");
+			subWindow.setHeight("800px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
 				tarifas = iA.cargarTarifasMovil();
@@ -68,7 +68,7 @@ public class TarifasMovil extends TarifasMovil_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("600px");
+			subWindow.setHeight("800px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
 				tarifas = iA.cargarTarifasMovil();
@@ -87,7 +87,7 @@ public class TarifasMovil extends TarifasMovil_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("600px");
+			subWindow.setHeight("800px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
 				tarifas = iA.cargarTarifasMovil();

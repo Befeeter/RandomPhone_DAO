@@ -1,6 +1,9 @@
 package com.randomteam.ventanas;
 
+import java.util.Iterator;
+
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Fijo;
@@ -29,6 +32,10 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 			// crear tarifa
 			if (iA.crearTarifaFijo(tarifa)) {
 				Notification.show("Editada con exito!");
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
@@ -56,6 +63,10 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 			// editar tarifa
 			if (iA.editarTarifaFijo(fijo, fijo)) {
 				Notification.show("Editada con exito!");
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});

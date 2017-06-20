@@ -67,4 +67,9 @@ public class Comercial extends Persona {
 	public void setbD_Comerciales(BD_Comerciales bD_Comerciales) {
 		this.bD_Comerciales = bD_Comerciales;
 	}
+	
+	public int getNumincidenciasActivas () {
+		BD_Incidencias incidencias = new BD_Incidencias();
+		return incidencias.cargarIncidenciasComercial(this.getId()).length;
+	}
 }

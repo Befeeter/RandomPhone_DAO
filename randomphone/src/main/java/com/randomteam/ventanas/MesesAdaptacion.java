@@ -1,11 +1,14 @@
 package com.randomteam.ventanas;
 
+import java.util.Iterator;
+
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.Validator;
 import com.vaadin.data.ValueContext;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Fibra;
@@ -38,7 +41,7 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 					return ValidationResult.error("Solo números!");
 			}
 		};
-		binder.forField(mesesTF).withValidator(soloNumeros);
+		binder.forField(mesesTF).withValidator(soloNumeros).bind("");
 
 		mesesTF.addValueChangeListener(Event -> {
 			if (!mesesTF.isEmpty())
@@ -57,7 +60,10 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 			}
 			if (correcto) {
 				Notification.show("Eliminadas Con exito!");
-				// this.getUI().close();
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
@@ -93,7 +99,10 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 			}
 			if (correcto) {
 				Notification.show("Eliminadas Con exito!");
-				// this.getUI().close();
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
@@ -130,7 +139,10 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 			}
 			if (correcto) {
 				Notification.show("Eliminadas Con exito!");
-				// this.getUI().close();
+				// cerrar ventana
+				Iterator<Window> it = this.getUI().getWindows().iterator();
+				it.next();
+				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
 		});
