@@ -142,12 +142,13 @@ public class Login extends Login_ventana {
 				int idAdmin = iA.comprobarAdmin(email, password);
 				if (idAdmin != -1) {
 					Notification.show("Administrador!");
-					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", idAdmin);
+					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", idAdmin);
 					DB.Administrador administrador = new DB.Administrador();
 					administrador.setId(idAdmin);
 					this.getUI().setContent(new SitioWeb(administrador));
 					Collection<Window> win =this.getUI().getCurrent().getWindows();
 					win.iterator().next().close();
+
 				} else
 					Notification.show("Usuario o Contraseña Erroneo!");
 			} else if (idcliente != -1) {
@@ -167,8 +168,11 @@ public class Login extends Login_ventana {
 				// this.addComponent(new MiCuenta(email, password));
 			}
 
-			else
+			else {
+				//VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", 0);
+				//this.getUI().setContent(new SitioWebAdministrador());
 				Notification.show("Usuario o Contraseña Erroneo!");
+			}
 		});
 
 	}

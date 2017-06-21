@@ -25,7 +25,6 @@ public class ModificarDatosPersonalesCM_ventana extends CssLayout {
 	protected TextField correoTF;
 	protected TextField telefonoTF;
 	protected PasswordField passwordTF;
-	protected Button cancelarB;
 	protected Button aceptarB;
 
 	public ModificarDatosPersonalesCM_ventana() {

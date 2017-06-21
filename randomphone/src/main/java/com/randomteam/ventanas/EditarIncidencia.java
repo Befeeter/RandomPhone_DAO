@@ -23,9 +23,9 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 		clienteTF.setValue(incidencia.getCliente().getNombre() + "");
 		asuntoTF.setValue(incidencia.getAsunto() + "");
 		if (incidencia.isCliente())
-			clienteR.setValue("Si");
+			clienteR.setSelectedItem("Option1");
 		else 
-			clienteR.setValue("No");
+			clienteR.setSelectedItem("Option2");
 		tipoCB.setEmptySelectionAllowed(false);
 		tipoCB.setValue(incidencia.getTipo());
 		telefonoTF.setValue(incidencia.getTelefono()+"");
@@ -34,8 +34,9 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 		//
 		enviarB.addClickListener(ClickEvent -> {
 			incidencia.setAsunto(asuntoTF.getValue());
-			if (clienteR.getValue().equals("Si"))
-				incidencia.setIsCliente(true);
+			if (clienteR.getSelectedItem().get().equals("Option1")) {
+				incidencia.setIsCliente(true);System.out.println("holaaaaaaaaaaaaaaaaa");
+			}
 			else
 				incidencia.setIsCliente(false);
 			incidencia.setTipo(tipoCB.getValue()+"");

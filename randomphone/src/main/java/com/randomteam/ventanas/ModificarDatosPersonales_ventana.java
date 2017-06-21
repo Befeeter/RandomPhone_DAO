@@ -23,7 +23,6 @@ public class ModificarDatosPersonales_ventana extends CssLayout {
 	protected TextField apellidoTF;
 	protected TextField correoTF;
 	protected TextField telefonoTF;
-	protected Button cancelarB;
 	protected Button aceptarB;
 
 	public ModificarDatosPersonales_ventana() {

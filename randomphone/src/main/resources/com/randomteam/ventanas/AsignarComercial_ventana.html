@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
@@ -11,69 +11,18 @@
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper">
       <vaadin-label plain-text _id="busquedaL"></vaadin-label>
-      <vaadin-text-field value="Busqueda" _id="searchTF"></vaadin-text-field>
+      <vaadin-text-field _id="buscarTF"></vaadin-text-field>
      </vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
-     <vaadin-grid data-item-type="java.lang.String">
-      <table>
-       <colgroup>
-        <col column-id="project" sortable="false">
-        <col column-id="status" sortable="false">
-       </colgroup>
-       <thead>
-        <tr default>
-         <th plain-text column-ids="project">Comercial</th>
-         <th plain-text column-ids="status">Incidencias</th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr item="project1">
-         <td>Comercial 1</td>
-         <td>1</td>
-        </tr>
-        <tr item="project2">
-         <td>Comercial 2</td>
-         <td>2</td>
-        </tr>
-        <tr item="project3">
-         <td>Comercial 3</td>
-         <td>3</td>
-        </tr>
-        <tr item="project4">
-         <td>Comercial 4</td>
-         <td>0</td>
-        </tr>
-        <tr item="project5">
-         <td>Comercial 5</td>
-         <td>2</td>
-        </tr>
-        <tr item="project6">
-         <td>Comercial 6</td>
-         <td>3</td>
-        </tr>
-        <tr item="project7">
-         <td>Comercial 7</td>
-         <td>5</td>
-        </tr>
-        <tr item="project8">
-         <td>Comercial 8</td>
-         <td>3</td>
-        </tr>
-        <tr item="project9">
-         <td>Comercial 9</td>
-         <td>2</td>
-        </tr>
-       </tbody>
-      </table>
-     </vaadin-grid>
+     <vaadin-grid width="592px" data-item-type="DB.Comercial" _id="comercialesLS"></vaadin-grid>
     </vaadin-css-layout>
    </vaadin-css-layout>
    <vaadin-css-layout style-name="form-section" width-full>
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-css-layout style-name="input-wrapper">
       <vaadin-horizontal-layout>
-       <vaadin-button style-name="primary" plain-text _id="submit">
+       <vaadin-button enabled="false" style-name="primary" plain-text _id="submit">
          Aceptar 
        </vaadin-button>
       </vaadin-horizontal-layout>

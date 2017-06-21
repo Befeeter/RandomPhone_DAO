@@ -35,12 +35,6 @@ public class ModificarDatosPersonales extends ModificarDatosPersonales_ventana {
 		this.correoTF.setValue(c.getEmail());
 		this.telefonoTF.setValue(Integer.toString(c.getTelefono()));
 		
-		
-		//Botón Cancelar vuelve a Mi Pagina (cliente)
-		cancelarB.addClickListener(ClickEvent -> {
-			this.getUI().setContent(new SitioWebCliente());
-		});
-		
 		aceptarB.addClickListener(ClickEvent ->{
 			//Actualizamos el objeto cliente
 			c.setNombre(this.nombreTF.getValue());
