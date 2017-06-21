@@ -27,7 +27,7 @@ public class SitioWebAdministrador extends sitioWebCliente_ventana {
 		MenuBar.Command pcontorl = new MenuBar.Command() {
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
-				getUI().setContent(new SitioWebComercial());
+				getUI().setContent(new SitioWebAdministrador());
 			}
 		};
 

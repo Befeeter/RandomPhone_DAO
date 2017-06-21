@@ -41,16 +41,17 @@ public class ListadoClientes extends ListadoClientes_ventana {
 			VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", cliente);
 
 			// seleccionada en el Grid
-			/*Window subWindow = new Window(cliente.getNombre());
+			Window subWindow = new Window(cliente.getNombre());
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new MiCuentaComercial());
+			subContent.addComponent(new MiCuenta(0));
 			subWindow.setContent(subContent);
 			subWindow.center();
+			subWindow.setSizeFull();
 			subWindow.setModal(true);
-			this.getUI().addWindow(subWindow);*/
-			
+			this.getUI().addWindow(subWindow);
+			/*
 			this.removeAllComponents();
-			this.addComponent(new MiCuentaComercial());
+			this.addComponent(new MiCuenta(0));*/
 		});
 
 	}

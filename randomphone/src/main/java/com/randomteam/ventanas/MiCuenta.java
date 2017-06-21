@@ -96,6 +96,39 @@ public class MiCuenta extends MiCuenta_ventana {
 		});
 
 	}
+	
+	public MiCuenta(int administrador) {
+		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
+		Incidencia[] incidencias = ic.cargarIncidencias(c.getId());
+		cargarCuenta();
+		this.incidenciasL.setVisible(true);
+		this.incidenciasL.setValue(incidenciasL.getValue()+" "+incidencias.length);
+
+		// Botón ModificarDatosPersonales
+		mDatosPersonales.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ModificarDatosPersonalesCm());
+		});
+
+		// Botón MisServicios
+		mServicios.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new ModificarServiciosCm());
+		});
+
+		// Botón Mis Facturas
+		misFacturas.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new MisFacturas());
+		});
+
+		// Botón Mis Incidencias
+		misIncidencias.addClickListener(ClickEvent -> {
+			this.removeAllComponents();
+			this.addComponent(new MisIncidencias());
+		});
+
+	}
 
 	public void cargarCuenta() {
 		consumo = randomgenerator.nextInt(1024);

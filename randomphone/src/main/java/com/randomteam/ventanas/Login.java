@@ -159,8 +159,8 @@ public class Login extends Login_ventana {
 			}
 
 			else {
-				//VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", 0);
-				//this.getUI().setContent(new SitioWebAdministrador());
+				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", 0);
+				this.getUI().setContent(new SitioWebAdministrador());
 				Notification.show("Usuario o Contraseña Erroneo!");
 			}
 		});
