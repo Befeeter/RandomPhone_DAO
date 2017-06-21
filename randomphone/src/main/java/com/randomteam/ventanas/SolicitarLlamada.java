@@ -1,6 +1,6 @@
 package com.randomteam.ventanas;
 
-public class SolicitarLlamada {
+public class SolicitarLlamada extends solicitarLlamada_ventana{
 	/*private Label tituloL;
 	private Label descripcionL;
 	private TextField telefonoTF;

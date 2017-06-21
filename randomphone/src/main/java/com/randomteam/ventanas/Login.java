@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import com.randomteam.randomphone.MyUI;
 import com.vaadin.data.Binder;
@@ -17,6 +18,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.Window;
 
 import DB.Conexion;
 import DB.Cliente;
@@ -129,6 +131,8 @@ public class Login extends Login_ventana {
 					if(comerciales[i].getContrasena().toString().equals(password)){
 					Notification.show("Bienvenido Comercial");
 					this.getUI().setContent(new SitioWeb(comercial));
+					Collection<Window> win =this.getUI().getCurrent().getWindows();
+					win.iterator().next().close();
 					}
 					else
 						Notification.show("Usuario o contraseña Erroneos!");
@@ -142,19 +146,24 @@ public class Login extends Login_ventana {
 					DB.Administrador administrador = new DB.Administrador();
 					administrador.setId(idAdmin);
 					this.getUI().setContent(new SitioWeb(administrador));
+					Collection<Window> win =this.getUI().getCurrent().getWindows();
+					win.iterator().next().close();
 				} else
 					Notification.show("Usuario o Contraseña Erroneo!");
 			} else if (idcliente != -1) {
-				Notification.show("Prueba correcta, Usuario existe");
+				
 				// Creamos un objeto cliente que se mantiene en la sesión HTML
-				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario",
-						ic.cargarDatosCliente(idcliente));
+				cliente = ic.cargarDatosCliente(idcliente);
+				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", cliente);
+				Notification.show("Bienvenido "+cliente.getNombre());
 				// recuperamos objeto cliente de la sesión HTML
 				// cliente = (Cliente)
 				// VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 				// Cerrar session HTTP
 				// VaadinService.getCurrentRequest().getWrappedSession().invalidate();
 				this.getUI().setContent(new SitioWebCliente());
+				Collection<Window> win =this.getUI().getCurrent().getWindows();
+				win.iterator().next().close();
 				// this.addComponent(new MiCuenta(email, password));
 			}
 

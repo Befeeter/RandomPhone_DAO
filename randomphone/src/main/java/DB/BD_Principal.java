@@ -31,7 +31,29 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	int sizerow;
 
 	public Servicio[] cargarOfertas() {
-		throw new UnsupportedOperationException();
+		ArrayList<Servicio> serviciosDisp = new ArrayList<>();
+		Servicio[] tMovil = cargarTarifasMovil();
+		Servicio[] tFijo = cargarTarifasFijo();
+		Servicio[] tFibra = cargarTarifasFibra();
+		Servicio[] tTv= cargarTarifasTelevision();
+		
+		for (Servicio movil : tMovil)
+			if (movil.isEstado())
+				serviciosDisp.add(movil);
+		
+		for (Servicio fijo : tFijo)
+			if (fijo.isEstado())
+				serviciosDisp.add(fijo);
+		
+		for (Servicio fibra : tFibra)
+			if(fibra.isEstado())
+				serviciosDisp.add(fibra);
+				
+		for (Servicio tv : tTv)
+			if (tv.isEstado())
+				serviciosDisp.add(tv);
+		
+		return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 	}
 
 	public Servicio[] cargarServiciosCliente() {
@@ -145,7 +167,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean crearIncidencia(Incidencia incidencia) {
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 
@@ -154,8 +176,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
 					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
 					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '" + dateFormat.format(date) + "' "
-					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '"
+					+ dateFormat.format(date) + "' " + ", " + incidencia.isCliente() + ", '"
+					+ incidencia.getObservaciones() + "')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -171,7 +194,37 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Servicio[] cargarOfertas(Servicio tipo) {
-		throw new UnsupportedOperationException();
+		ArrayList<Servicio> serviciosDisp = new ArrayList<>();
+		Servicio[] servicios;
+		if (tipo.getClass() == (new Movil().getClass())){
+			servicios = cargarTarifasMovil();
+			for (Servicio movil : servicios)
+				if (movil.isEstado())
+					serviciosDisp.add(movil);
+			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
+		}
+		if (tipo.getClass() == (new Fibra().getClass())){
+			servicios = cargarTarifasFibra();
+			for (Servicio fibra : servicios)
+				if (fibra.isEstado())
+					serviciosDisp.add(fibra);
+			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
+		}
+		if (tipo.getClass() == (new Fijo().getClass())){
+			servicios = cargarTarifasFijo();
+			for (Servicio fijo : servicios)
+				if (fijo.isEstado())
+					serviciosDisp.add(fijo);
+			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
+		}
+		if (tipo.getClass() == (new Television()).getClass()){
+			servicios = cargarTarifasTelevision();
+			for (Servicio tv : servicios)
+				if (tv.isEstado())
+					serviciosDisp.add(tv);
+			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
+		}
+		return null;
 	}
 
 	public void resetPass(String email) {
@@ -209,7 +262,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		// Cargamos Facturas del cliente
 		cliente.setFactura(cargarFacturas(cliente.getId()));
 		// Cargamos Incidencias del cliente
-		//cliente.setIncidencia(cargarIncidencias(cliente.getId()));
+		// cliente.setIncidencia(cargarIncidencias(cliente.getId()));
 		return cliente;
 
 	}
@@ -243,12 +296,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		// Cargamos Facturas del cliente
 		cliente.setFactura(cargarFacturas(id));
 		// Cargamos Incidencias del cliente
-		//cliente.setIncidencia(cargarIncidencias(id));
+		// cliente.setIncidencia(cargarIncidencias(id));
 		return cliente;
 	}
 
 	public boolean modificarDatosP(Cliente cliente) {
-		
 
 		try {
 			conexion = Conexion.getConnection();
@@ -277,7 +329,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		Servicio servicios[] = null;
 		int sizerow = 0;
-		
+
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -339,7 +391,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				rs.next();
 				incidencia.setCliente(cargarDatosCliente(id_cliente));
@@ -368,7 +421,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
@@ -382,7 +436,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean actualizarIncidencia(Incidencia incidencia) {
-		
+
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
@@ -445,7 +499,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean responderIncidencia(Incidencia incidencia) {
-		
+
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
@@ -472,8 +526,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
 					+ incidencia.getComercial().getId() + "', '" + incidencia.getCliente().getId() + "', '"
 					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Asignada', '" + dateFormat.format(date) + "' "
-					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Asignada', '"
+					+ dateFormat.format(date) + "' " + ", " + incidencia.isCliente() + ", '"
+					+ incidencia.getObservaciones() + "')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -500,7 +555,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
 			System.out.println(exception.getMessage());
 			return false;
-			
+
 		}
 		return true;
 	}
@@ -557,10 +612,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos
-			String consulta = "UPDATE incidencia SET ausnto= '" + incidencia.getAsunto() + "', tipo= '" + incidencia.getTipo()
-					+ "', telefono='" + incidencia.getTelefono() + "', texto='" + incidencia.getTexto() + "', estado=" + incidencia.getEstado() 
-					+ ", fecha_alta='" + incidencia.getFecha_alta() + "', cliente=" + incidencia.isCliente() + ", observaciones='" + incidencia.getObservaciones() + "' "
-					+ "WHERE incidencia.id='"+incidencia.getId() + "'";
+			String consulta = "UPDATE incidencia SET ausnto= '" + incidencia.getAsunto() + "', tipo= '"
+					+ incidencia.getTipo() + "', telefono='" + incidencia.getTelefono() + "', texto='"
+					+ incidencia.getTexto() + "', estado=" + incidencia.getEstado() + ", fecha_alta='"
+					+ incidencia.getFecha_alta() + "', cliente=" + incidencia.isCliente() + ", observaciones='"
+					+ incidencia.getObservaciones() + "' " + "WHERE incidencia.id='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 		} catch (SQLException exception) {
@@ -573,7 +629,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean editarEstadoIncidencia(Incidencia incidencia) {
-	
 
 		try {
 			conexion = Conexion.getConnection();
@@ -606,7 +661,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
@@ -634,7 +690,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
@@ -662,7 +719,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
@@ -690,7 +748,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11),
+						rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
@@ -704,7 +763,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias) {
-	
 
 		try {
 			conexion = Conexion.getConnection();

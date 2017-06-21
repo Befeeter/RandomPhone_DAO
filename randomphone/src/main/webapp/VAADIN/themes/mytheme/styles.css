@@ -12550,3 +12550,9 @@ div.v-layout.v-horizontal.v-widget {
 	width: 19px;
 	overflow: hidden;
 }
+
+.mytheme .ofertas_grid td {
+	height: 128px !important;
+	text-align: center;
+	border: 0;
+}

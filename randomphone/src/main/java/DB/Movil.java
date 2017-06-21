@@ -1,6 +1,8 @@
 package DB;
 
-public class Movil extends Servicio {
+import java.io.Serializable;
+
+public class Movil extends Servicio implements Serializable{
 	private int minutos;
 	private int datos;
 	public BD_Moviles bD_Moviles;

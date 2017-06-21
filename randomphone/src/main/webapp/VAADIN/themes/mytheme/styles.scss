@@ -10,4 +10,11 @@
   @include addons;
   @include mytheme;
 
+.ofertas_grid td
+{
+    height: 128px !important; /* define row height */
+  	text-align: center;
+  	border:0;
+}
+
 }
