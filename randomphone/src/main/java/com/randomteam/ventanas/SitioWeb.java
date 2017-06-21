@@ -6,6 +6,8 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 
+import DB.Administrador;
+
 public class SitioWeb extends sitioWeb_ventana{
 	/*private img bannerI;
 	private Button serviciosB;
@@ -42,7 +44,7 @@ public class SitioWeb extends sitioWeb_ventana{
 
 	}
 	
-	public SitioWeb(int administrador){
+	public SitioWeb(Administrador administrador){
 		MenuBar.Command pcontorl = new MenuBar.Command(){
 			@Override
 			public void menuSelected(MenuItem selectedItem){

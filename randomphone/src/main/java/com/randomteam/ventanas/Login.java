@@ -145,7 +145,7 @@ public class Login extends Login_ventana {
 					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", idAdmin);
 					DB.Administrador administrador = new DB.Administrador();
 					administrador.setId(idAdmin);
-					this.getUI().setContent(new SitioWeb(administrador.getId()));
+					this.getUI().setContent(new SitioWeb(administrador));
 					Collection<Window> win =this.getUI().getCurrent().getWindows();
 					win.iterator().next().close();
 
