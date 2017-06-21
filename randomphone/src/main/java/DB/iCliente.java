@@ -8,7 +8,7 @@ public interface iCliente {
 
 	public Servicio[] cargarServiciosCliente(int id);
 
-	public void modificarServicios(Servicio[] servicio);
+	public boolean modificarServicios(Servicio[] servicio, int idFactura);
 
 	public Paquete[] cargarPaquetes(int id);
 

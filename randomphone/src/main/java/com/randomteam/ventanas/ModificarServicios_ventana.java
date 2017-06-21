@@ -5,6 +5,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.declarative.Design;
 
@@ -28,7 +29,7 @@ public class ModificarServicios_ventana extends CssLayout {
 	protected ComboBox<DB.Servicio> fibraCB;
 	protected Label televisionL;
 	protected ComboBox<DB.Servicio> televisionCB;
-	protected CssLayout paqueteLayout;
+	protected HorizontalLayout paqueteLayout;
 	protected Button televisionB;
 	protected Button cancelarB;
 	protected Button aceptarB;

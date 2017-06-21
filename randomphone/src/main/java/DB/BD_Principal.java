@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 // import BD.Cliente.Paquete;
 // import DB.Cliente.Paquete;
@@ -27,6 +28,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	Connection conexion;
 	PreparedStatement ps;
 	ResultSet rs;
+	int sizerow;
 
 	public Servicio[] cargarOfertas() {
 		throw new UnsupportedOperationException();
@@ -36,8 +38,25 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		throw new UnsupportedOperationException();
 	}
 
-	public void modificarServicios(Servicio[] parameter) {
-		throw new UnsupportedOperationException();
+	public boolean modificarServicios(Servicio[] servicios, int idFactura) {
+
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE FROM servicio_factura WHERE servicio_factura.FacturaId='" + idFactura + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+			for (int i = 0; i < servicios.length; i++) {
+				consulta = "INSERT INTO `servicio_factura` (`ServicioId`, `FacturaId`) VALUES ('" + servicios[i].getId()
+						+ "', '" + idFactura + "')";
+				ps = conexion.prepareStatement(consulta);
+				ps.executeUpdate();
+			}
+			ps.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public Factura[] cargarFacturas(int id_cliente) {
@@ -62,10 +81,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				facturas[i - 1] = factura;
 				rs.next();
 			}
-
+			rs.close();
+			ps.close();
 		} catch (SQLException exception) {
-			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
-			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
 			System.out.println(exception.getMessage());
 		}
 		return facturas;
@@ -90,6 +108,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			password = rs.getString(5);
 			idCliente = rs.getInt(1);
+			ps.close();
+			rs.close();
 			if (contrasenia.equals(password))
 				return idCliente;
 			else
@@ -192,6 +212,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			System.out.println(exception.getMessage());
 			return null;
 		}
+		// Cargamos Facturas del cliente
+		cliente.setFactura(cargarFacturas(cliente.getId()));
+		// Cargamos Incidencias del cliente
+		cliente.setIncidencia(cargarIncidencias(cliente.getId()));
 		return cliente;
 
 	}
@@ -224,6 +248,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
 			System.out.println(exception.getMessage());
 		}
+		// Cargamos Facturas del cliente
+		cliente.setFactura(cargarFacturas(id));
+		// Cargamos Incidencias del cliente
+		cliente.setIncidencia(cargarIncidencias(id));
 		return cliente;
 	}
 
@@ -398,7 +426,28 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public DB.Paquete[] cargarPaquetesDisp() {
-		throw new UnsupportedOperationException();
+		ArrayList<Paquete> paquetesDisp = new ArrayList<>();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM paquete WHERE paquete.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantos Paquetes como resultados tiene la consulta
+				Paquete paquete = new Paquete(rs.getInt(1), rs.getString(3), rs.getFloat(4), rs.getDate(5),
+						rs.getBoolean(6));
+				paquetesDisp.add(paquete);
+				rs.next();
+			}
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return (Paquete[]) paquetesDisp.toArray();
 	}
 
 	public void addPaqueteCliente(Cliente cliente, Paquete paquete) {
@@ -584,7 +633,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 		return incidencias;
 	}
-	
+
 	public Incidencia[] cargarIncidenciasAsignadas() {
 		Incidencia[] incidencias = null;
 		int sizerow = 0;
@@ -854,7 +903,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas tarifas como resultados tiene la consulta
-				Fibra fibra = new Fibra(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				Fibra fibra = new Fibra(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3),
+						rs.getBoolean(4));
 				tarifasFibra[i - 1] = fibra;
 				rs.next();
 			}
@@ -867,8 +917,30 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return tarifasFibra;
 	}
 
-	public DB.Paquete[] cargarPaquetesTv() {
-		throw new UnsupportedOperationException();
+	public Television[] cargarTarifasTelevision() {
+		ArrayList<Television> serviciosTv = new ArrayList<>();
+
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM television INNER JOIN servicio ON television.ServicioId=servicio.Id WHERE servicio.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Television sTV = new Television(rs.getInt("ServicioId"), rs.getString("Nombre"), rs.getFloat("Precio"),
+						rs.getBoolean("Estado"));
+				serviciosTv.add(sTV);
+				rs.next();
+			}
+
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+		}
+		Television[] serviciosDisp = serviciosTv.toArray(new Television[serviciosTv.size()]);
+		return serviciosDisp;
 	}
 
 	public Canal[] cargarCanalesTv() {
@@ -989,123 +1061,117 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+fijo.getNombre()+"','"+fijo.getPrecio()+"', "+fijo.isEstado()+")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + fijo.getNombre()
+					+ "','" + fijo.getPrecio() + "', " + fijo.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
-            ps.execute(insertarServicio);
+			ps.execute(insertarServicio);
 			// obtendo el id del servicio
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fijo.getNombre()+"'";
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fijo.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();
 			int servicioId = rs.getInt(1);
 			// creo la tarifa
-			String insertarTarifa = "INSERT INTO fijo (Minutos, ServicioId) "
-					+ "VALUES ('"+fijo.getMinutos()+"', '"+servicioId+"')";
-            ps = conexion.prepareStatement(insertarTarifa);
-            ps.execute(insertarTarifa);
+			String insertarTarifa = "INSERT INTO fijo (Minutos, ServicioId) " + "VALUES ('" + fijo.getMinutos() + "', '"
+					+ servicioId + "')";
+			ps = conexion.prepareStatement(insertarTarifa);
+			ps.execute(insertarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean crearTarifaFibra(Fibra fibra) {
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
-					+ "VALUES ('"+fibra.getNombre()+"','"+fibra.getPrecio()+"', "+fibra.isEstado()+")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + fibra.getNombre()
+					+ "','" + fibra.getPrecio() + "', " + fibra.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
-            ps.execute(insertarServicio);
+			ps.execute(insertarServicio);
 			// obtendo el id del servicio
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fibra.getNombre()+"'";
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fibra.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();
 			int servicioId = rs.getInt(1);
 			// creo la tarifa
-			String insertarTarifa = "INSERT INTO fibra (Vsub, Vbaj, ServicioId) "
-					+ "VALUES ('"+fibra.getVsub()+"', '"+fibra.getVsub()+"', '"+servicioId+"')";
-            ps = conexion.prepareStatement(insertarTarifa);
-            ps.execute(insertarTarifa);
+			String insertarTarifa = "INSERT INTO fibra (Vsub, Vbaj, ServicioId) " + "VALUES ('" + fibra.getVsub()
+					+ "', '" + fibra.getVsub() + "', '" + servicioId + "')";
+			ps = conexion.prepareStatement(insertarTarifa);
+			ps.execute(insertarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean editarTarifaMovil(Movil movil, Movil movilNuevo) {
 		try {
 			conexion = Conexion.getConnection();
-			String modificarServicio = "UPDATE servicio "
-					+ "SET Nombre='"+movil.getNombre()+"', Precio="+movil.getPrecio()+", Estado="+movil.isEstado()+" "
-							+ "WHERE id="+ movil.getId();
-			String modificarTarifa = "UPDATE movil "
-					+ "SET Minutos='"+movil.getMinutos()+"', Datos='"+movil.getDatos()+"' "
-							+ "WHERE servicioid="+ movil.getId();
+			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + movil.getNombre() + "', Precio="
+					+ movil.getPrecio() + ", Estado=" + movil.isEstado() + " " + "WHERE id=" + movil.getId();
+			String modificarTarifa = "UPDATE movil " + "SET Minutos='" + movil.getMinutos() + "', Datos='"
+					+ movil.getDatos() + "' " + "WHERE servicioid=" + movil.getId();
 			ps = conexion.prepareStatement(modificarServicio);
-            ps.execute(modificarServicio);
-            ps = conexion.prepareStatement(modificarTarifa);
-            ps.execute(modificarTarifa);
+			ps.execute(modificarServicio);
+			ps = conexion.prepareStatement(modificarTarifa);
+			ps.execute(modificarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean editarTarifaFijo(Fijo fijo, Fijo fijoNuevo) {
 		try {
 			conexion = Conexion.getConnection();
-			String modificarServicio = "UPDATE servicio "
-					+ "SET Nombre='"+fijo.getNombre()+"', Precio="+fijo.getPrecio()+", Estado="+fijo.isEstado()+" "
-							+ "WHERE id="+ fijo.getId();
-			String modificarTarifa = "UPDATE fijo "
-					+ "SET Minutos='"+fijo.getMinutos()+"'"
-							+ "WHERE servicioid="+ fijo.getId();
+			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + fijo.getNombre() + "', Precio="
+					+ fijo.getPrecio() + ", Estado=" + fijo.isEstado() + " " + "WHERE id=" + fijo.getId();
+			String modificarTarifa = "UPDATE fijo " + "SET Minutos='" + fijo.getMinutos() + "'" + "WHERE servicioid="
+					+ fijo.getId();
 			System.out.println(fijo.getId());
 			ps = conexion.prepareStatement(modificarServicio);
-            ps.execute(modificarServicio);
-            ps = conexion.prepareStatement(modificarTarifa);
-            ps.execute(modificarTarifa);
+			ps.execute(modificarServicio);
+			ps = conexion.prepareStatement(modificarTarifa);
+			ps.execute(modificarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo) {
 		try {
 			conexion = Conexion.getConnection();
-			String modificarServicio = "UPDATE servicio "
-					+ "SET Nombre='"+fibra.getNombre()+"', Precio="+fibra.getPrecio()+", Estado="+fibra.isEstado()+" "
-							+ "WHERE id="+ fibra.getId();
-			String modificarTarifa = "UPDATE fibra "
-					+ "SET Vsub='"+fibra.getVsub()+"', Vbaj='"+fibra.getVbaj()+"' "
-							+ "WHERE servicioid="+ fibra.getId();
+			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + fibra.getNombre() + "', Precio="
+					+ fibra.getPrecio() + ", Estado=" + fibra.isEstado() + " " + "WHERE id=" + fibra.getId();
+			String modificarTarifa = "UPDATE fibra " + "SET Vsub='" + fibra.getVsub() + "', Vbaj='" + fibra.getVbaj()
+					+ "' " + "WHERE servicioid=" + fibra.getId();
 			ps = conexion.prepareStatement(modificarServicio);
-            ps.execute(modificarServicio);
-            ps = conexion.prepareStatement(modificarTarifa);
-            ps.execute(modificarTarifa);
+			ps.execute(modificarServicio);
+			ps = conexion.prepareStatement(modificarTarifa);
+			ps.execute(modificarTarifa);
 			ps.close();
-            conexion.close();
-            return true;
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        	return false;
-        }
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 }

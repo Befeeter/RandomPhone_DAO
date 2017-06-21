@@ -46,7 +46,7 @@ public interface iAdministrador {
 
 	public Fibra[] cargarTarifasFibra();
 
-	public Paquete[] cargarPaquetesTv();
+	public Television[] cargarTarifasTelevision();
 
 	public Canal[] cargarCanalesTv();
 

@@ -21,13 +21,13 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class ModificarServiciosCm_ventana extends CssLayout {
 	protected Label movilL;
-	protected ComboBox<java.lang.String> movilCB;
+	protected ComboBox<DB.Servicio> movilCB;
 	protected Label fijoL;
-	protected ComboBox<java.lang.String> fijoCB;
+	protected ComboBox<DB.Servicio> fijoCB;
 	protected Label fibraL;
-	protected ComboBox<java.lang.String> fibraCB;
+	protected ComboBox<DB.Servicio> fibraCB;
 	protected Label televisionL;
-	protected ComboBox<java.lang.String> televisionCB;
+	protected ComboBox<DB.Servicio> televisionCB;
 	protected Button terminalesB;
 	protected Label televisionB;
 	protected Button aceptarB;

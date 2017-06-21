@@ -1,6 +1,8 @@
 package com.randomteam.ventanas;
 
 import java.util.Random;
+
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinService;
 
 import DB.BD_Principal;
@@ -30,6 +32,7 @@ public class MiCuenta extends MiCuenta_ventana {
 	float consumo;
 
 	public MiCuenta() {
+		Page.getCurrent().getStyles().add(".form-template{overflow: hidden !important;}");
 		
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 		cargarCuenta();

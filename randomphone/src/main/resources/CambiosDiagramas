@@ -6,7 +6,10 @@ Cambiar tipo metodo "crearIncidenciaCliente(Incidencia incidencia)" a Boolean
 Alta Nuevo Cliente debería acceder a cargar tarifas Movil, Fijo, etc, en lugar de solo CargarServicios, ya que de esta maner ano se peude identificar a que corresponde cada servicio.
 Cambiar Diagrama comercial_ModificarServiciosCliente
 Modificar Diagrama Secuencia "cliente_ModificarServicios".
-
+Modificar Metodo cargarPaquetesTV() : Paquete[] por cargarTarifasTelevision() : Television[];
+Modificar administrador_ServicioTV metodo CargarPaquetesTV por CargarPaquetes();
+modificar tipo modificarServicios(Servicio[] servicio) a Boolean
+Modificar Parametros modificarServicios (Servicio[] servicio, int idFactura) //se añade parametro
 
 Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal
 Añado metodos en DB.cliente y DB.comercial para devolver el numero de incidencias necesario para los grid

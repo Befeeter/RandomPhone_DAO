@@ -16,7 +16,7 @@ public interface iComercial {
 	
 	public Fibra[] cargarTarifasFibra();
 	
-	public DB.Paquete[] cargarPaquetesTv();
+	public Television[] cargarTarifasTelevision();
 
 	public Cliente selecionarCliente(String dni);
 
