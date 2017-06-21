@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.vaadin.data.HasValue;
 import com.vaadin.data.provider.ListDataProvider;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -145,33 +146,12 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			});
 			this.getUI().addWindow(subWindow);
 		});
-		MultiSelectionModel<Incidencia> selectionModel4 = (MultiSelectionModel<Incidencia>) completadasLS
-				.setSelectionMode(SelectionMode.MULTI);
-		selectionModel4.addMultiSelectionListener(event -> {
-			eliminarB.setEnabled(event.getNewSelection().size() > 0);
-			asignarB.setEnabled(event.getNewSelection().size() > 0);
-		});
 
 		// Botón Eliminar
 		eliminarB.addClickListener(ClickEvent -> {
-			// obtener elementos a eliminar
-			Incidencia[] incidenciasEliminar;
-			int size = cibernautaLS.getSelectedItems().size();
-			incidenciasEliminar = new Incidencia[size];
-			incidenciasEliminar = cibernautaLS.getSelectedItems().toArray(incidenciasEliminar);
-			//
-			boolean correcto = true;
-			// Para cada incidencia seleccionada la elimino
-
-			if (!iA.eliminarIncidencias(incidenciasEliminar)) {
-				correcto = false;
-			}
-			if (correcto) {
-				Notification.show("Eliminadas Con exito!");
-				incidenciasSinAsigCiber = iA.cargarIncidenciasSinAsignarCibernauta();
-				cibernautaLS.setItems(incidenciasSinAsigCiber);
-			} else
-				Notification.show("Error! Ups algo fue mal!");
+			eliminarIncidencias(cibernautaLS);
+			eliminarIncidencias(clienteLS);
+			eliminarIncidencias(asignadasLS);
 		});
 
 		// Botón asignar
@@ -225,18 +205,49 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 	private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
 		ListDataProvider<Incidencia> dataProvider = (ListDataProvider<Incidencia>) cibernautaLS.getDataProvider();
 		dataProvider.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
-		
+
 		ListDataProvider<Incidencia> dataProvider2 = (ListDataProvider<Incidencia>) clienteLS.getDataProvider();
 		dataProvider2.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
-		
+
 		ListDataProvider<Incidencia> dataProvider3 = (ListDataProvider<Incidencia>) asignadasLS.getDataProvider();
 		dataProvider3.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
-		
+
 		ListDataProvider<Incidencia> dataProvider4 = (ListDataProvider<Incidencia>) completadasLS.getDataProvider();
 		dataProvider4.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
 	}
 
 	private Boolean caseInsensitiveContains(String where, String what) {
 		return where.toLowerCase().contains(what.toLowerCase());
+	}
+
+	private void eliminarIncidencias(Grid<Incidencia> grid) {
+		// obtener elementos a eliminar
+		Incidencia[] incidenciasEliminar;
+		int size = grid.getSelectedItems().size();
+		incidenciasEliminar = new Incidencia[size];
+		incidenciasEliminar = grid.getSelectedItems().toArray(incidenciasEliminar);
+		//
+		boolean correcto = true;
+		
+		// Para cada incidencia seleccionada la elimino
+		if (!iA.eliminarIncidencias(incidenciasEliminar)) {
+			correcto = false;
+		}
+		if (correcto) {
+			Notification.show("Eliminadas Con exito!");
+			recargarIncidencias();
+		} else
+			Notification.show("Error! Ups algo fue mal!");
+	}
+	
+	private void recargarIncidencias () {
+		incidenciasSinAsigCiber = iA.cargarIncidenciasSinAsignarCibernauta();
+		cibernautaLS.setItems(incidenciasSinAsigCiber);
+		incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCibernauta();
+		clienteLS.setItems(incidenciasSinAsigClientes);
+		incidenciasAsig = iA.cargarIncidenciasSinAsignarCibernauta();
+		asignadasLS.setItems(incidenciasAsig);
+		incidenciasCompletadas = iA.cargarIncidenciasSinAsignarCibernauta();
+		completadasLS.setItems(incidenciasCompletadas);
 	}
 }

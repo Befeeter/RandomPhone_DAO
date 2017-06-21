@@ -11,6 +11,8 @@ public class Incidencia {
 	private String respuesta;
 	private String estado;
 	private Date fecha_alta;
+	private Boolean esCliente;
+	private String observaciones;
 	public Cliente cliente;
 	public BD_Incidencias bD_Incidencias;
 	public Comercial comercial;
@@ -20,7 +22,7 @@ public class Incidencia {
 		
 	}
 	
-	public Incidencia(int id, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta){
+	public Incidencia(int id, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta, Boolean esCliente, String observaciones){
 		this.id = id;
 		this.asunto = asunto;
 		this.tipo = tipo;
@@ -29,9 +31,11 @@ public class Incidencia {
 		this.respuesta = respuesta;
 		this.estado = estado;		
 		this.fecha_alta = fecha_alta;
+		this.esCliente = esCliente;
+		this.observaciones = observaciones;
 	}
 	
-	public Incidencia(int id, int idCliente, int idComercial, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta){
+	public Incidencia(int id, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta, Boolean esCliente, String observaciones, Cliente cliente){
 		this.id = id;
 		this.asunto = asunto;
 		this.tipo = tipo;
@@ -40,6 +44,22 @@ public class Incidencia {
 		this.respuesta = respuesta;
 		this.estado = estado;		
 		this.fecha_alta = fecha_alta;
+		this.esCliente = esCliente;
+		this.observaciones = observaciones;
+		this.cliente = cliente;
+	}
+	
+	public Incidencia(int id, int idCliente, int idComercial, String asunto, String tipo, int telefono, String texto, String respuesta, String estado, Date fecha_alta, Boolean esCliente, String observaciones){
+		this.id = id;
+		this.asunto = asunto;
+		this.tipo = tipo;
+		this.telefono = telefono;
+		this.texto = texto;
+		this.respuesta = respuesta;
+		this.estado = estado;		
+		this.fecha_alta = fecha_alta;
+		this.esCliente = esCliente;
+		this.observaciones = observaciones;
 		this.cliente.setId(idCliente);
 		this.comercial.setId(idComercial);
 	}
@@ -80,6 +100,14 @@ public class Incidencia {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -113,6 +141,14 @@ public class Incidencia {
 
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
+	}
+
+	public Boolean isCliente() {
+		return esCliente;
+	}
+
+	public void setIsCliente(Boolean esCliente) {
+		this.esCliente = esCliente;
 	}
 	
 

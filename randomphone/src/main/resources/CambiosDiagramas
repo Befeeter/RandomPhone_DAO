@@ -14,3 +14,4 @@ Modificar Parametros modificarServicios (Servicio[] servicio, int idFactura) //s
 Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal
 Añado metodos en DB.cliente y DB.comercial para devolver el numero de incidencias necesario para los grid
 añadir metedos cargarincidenciasasignadas en bd_principal y iadminitrador
+añadimos el campo cliente a la tabla incidencias
