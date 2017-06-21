@@ -23,10 +23,6 @@ public class ModificarDatosPersonalesCm extends ModificarDatosPersonalesCM_venta
 		this.telefonoTF.setValue(String.valueOf(c.getTelefono()));
 		this.passwordTF.setValue(c.getContrasena());
 
-		cancelarB.addClickListener(ClickEvent -> {
-			this.getUI().setContent(new SitioWebComercial());
-		});
-
 		aceptarB.addClickListener(ClickEvent -> {
 			c.setNombre(this.nombreTF.getValue());
 			c.setApellidos(this.apellidoTF.getValue());

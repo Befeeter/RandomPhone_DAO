@@ -11,10 +11,7 @@ public class SitioWebAdministrador extends sitioWebCliente_ventana {
 	public PanelAdministrador vPanelAdministrador;
 		
 	public SitioWebAdministrador () {
-		Administrador administrador = (Administrador) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("administrador");
-		
-
-		Administrador a = (Administrador) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("administrador");
+		int idAdministrador = (int) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("administrador");
 
 		this.addComponent(new PanelAdministrador());
 		
@@ -22,7 +19,7 @@ public class SitioWebAdministrador extends sitioWebCliente_ventana {
 			
 			@Override
 			public void menuSelected(MenuItem selectedItem) {
-				getUI().setContent(new SitioWeb(administrador));
+				getUI().setContent(new SitioWebAdministrador());
 				
 			}
 		};
@@ -45,9 +42,8 @@ public class SitioWebAdministrador extends sitioWebCliente_ventana {
 
 		
 		menu.getItems().get(0).setCommand(pcontorl);
-		menu.getItems().get(2).addItemBefore("Menu Principal Administrador", null, padmin, menu.getItems().get(2).getChildren().get(0));
+		menu.getItems().get(2).addItemBefore("Panel Administrador", null, padmin, menu.getItems().get(2).getChildren().get(0));
 		menu.getItems().get(2).getChildren().get(1).setCommand(logout);
-
 	}
 
 	private void logout() {

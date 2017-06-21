@@ -42,7 +42,7 @@ public class SitioWeb extends sitioWeb_ventana{
 
 	}
 	
-	public SitioWeb(DB.Administrador administrador){
+	public SitioWeb(int administrador){
 		MenuBar.Command pcontorl = new MenuBar.Command(){
 			@Override
 			public void menuSelected(MenuItem selectedItem){
