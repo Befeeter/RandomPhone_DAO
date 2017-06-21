@@ -159,9 +159,9 @@ public class Login extends Login_ventana {
 			}
 
 			else {
-				DB.Administrador administrador = new DB.Administrador();
-				this.getUI().setContent(new SitioWeb(administrador));
-				//Notification.show("Usuario o Contraseña Erroneo!");
+				//DB.Administrador administrador = new DB.Administrador();
+				//this.getUI().setContent(new SitioWeb(administrador));
+				Notification.show("Usuario o Contraseña Erroneo!");
 			}
 		});
 
