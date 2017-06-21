@@ -18,12 +18,14 @@ public class Paquete {
 
 	}
 
-	public Paquete(int id, String nombre, float precio, Date fecha_alta, boolean estado) {
+	public Paquete(int id, int idTv, String nombre, float precio, Date fecha_alta, boolean estado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.fecha_alta = fecha_alta;
 		this.estado = estado;
+		this.television = new Television();
+		this.television.setId(idTv);
 	}
 
 	public int getId() {

@@ -49,6 +49,10 @@ public interface iAdministrador {
 	public Television[] cargarTarifasTelevision();
 
 	public Canal[] cargarCanalesTv();
+	
+	public boolean eliminarCanal (Canal canal);
+	
+	public Paquete [] cargarPaquetesTV ();
 
 	public boolean crearPaquete(Paquete paquete);
 

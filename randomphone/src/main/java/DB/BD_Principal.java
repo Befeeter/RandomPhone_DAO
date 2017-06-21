@@ -366,6 +366,34 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public DB.Paquete[] cargarPaquetes(int id) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public Paquete [] cargarPaquetesTV () {
+		Paquete[] paquetes = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM paquete";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			paquetes = new Paquete[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4), rs.getDate(5), rs.getBoolean(6));
+				paquetes[i - 1] = paquete;
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return paquetes;
+	}
 
 	public void cargarPaquetePersonal(DB.Paquete paquete) {
 		throw new UnsupportedOperationException();
@@ -491,7 +519,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantos Paquetes como resultados tiene la consulta
-				Paquete paquete = new Paquete(rs.getInt(1), rs.getString(3), rs.getFloat(4), rs.getDate(5),
+				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4), rs.getDate(5),
 						rs.getBoolean(6));
 				paquetesDisp.add(paquete);
 				rs.next();
@@ -1081,11 +1109,48 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Canal[] cargarCanalesTv() {
-		throw new UnsupportedOperationException();
+		Canal[] canales = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM canal";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			canales = new Canal[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Canal canal = new Canal(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+				canales[i - 1] = canal;
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return canales;
 	}
 
 	public boolean crearPaquete(DB.Paquete paquete) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			// creo el servicio
+			String insertar = "INSERT INTO paquete (TelevisionServicioId, Nombre, Precio, Fecha_alta, Estado) " 
+					+ "VALUES ('" + paquete.getTelevision().getId() + "','" + paquete.getNombre() + "', " + paquete.getFecha_alta() + "', " + paquete.isEstado() + ")";
+			ps = conexion.prepareStatement(insertar);
+			ps.execute(insertar);
+			ps.close();
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean editarPaquete(DB.Paquete paquete, DB.Paquete paqueteNuevo) {
@@ -1099,13 +1164,41 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
 		throw new UnsupportedOperationException();
 	}
+	
+	public boolean eliminarCanal (Canal canal) {
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from canal WHERE id=" + canal.getId();
+
+			ps = conexion.prepareStatement(consulta);
+			ps.execute(consulta);
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
+	}
 
 	public boolean eliminarCanalesPaquete(Canal[] canales) {
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean eliminarPaquete(DB.Paquete paquete) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from paquete WHERE id=" + paquete.getId();
+
+			ps = conexion.prepareStatement(consulta);
+			ps.execute(consulta);
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public boolean eliminarTarifaMovil(int mesesAdaptacion, Movil movil) {
