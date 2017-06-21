@@ -52,6 +52,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				ps.executeUpdate();
 			}
 			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			System.out.println(exception.getMessage());
 			return false;
@@ -79,8 +80,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				facturas[i - 1] = factura;
 				rs.next();
 			}
-			rs.close();
 			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			System.out.println(exception.getMessage());
 		}
@@ -105,7 +106,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			password = rs.getString(5);
 			idCliente = rs.getInt(1);
 			ps.close();
-			rs.close();
+			conexion.close();
 			if (contrasenia.equals(password))
 				return idCliente;
 			else
@@ -131,11 +132,12 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			password = rs.getString(5);
 			idAdmin = rs.getInt(1);
+			ps.close();
+			conexion.close();
 			if (contrasenia.equals(password))
 				return idAdmin;
 			else
 				return -1;
-
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -158,7 +160,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -199,7 +202,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			cliente.setFecha_altta(rs.getDate(7));
 			cliente.setEstado(true);
 			cliente.setTelefono(rs.getInt(9));
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -234,7 +238,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			cliente.setFecha_altta(rs.getDate(7));
 			cliente.setEstado(true);
 			cliente.setTelefono(rs.getInt(9));
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -263,7 +268,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ cliente.getContrasena() + "' WHERE `persona`.`Id` = '" + cliente.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -295,6 +301,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				servicios[i - 1] = servicio;
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -344,6 +352,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				rs.next();
 				incidencia.setCliente(cargarDatosCliente(id_cliente));
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -373,6 +383,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -390,6 +402,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -428,6 +442,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				paquetesDisp.add(paquete);
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -453,6 +469,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ "' WHERE incidencia.id='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -476,7 +494,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -495,6 +514,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ "' WHERE incidencia.id='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -553,6 +574,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ " WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -577,6 +600,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ "WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -597,6 +622,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -629,6 +656,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				incidencia.setComercial(comercial);
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -660,6 +689,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				incidencia.setComercial(comercial);
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -691,6 +722,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				incidencia.setComercial(comercial);
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -722,6 +755,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				incidencia.setComercial(comercial);
 				rs.next();
 			}
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -742,7 +777,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				ps.executeUpdate();
 				// Actualizamos Resto de datos
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -849,7 +885,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				comerciales[i - 1] = comercial;
 				rs.next();
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			System.out.println(exception.getMessage());
 		}
@@ -892,7 +929,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				tarifasMovil[i - 1] = movil;
 				rs.next();
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -919,7 +957,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				tarifasFijo[i - 1] = fijo;
 				rs.next();
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -947,7 +986,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				tarifasFibra[i - 1] = fibra;
 				rs.next();
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
@@ -974,7 +1014,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 				serviciosTv.add(sTV);
 				rs.next();
 			}
-
+			ps.close();
+			conexion.close();
 		} catch (SQLException exception) {
 			System.out.println(exception.getMessage());
 		}
