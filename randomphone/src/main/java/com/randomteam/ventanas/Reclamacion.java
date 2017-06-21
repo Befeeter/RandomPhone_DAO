@@ -8,6 +8,7 @@ import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Cliente;
+import DB.Comercial;
 import DB.iCliente;
 import DB.iComercial;
 
@@ -27,9 +28,15 @@ public class Reclamacion extends Reclamacion_ventana {
 		this.consultaT.setValue(iselec.getTexto());
 		this.respuestaT.setValue(iselec.getRespuesta());
 		
+		if (VaadinService.getCurrentRequest().getWrappedSession().getAttributeNames().contains("comercial")){
+			observacionesLY.setEnabled(true);
+			observacionesLY.setVisible(true);
+			this.observacioinesL.setValue(iselec.getObservaciones());
+		}
 		
+		//Boton Enviar Comentario
 		this.enviarB.addClickListener(ClickEvent ->{
-			if (c.getEmail().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=comercial).{8,}")){
+			if (VaadinService.getCurrentRequest().getWrappedSession().getAttributeNames().contains("comercial")){
 			iselec.setRespuesta(nuevaConsultaTA.getValue());
 			if(iCm.responderIncidencia(iselec) == false)
 				Notification.show("Ups Error algo fue mal");
@@ -44,6 +51,16 @@ public class Reclamacion extends Reclamacion_ventana {
 					Notification.show("UPS! Error algo fue mal");
 			}
 			Collection<Window> win =this.getUI().getCurrent().getWindows();
+			win.iterator().next().close();
+		});
+		//Boton enviar Observacion
+		this.observacionB.addClickListener(ClickEvent->{
+			iselec.setObservaciones(observacionesTF.getValue());
+			if (iCm.añadirObservacion(iselec) == true)
+				Notification.show("Observación realizada correctamente");
+			else
+				Notification.show("Ups algo fue mal, pongase en contacto con el Administrador");
+			Collection<Window> win = this.getUI().getCurrent().getWindows();
 			win.iterator().next().close();
 		});
 	}

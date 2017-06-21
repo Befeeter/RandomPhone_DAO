@@ -27,7 +27,7 @@ public class NuevaReclamacionComercial_ventana extends VerticalLayout {
 	protected TextField documentoTF;
 	protected TextField asuntoTF;
 	protected Label tipoL;
-	protected NativeSelect tipoLS;
+	protected NativeSelect<java.lang.String> tipoLS;
 	protected Label mensajeL;
 	protected TextArea mensajeTA;
 	protected Button enviarB;

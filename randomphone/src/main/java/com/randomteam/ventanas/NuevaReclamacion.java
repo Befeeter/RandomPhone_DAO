@@ -8,6 +8,7 @@ import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
 import DB.Cliente;
+import DB.Comercial;
 import DB.Incidencia;
 import DB.iCliente;
 
@@ -38,7 +39,9 @@ public class NuevaReclamacion extends NuevaReclamacion_ventana {
 			incidencia.setTipo(tipoLS.getValue().toString());
 			incidencia.setTexto(this.mensajeTA.getValue());
 			incidencia.setCliente(c);
-			incidencia.comercial.setId(0);
+			incidencia.setIsCliente(true);
+			incidencia.setComercial(new Comercial());
+			incidencia.getComercial().setId(0);
 			
 		if (iC.crearIncidencia(incidencia) == true){
 			Notification.show("Incidencia creada con Exito!!");

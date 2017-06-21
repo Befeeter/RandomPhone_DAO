@@ -10,6 +10,9 @@ Modificar Metodo cargarPaquetesTV() : Paquete[] por cargarTarifasTelevision() : 
 Modificar administrador_ServicioTV metodo CargarPaquetesTV por CargarPaquetes();
 modificar tipo modificarServicios(Servicio[] servicio) a Boolean
 Modificar Parametros modificarServicios (Servicio[] servicio, int idFactura) //se añade parametro
+Cambiar Metodo añadirObservaciones (Incidencia incidencia) a tipo Boolean // Diagrama comercial_AñadirObservacionesIncidencia
+
+
 
 Añadido metodo comprobarAdmin (String email, String contrasenia) en iAdministrador y BD_principal
 Añado metodos en DB.cliente y DB.comercial para devolver el numero de incidencias necesario para los grid

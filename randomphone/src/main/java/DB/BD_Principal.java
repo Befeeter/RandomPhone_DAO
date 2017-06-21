@@ -63,8 +63,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		Factura[] facturas = null;
 		int sizerow;
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -95,8 +93,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 	public int comprobarUsuario(String email, String contrasenia) {
 		int idCliente = -1;
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		String password = "";
 		try {
@@ -149,8 +145,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean crearIncidencia(Incidencia incidencia) {
-		Connection conexion;
-		PreparedStatement ps;
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 
@@ -186,8 +181,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public Cliente cargarDatosCliente(String dni) {
 		Cliente cliente = new Cliente();
 		cliente.setDocumento(dni);
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -224,8 +217,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public Cliente cargarDatosCliente(int id) {
 		Cliente cliente = new Cliente();
 		cliente.setId(id);
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -257,8 +248,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean modificarDatosP(Cliente cliente) {
-		Connection conexion;
-		PreparedStatement ps;
+		
 
 		try {
 			conexion = Conexion.getConnection();
@@ -287,8 +277,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		Servicio servicios[] = null;
 		int sizerow = 0;
-		Connection conexion;
-		PreparedStatement ps;
+		
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -337,8 +326,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public Incidencia[] cargarIncidencias(int id_cliente) {
 		Incidencia[] incidencias = null;
 		int sizerow = 0;
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -368,8 +355,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public Incidencia[] cargarIncidenciasCm(int id_comercial) {
 		Incidencia[] incidencias = null;
 		int sizerow = 0;
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		try {
 			conexion = Conexion.getConnection();
@@ -397,9 +382,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean actualizarIncidencia(Incidencia incidencia) {
-		Connection conexion;
-		PreparedStatement ps;
-
+		
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
@@ -462,9 +445,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean responderIncidencia(Incidencia incidencia) {
-		Connection conexion;
-		PreparedStatement ps;
-
+		
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
@@ -483,17 +464,15 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean crearIncidenciaCliente(Incidencia incidencia) {
-		Connection conexion;
-		PreparedStatement ps;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
 
 		try {
 			conexion = Conexion.getConnection();
 			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
-					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
+					+ incidencia.getComercial().getId() + "', '" + incidencia.getCliente().getId() + "', '"
 					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '" + dateFormat.format(date) + "' "
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Asignada', '" + dateFormat.format(date) + "' "
 					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
@@ -508,8 +487,22 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return true;
 	}
 
-	public void añadirObservacion(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+	public boolean añadirObservacion(Incidencia incidencia) {
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos Respuesta.
+			String consulta = "UPDATE `incidencia` SET `observaciones`= '" + incidencia.getObservaciones()
+					+ "' WHERE incidencia.id='" + incidencia.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+			
+		}
+		return true;
 	}
 
 	public Cliente[] cargarListadoClientes() {
@@ -580,8 +573,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean editarEstadoIncidencia(Incidencia incidencia) {
-		Connection conexion;
-		PreparedStatement ps;
+	
 
 		try {
 			conexion = Conexion.getConnection();
@@ -712,8 +704,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias) {
-		Connection conexion;
-		PreparedStatement ps;
+	
 
 		try {
 			conexion = Conexion.getConnection();
@@ -813,8 +804,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Comercial[] cargarComerciales() {
-		Connection conexion;
-		PreparedStatement ps;
 		ResultSet rs;
 		Comercial[] comerciales = null;
 		int sizerow = 0;

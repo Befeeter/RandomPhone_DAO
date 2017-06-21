@@ -27,6 +27,10 @@ public class Reclamacion_ventana extends VerticalLayout {
 	protected Label respuestaT;
 	protected TextField nuevaConsultaTA;
 	protected Button enviarB;
+	protected VerticalLayout observacionesLY;
+	protected Label observacioinesL;
+	protected TextField observacionesTF;
+	protected Button observacionB;
 
 	public Reclamacion_ventana() {
 		Design.read(this);
