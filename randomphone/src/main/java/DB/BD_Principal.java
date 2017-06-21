@@ -136,10 +136,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '"
+			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
 					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
 					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', 'Nueva', '" + dateFormat.format(date) + "')";
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '" + dateFormat.format(date) + "' "
+					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -323,9 +324,10 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				rs.next();
+				incidencia.setCliente(cargarDatosCliente(id_cliente));
 			}
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
@@ -353,8 +355,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
+				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -438,10 +441,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Estado`, `fecha_alta`) VALUES (NULL, '"
-					+ incidencia.getComercial().getId() + "', '" + incidencia.getCliente().getId() + "', '"
+			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
+					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
 					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', 'Nueva', '" + dateFormat.format(date) + "')";
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '" + dateFormat.format(date) + "' "
+					+ ", " + incidencia.isCliente() +", '" + incidencia.getObservaciones()+"')";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 
@@ -508,7 +512,22 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean editarIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos
+			String consulta = "UPDATE incidencia SET ausnto= '" + incidencia.getAsunto() + "', tipo= '" + incidencia.getTipo()
+					+ "', telefono='" + incidencia.getTelefono() + "', texto='" + incidencia.getTexto() + "', estado=" + incidencia.getEstado() 
+					+ ", fecha_alta='" + incidencia.getFecha_alta() + "', cliente=" + incidencia.isCliente() + ", observaciones='" + incidencia.getObservaciones() + "' "
+					+ "WHERE incidencia.id='"+incidencia.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public boolean editarEstadoIncidencia(Incidencia incidencia) {
@@ -536,7 +555,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		int sizerow = 0;
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM incidencia where estado='Sin Asignar Cibernauta'";
+			String consulta = "SELECT * FROM incidencia where estado='SinAsignar' AND cliente='0'";
 			ps = conexion.prepareStatement(consulta);
 			rs = ps.executeQuery();
 			rs.last();
@@ -546,8 +565,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
+				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -563,7 +583,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		int sizerow = 0;
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM incidencia where estado='Sin Asignar'";
+			String consulta = "SELECT * FROM incidencia where estado='SinAsignar'  AND cliente='1'";
 			ps = conexion.prepareStatement(consulta);
 			rs = ps.executeQuery();
 			rs.last();
@@ -573,8 +593,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
+				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -600,8 +621,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
+				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -627,8 +649,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas incidencias como resultados tiene la consulta
 				Incidencia incidencia = new Incidencia(rs.getInt(1), rs.getString(4), rs.getString(5), rs.getInt(6),
-						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10));
+						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
+				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
 				rs.next();
 			}
 		} catch (SQLException exception) {
