@@ -51,6 +51,7 @@ public class ModificarDatosCliente extends ModificarDatosCliente_ventana {
 		entrarB.setClickShortcut(KeyCode.ENTER);
 		entrarB.addClickListener(ClickEvent ->{
 			cliente = iCm.cargarDatosCliente(this.documentoTF.getValue());
+			cliente.setIncidencia(iCm.cargarIncidencias(cliente.getId()));
 			if (cliente != null){
 				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", cliente);
 				this.getUI().setContent(new SitioWebComercial());

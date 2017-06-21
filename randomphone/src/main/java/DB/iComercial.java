@@ -25,6 +25,8 @@ public interface iComercial {
 	public void modificarServiciosCliente(Cliente cliente);
 
 	public DB.Paquete[] cargarPaquetesDisp();
+	
+	public Incidencia[] cargarIncidencias(int id_cliente);
 
 	public void addPaqueteCliente(Cliente cliente, Paquete paquete);
 

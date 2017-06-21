@@ -216,7 +216,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		// Cargamos Facturas del cliente
 		cliente.setFactura(cargarFacturas(cliente.getId()));
 		// Cargamos Incidencias del cliente
-		cliente.setIncidencia(cargarIncidencias(cliente.getId()));
+		//cliente.setIncidencia(cargarIncidencias(cliente.getId()));
 		return cliente;
 
 	}
@@ -252,7 +252,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		// Cargamos Facturas del cliente
 		cliente.setFactura(cargarFacturas(id));
 		// Cargamos Incidencias del cliente
-		cliente.setIncidencia(cargarIncidencias(id));
+		//cliente.setIncidencia(cargarIncidencias(id));
 		return cliente;
 	}
 
