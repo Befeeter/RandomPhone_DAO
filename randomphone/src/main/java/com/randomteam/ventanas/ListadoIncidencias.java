@@ -99,6 +99,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 
 		// Creamos Grid asignadas
 		asignadasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		asignadasLS.addColumn(Incidencia::getIdComercial).setCaption("Comercial").setSortable(true);
 		asignadasLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha alta").setSortable(true);
 		asignadasLS.setItems(incidenciasAsig);
 		asignadasLS.addItemClickListener(event -> {
@@ -165,12 +166,12 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			Incidencia[] incidenciasAsignarCli;
 			size = clienteLS.getSelectedItems().size();
 			incidenciasAsignarCli = new Incidencia[size];
-			incidenciasAsignarCli = cibernautaLS.getSelectedItems().toArray(incidenciasAsignarCli);
+			incidenciasAsignarCli = clienteLS.getSelectedItems().toArray(incidenciasAsignarCli);
 
 			Incidencia[] incidenciasAsigar;
 			size = asignadasLS.getSelectedItems().size();
 			incidenciasAsigar = new Incidencia[size];
-			incidenciasAsigar = cibernautaLS.getSelectedItems().toArray(incidenciasAsigar);
+			incidenciasAsigar = asignadasLS.getSelectedItems().toArray(incidenciasAsigar);
 
 			// asignar comercial
 			Window subWindow = new Window("Asignar incidencia");
@@ -180,7 +181,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("600px");
+			subWindow.setHeight("800px");
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
 				// recargar
@@ -234,8 +235,8 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			correcto = false;
 		}
 		if (correcto) {
-			Notification.show("Eliminadas Con exito!");
 			recargarIncidencias();
+			Notification.show("Eliminadas Con exito!");
 		} else
 			Notification.show("Error! Ups algo fue mal!");
 	}

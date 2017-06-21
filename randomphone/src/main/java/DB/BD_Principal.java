@@ -546,7 +546,21 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean asignarIncidencia(Incidencia incidencia, Comercial comercial) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			// Actualizamos
+			String consulta = "UPDATE `incidencia` SET `Estado`='Asignada', `ComercialPersonaId`='"+comercial.getId()+"'"
+					+ " WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
+			ps = conexion.prepareStatement(consulta);
+			ps.executeUpdate();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+			System.out.println("holaaaaaaaaaaaaaa");
+			return false;
+		}
+		return true;
 	}
 
 	public Incidencia cargarIncidencia(Incidencia incidencia) {
@@ -557,16 +571,17 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos
-			String consulta = "UPDATE incidencia SET ausnto= '" + incidencia.getAsunto() + "', tipo= '" + incidencia.getTipo()
-					+ "', telefono='" + incidencia.getTelefono() + "', texto='" + incidencia.getTexto() + "', estado=" + incidencia.getEstado() 
-					+ ", fecha_alta='" + incidencia.getFecha_alta() + "', cliente=" + incidencia.isCliente() + ", observaciones='" + incidencia.getObservaciones() + "' "
-					+ "WHERE incidencia.id='"+incidencia.getId() + "'";
+			String consulta = "UPDATE `incidencia` SET `Ausnto`='" + incidencia.getAsunto() + "', `Tipo`='" + incidencia.getTipo()
+					+ "', `Telefono`='" + incidencia.getTelefono() + "', `Texto`='" + incidencia.getTexto() + "', `Estado`='" + incidencia.getEstado() 
+					+ "', `fecha_alta`='" + incidencia.getFecha_alta() + "', `Cliente`=" + incidencia.isCliente() + ", `Observaciones`='" + incidencia.getObservaciones() + "' "
+					+ "WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 		} catch (SQLException exception) {
 			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
 			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
 			System.out.println(exception.getMessage());
+			System.out.println("holaaaaaaaaaaaaaa");
 			return false;
 		}
 		return true;
@@ -609,6 +624,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
+				Comercial comercial = new Comercial();
+				comercial.setId(rs.getInt(2));
+				incidencia.setComercial(comercial);
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -637,6 +655,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
+				Comercial comercial = new Comercial();
+				comercial.setId(rs.getInt(2));
+				incidencia.setComercial(comercial);
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -665,6 +686,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
+				Comercial comercial = new Comercial();
+				comercial.setId(rs.getInt(2));
+				incidencia.setComercial(comercial);
 				rs.next();
 			}
 		} catch (SQLException exception) {
@@ -693,6 +717,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 						rs.getString(7), rs.getString(8), rs.getString(9), rs.getDate(10), rs.getBoolean(11), rs.getString(12));
 				incidencias[i - 1] = incidencia;
 				incidencia.setCliente(cargarDatosCliente(rs.getInt(3)));
+				Comercial comercial = new Comercial();
+				comercial.setId(rs.getInt(2));
+				incidencia.setComercial(comercial);
 				rs.next();
 			}
 		} catch (SQLException exception) {

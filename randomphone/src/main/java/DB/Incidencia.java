@@ -151,6 +151,10 @@ public class Incidencia {
 		this.esCliente = esCliente;
 	}
 	
+	public int getIdComercial() {
+		return this.comercial.getId();
+	}
+	
 
 	
 	

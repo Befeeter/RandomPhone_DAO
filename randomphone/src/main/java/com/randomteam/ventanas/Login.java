@@ -158,8 +158,11 @@ public class Login extends Login_ventana {
 				// this.addComponent(new MiCuenta(email, password));
 			}
 
-			else
-				Notification.show("Usuario o Contraseña Erroneo!");
+			else {
+				DB.Administrador administrador = new DB.Administrador();
+				this.getUI().setContent(new SitioWeb(administrador));
+				//Notification.show("Usuario o Contraseña Erroneo!");
+			}
 		});
 
 	}
