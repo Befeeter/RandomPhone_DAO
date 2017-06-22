@@ -1,18 +1,30 @@
 package com.randomteam.ventanas;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import org.omg.CORBA.Environment;
+
+import com.vaadin.data.Binder;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.ContentMode;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import DB.BD_Clientes;
 import DB.BD_Principal;
+import DB.Cliente;
 import DB.Fibra;
 import DB.Fijo;
 import DB.Movil;
 import DB.Paquete;
+import DB.Servicio;
+import DB.Television;
+import DB.Terminal;
 import DB.iComercial;
 
 public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
@@ -39,12 +51,20 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 	private ArrayList<Fijo> sFijoD = new ArrayList<Fijo>();
 	private Fibra[] sFibra = iC.cargarTarifasFibra();
 	private ArrayList<Fibra> sFibraD = new ArrayList<Fibra>();
-	private Paquete[] sTv = null; // iC.cargarPaquetesDisp();
-	private ArrayList<Paquete> sTvD = new ArrayList<Paquete>();
+	private Television[] sTv = iC.cargarTarifasTelevision();
+	private ArrayList<Television> sTvD = new ArrayList<Television>();
+	private Cliente cliente ;
+	private ArrayList<Servicio> serviciosContratados = new ArrayList<>();
+	private Terminal[] terminales;
+	private int facturaId;
 	// cargar Servicios Disponibles
 	// private Movil[] tMovil = iC.cargarServiciosDisp();
 
 	public AltaNuevoCliente() {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new java.util.Date();
+		
 		this.movilL.setContentMode(ContentMode.HTML);
 		this.movilL.setValue(VaadinIcons.PHONE.getHtml());
 		this.fijoL.setContentMode(ContentMode.HTML);
@@ -59,7 +79,7 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 		movilLS.setItemCaptionGenerator(Movil::getNombre);
 		fijoLS.setItemCaptionGenerator(Fijo::getNombre);
 		fibraLS.setItemCaptionGenerator(Fibra::getNombre);
-		televisionLS.setItemCaptionGenerator(Paquete::getNombre);
+		televisionLS.setItemCaptionGenerator(Television::getNombre);
 
 		// Cargamos Los servicios activos Disponibles.
 		for (Movil movil : sMovil)
@@ -77,10 +97,10 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 				sFibraD.add(fibra);
 		fibraLS.setItems(sFibraD);
 
-		/*
-		 * for (Paquete paquete : sTv) if (paquete.isEstado() == true)
-		 * televisionLS.setItems(paquete);
-		 */
+		for (Television paquete : sTv)
+			if (paquete.isEstado() == true)
+				sTvD.add(paquete);
+		televisionLS.setItems(sTvD);
 
 		// Ventana emergente para establecer Terminales
 		terminalesB.addClickListener(ClickEvent -> {
@@ -94,6 +114,57 @@ public class AltaNuevoCliente extends AltaNuevoCliente_ventana {
 			subWindow.setWidth("400px");
 
 			this.getUI().addWindow(subWindow);
+		});
+		
+		Binder<Cliente> binder = new Binder<Cliente>();
+		
+		binder.forField(nombreTF).asRequired("Nombre No puede estar vacío").bind(Cliente::getNombre, Cliente::setNombre);
+		binder.forField(apellidoTF).asRequired("Apellidos no puede estar vacío").bind(Cliente::getApellidos, Cliente::setApellidos);
+		binder.forField(documentoTF).asRequired("DNI no puede estar vacio").bind(Cliente::getDocumento, Cliente::setDocumento);
+		binder.forField(emailTF).asRequired("Email no puede estar vacío").bind(Cliente::getEmail, Cliente::setEmail);
+		
+		binder.addStatusChangeListener(event ->
+		darDeAltaB.setEnabled(binder.isValid()));
+		
+		darDeAltaB.addClickListener(ClickEvent->{
+			this.cliente = new Cliente(date, true, Integer.parseInt(telefonoTF.getValue()));
+			cliente.setNombre(nombreTF.getValue());
+			cliente.setApellidos(apellidoTF.getValue());
+			cliente.setDocumento(documentoTF.getValue());
+			cliente.setEmail(emailTF.getValue());
+			cliente.setTelefono(Integer.parseInt(telefonoTF.getValue()));
+			cliente.setContrasena("Hola00==");
+			cliente.setId(iC.altaCliente(cliente));
+			if(cliente.getId() != -1){
+				
+				if (!movilLS.isEmpty())
+					serviciosContratados.add(movilLS.getValue());
+				if(!fibraLS.isEmpty())
+					serviciosContratados.add(fibraLS.getValue());
+				if(!fijoLS.isEmpty())
+					serviciosContratados.add(fijoLS.getValue());
+				if (!televisionLS.isEmpty()){
+					serviciosContratados.add(televisionLS.getValue());
+					if (!VaadinService.getCurrentRequest().getWrappedSession().getAttributeNames().contains("Terminales"))
+						Notification.show("Error! Debe seleccionar el terminal correspondiente");
+					else
+						terminales = (Terminal[]) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("Terminales");
+				}
+				
+				int total = 0;
+				for(Servicio serv : serviciosContratados)
+					total += serv.getPrecio();
+				facturaId = iC.crearFacturaServicios(cliente, serviciosContratados.toArray(new Servicio[serviciosContratados.size()]), total);
+				
+				if (iC.altaTerminal(terminales, facturaId)){
+					Notification.show("Usuario Creado Correctamente");
+					
+				}
+				else
+					Notification.show("Error");
+			}
+				
+				
 		});
 
 	}

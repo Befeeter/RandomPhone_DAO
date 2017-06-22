@@ -33,7 +33,7 @@ public class AltaNuevoCliente_ventana extends CssLayout {
 	protected Label fibraL;
 	protected ComboBox<DB.Fibra> fibraLS;
 	protected Label televisionL;
-	protected ComboBox<DB.Paquete> televisionLS;
+	protected ComboBox<DB.Television> televisionLS;
 	protected Button terminalesB;
 	protected Button darDeAltaB;
 

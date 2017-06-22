@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
@@ -28,7 +28,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper" width="50%">
-      <vaadin-radio-button-group width-full data-item-type="java.lang.String">
+      <vaadin-radio-button-group width-full data-item-type="java.lang.String" _id="clienteR">
        <option item="Option1">Si</option>
        <option item="Option2">No</option>
       </vaadin-radio-button-group>
@@ -42,16 +42,19 @@
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper" width="50%">
       <vaadin-combo-box data-item-type="java.lang.String" _id="tipoCB">
-       <option item="Option1">Option 1</option>
-       <option item="Option2">Option 2</option>
-       <option item="Option3">Option 3</option>
+       <option item="altaCliente">Alta cliente</option>
+       <option item="llamar">Llamar</option>
+       <option item="bajaCliente">Baja cliente</option>
+       <option item="altaServicio">Alta servicio</option>
+       <option item="bajaServicio">Baja servicio</option>
+       <option item="Modificacion">Modificación</option>
       </vaadin-combo-box>
      </vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper" width="50%">
       <vaadin-label plain-text>
-        Telefono Cliente: 
+        Telefono Contacto: 
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper" width="50%">
@@ -68,7 +71,7 @@
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-css-layout style-name="input-wrapper" width-full>
       <vaadin-horizontal-layout width-full>
-       <vaadin-button style-name="primary" plain-text _id="enviarB" :right>
+       <vaadin-button enabled="false" style-name="primary" plain-text _id="enviarB" :right>
          Enviar 
        </vaadin-button>
       </vaadin-horizontal-layout>

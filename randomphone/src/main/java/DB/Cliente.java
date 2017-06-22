@@ -1,6 +1,8 @@
 package DB;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import DB.Factura;
 import DB.Incidencia;
@@ -26,10 +28,11 @@ public class Cliente extends Persona {
 	
 	
 	public Cliente(){
-		this.setNombre("");
+		this.setNombre("Internauta");
 		this.fecha_altta = null;
 		this.estado = false;
 		this.telefono = 35131313;
+		this.setId(0);
 		
 	}
 

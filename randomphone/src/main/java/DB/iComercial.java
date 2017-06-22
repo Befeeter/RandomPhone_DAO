@@ -6,16 +6,20 @@ package DB;
 public interface iComercial {
 	public Cliente cargarDatosCliente(String dni);
 
-	public void altaCliente(Cliente cliente);
+	public int crearFacturaServicios(Cliente cliente, Servicio[] serviciosContratados, int total);
+
+	public boolean altaTerminal(Terminal[] terminales, int facturaId);
+
+	public int altaCliente(Cliente cliente);
 
 	public Servicio[] cargarServiciosDisp();
-	
+
 	public Movil[] cargarTarifasMovil();
-	
+
 	public Fijo[] cargarTarifasFijo();
-	
+
 	public Fibra[] cargarTarifasFibra();
-	
+
 	public Television[] cargarTarifasTelevision();
 
 	public Cliente selecionarCliente(String dni);
@@ -25,7 +29,7 @@ public interface iComercial {
 	public void modificarServiciosCliente(Cliente cliente);
 
 	public DB.Paquete[] cargarPaquetesDisp();
-	
+
 	public Incidencia[] cargarIncidencias(int id_cliente);
 
 	public void addPaqueteCliente(Cliente cliente, Paquete paquete);
@@ -33,7 +37,7 @@ public interface iComercial {
 	public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete);
 
 	public Incidencia[] cargarIncidenciasCm(int id_comercial);
-	
+
 	public boolean editarEstadoIncidencia(Incidencia incidencia);
 
 	public boolean responderIncidencia(Incidencia incidencia);
@@ -41,6 +45,6 @@ public interface iComercial {
 	public boolean crearIncidenciaCliente(Incidencia incidencia);
 
 	public boolean añadirObservacion(Incidencia incidencia);
-	
+
 	public Comercial[] cargarComerciales();
 }

@@ -35,29 +35,47 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		Servicio[] tMovil = cargarTarifasMovil();
 		Servicio[] tFijo = cargarTarifasFijo();
 		Servicio[] tFibra = cargarTarifasFibra();
-		Servicio[] tTv= cargarTarifasTelevision();
-		
+		Servicio[] tTv = cargarTarifasTelevision();
+
 		for (Servicio movil : tMovil)
 			if (movil.isEstado())
 				serviciosDisp.add(movil);
-		
+
 		for (Servicio fijo : tFijo)
 			if (fijo.isEstado())
 				serviciosDisp.add(fijo);
-		
+
 		for (Servicio fibra : tFibra)
-			if(fibra.isEstado())
+			if (fibra.isEstado())
 				serviciosDisp.add(fibra);
-				
+
 		for (Servicio tv : tTv)
 			if (tv.isEstado())
 				serviciosDisp.add(tv);
-		
+
 		return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 	}
 
 	public Servicio[] cargarServiciosCliente() {
 		throw new UnsupportedOperationException();
+	}
+
+	public boolean altaTerminal(Terminal[] terminales, int facturaId) {
+		try {
+			conexion = Conexion.getConnection();
+			for (int i = 0; i < terminales.length; i++) {
+				String consulta = "INSERT INTO `terminal` (`Id`, `FacturaId`, `Tipo`, `Estado`) VALUES (NULL, '"
+						+ facturaId + "', '" + terminales[i].getTipo() + "', " + terminales[i].isEstado() + ")";
+				ps = conexion.prepareStatement(consulta);
+				ps.executeUpdate();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 	public boolean modificarServicios(Servicio[] servicios, int idFactura) {
@@ -172,15 +190,20 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
+		if (incidencia.getCliente() == null) {
+			incidencia.setCliente(new Cliente());
+		}
+		if (incidencia.getComercial() == null)
+			incidencia.setComercial(new Comercial());
 
 		try {
 			conexion = Conexion.getConnection();
 			String consulta = "INSERT INTO `incidencia` (`Id`, `ComercialPersonaId`, `ClientePersonaId`, `Ausnto`, `Tipo`, `Telefono`, `Texto`, `Respuesta`, `Estado`, `fecha_alta`, `cliente`, `observaciones`) VALUES (NULL, '"
-					+ incidencia.comercial.getId() + "', '" + incidencia.getCliente().getId() + "', '"
-					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getCliente().getId()
-					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', 'Sin Asignar', '"
-					+ dateFormat.format(date) + "' " + ", " + incidencia.isCliente() + ", '"
-					+ incidencia.getObservaciones() + "')";
+					+ incidencia.getComercial().getId() + "', '" + incidencia.getCliente().getId() + "', '"
+					+ incidencia.getAsunto() + "', '" + incidencia.getTipo() + "', '" + incidencia.getTelefono()
+					+ "', '" + incidencia.getTexto() + "', '" + incidencia.getRespuesta() + "', '"
+					+ incidencia.getEstado() + "', '" + dateFormat.format(date) + "', " + incidencia.isCliente() + ", '"
+					+ incidencia.getObservaciones() + "');";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 			ps.close();
@@ -199,28 +222,28 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public Servicio[] cargarOfertas(Servicio tipo) {
 		ArrayList<Servicio> serviciosDisp = new ArrayList<>();
 		Servicio[] servicios;
-		if (tipo.getClass() == (new Movil().getClass())){
+		if (tipo.getClass() == (new Movil().getClass())) {
 			servicios = cargarTarifasMovil();
 			for (Servicio movil : servicios)
 				if (movil.isEstado())
 					serviciosDisp.add(movil);
 			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 		}
-		if (tipo.getClass() == (new Fibra().getClass())){
+		if (tipo.getClass() == (new Fibra().getClass())) {
 			servicios = cargarTarifasFibra();
 			for (Servicio fibra : servicios)
 				if (fibra.isEstado())
 					serviciosDisp.add(fibra);
 			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 		}
-		if (tipo.getClass() == (new Fijo().getClass())){
+		if (tipo.getClass() == (new Fijo().getClass())) {
 			servicios = cargarTarifasFijo();
 			for (Servicio fijo : servicios)
 				if (fijo.isEstado())
 					serviciosDisp.add(fijo);
 			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 		}
-		if (tipo.getClass() == (new Television()).getClass()){
+		if (tipo.getClass() == (new Television()).getClass()) {
 			servicios = cargarTarifasTelevision();
 			for (Servicio tv : servicios)
 				if (tv.isEstado())
@@ -366,8 +389,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public DB.Paquete[] cargarPaquetes(int id) {
 		throw new UnsupportedOperationException();
 	}
-	
-	public Paquete [] cargarPaquetesTV () {
+
+	public Paquete[] cargarPaquetesTV() {
 		Paquete[] paquetes = null;
 		int sizerow;
 		try {
@@ -381,7 +404,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantas tarifas como resultados tiene la consulta
-				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4), rs.getDate(5), rs.getBoolean(6));
+				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4),
+						rs.getDate(5), rs.getBoolean(6));
 				paquetes[i - 1] = paquete;
 				rs.next();
 			}
@@ -519,8 +543,72 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return true;
 	}
 
-	public void altaCliente(Cliente cliente) {
-		throw new UnsupportedOperationException();
+	public int crearFacturaServicios(Cliente cliente, Servicio[] serviciosContratados, int total) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = new java.util.Date();
+		int facturaId = -1;
+		try {
+			conexion = Conexion.getConnection();
+			// creo la persona
+			String insertarFactura = "INSERT INTO `factura` (`Id`, `ClientePersonaId`, `Fecha_ini`, `Fecha_fin`, `Total`) VALUES (NULL, '"
+					+ cliente.getId() + "', '" + dateFormat.format(date) + "', '2017-07-20', '" + total + "')";
+			ps = conexion.prepareStatement(insertarFactura);
+			ps.execute(insertarFactura);
+			// obtendo el id de la persona que se ha creado para ponerlo como
+			// persona id para que sea corresponda con el cliente
+			String consultaIdFactura = "SELECT id FROM factura WHERE factura.ClientePersonaId='" + cliente.getId()
+					+ "'";
+			ps = conexion.prepareStatement(consultaIdFactura);
+			rs = ps.executeQuery();
+			rs.first();
+			facturaId = rs.getInt(1);
+			// añado los servicios del cliente.
+			for (int i = 0; i < serviciosContratados.length; i++) {
+				String consulta = "INSERT INTO `servicio_factura` (`ServicioId`, `FacturaId`) VALUES ('"
+						+ serviciosContratados[i].getId() + "', '" + facturaId + "')";
+				ps = conexion.prepareStatement(consulta);
+				ps.executeUpdate();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return -1;
+		}
+		return facturaId;
+	}
+
+	public int altaCliente(Cliente cliente) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		int personaId = -1;
+		try {
+			conexion = Conexion.getConnection();
+			// creo la persona
+			String insertarPersona = "INSERT INTO persona (Documento, Nombre, Apellidos, Contrasena, Email) "
+					+ "VALUES ('" + cliente.getDocumento() + "','" + cliente.getNombre() + "', '"
+					+ cliente.getApellidos() + "', '" + cliente.getContrasena() + "', '" + cliente.getEmail() + "')";
+			ps = conexion.prepareStatement(insertarPersona);
+			ps.execute(insertarPersona);
+			// obtendo el id de la persona que se ha creado para ponerlo como
+			// persona id para que sea corresponda con el cliente
+			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + cliente.getDocumento() + "'";
+			ps = conexion.prepareStatement(consultaIdPersona);
+			rs = ps.executeQuery();
+			rs.first();
+			personaId = rs.getInt(1);
+			// creo el cliente
+			String insertarCliente = "INSERT INTO cliente (Fecha_altta, Estado, Telefono, PersonaId) " + "VALUES ('"
+					+ dateFormat.format(cliente.getFecha_altta()) + "'," + cliente.isEstado() + ", "
+					+ cliente.getTelefono() + ", " + personaId + ")";
+			ps = conexion.prepareStatement(insertarCliente);
+			ps.execute(insertarCliente);
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return -1;
+		}
+		return personaId;
 	}
 
 	public Cliente selecionarCliente(String dni) {
@@ -543,8 +631,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs.first();
 			for (int i = 1; i <= sizerow; i++) {
 				// Creamos Tantos Paquetes como resultados tiene la consulta
-				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4), rs.getDate(5),
-						rs.getBoolean(6));
+				Paquete paquete = new Paquete(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getFloat(4),
+						rs.getDate(5), rs.getBoolean(6));
 				paquetesDisp.add(paquete);
 				rs.next();
 			}
@@ -677,8 +765,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos
-			String consulta = "UPDATE `incidencia` SET `Estado`='Asignada', `ComercialPersonaId`='"+comercial.getId()+"'"
-					+ " WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
+			String consulta = "UPDATE `incidencia` SET `Estado`='Asignada', `ComercialPersonaId`='" + comercial.getId()
+					+ "'" + " WHERE `Incidencia`.`Id`='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 			ps.close();
@@ -701,10 +789,11 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos
-			String consulta = "UPDATE `incidencia` SET `Ausnto`='" + incidencia.getAsunto() + "', `Tipo`='" + incidencia.getTipo()
-					+ "', `Telefono`='" + incidencia.getTelefono() + "', `Texto`='" + incidencia.getTexto() + "', `Estado`='" + incidencia.getEstado() 
-					+ "', `fecha_alta`='" + incidencia.getFecha_alta() + "', `Cliente`=" + incidencia.isCliente() + ", `Observaciones`='" + incidencia.getObservaciones() + "' "
-					+ "WHERE `Incidencia`.`Id`='"+incidencia.getId() + "'";
+			String consulta = "UPDATE `incidencia` SET `Ausnto`='" + incidencia.getAsunto() + "', `Tipo`='"
+					+ incidencia.getTipo() + "', `Telefono`='" + incidencia.getTelefono() + "', `Texto`='"
+					+ incidencia.getTexto() + "', `Estado`='" + incidencia.getEstado() + "', `fecha_alta`='"
+					+ incidencia.getFecha_alta() + "', `Cliente`=" + incidencia.isCliente() + ", `Observaciones`='"
+					+ incidencia.getObservaciones() + "' " + "WHERE `Incidencia`.`Id`='" + incidencia.getId() + "'";
 			ps = conexion.prepareStatement(consulta);
 			ps.executeUpdate();
 			ps.close();
@@ -1164,8 +1253,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertar = "INSERT INTO paquete (TelevisionServicioId, Nombre, Precio, Fecha_alta, Estado) " 
-					+ "VALUES ('" + paquete.getTelevision().getId() + "','" + paquete.getNombre() + "', " + paquete.getFecha_alta() + "', " + paquete.isEstado() + ")";
+			String insertar = "INSERT INTO paquete (TelevisionServicioId, Nombre, Precio, Fecha_alta, Estado) "
+					+ "VALUES ('" + paquete.getTelevision().getId() + "','" + paquete.getNombre() + "', "
+					+ paquete.getFecha_alta() + "', " + paquete.isEstado() + ")";
 			ps = conexion.prepareStatement(insertar);
 			ps.execute(insertar);
 			ps.close();
@@ -1188,8 +1278,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
 		throw new UnsupportedOperationException();
 	}
-	
-	public boolean eliminarCanal (Canal canal) {
+
+	public boolean eliminarCanal(Canal canal) {
 		try {
 			conexion = Conexion.getConnection();
 			String consulta = "DELETE from canal WHERE id=" + canal.getId();
@@ -1286,8 +1376,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Movil "+movil.getNombre()
-					+ "','" + movil.getPrecio() + "', " + movil.isEstado() + ")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Movil "
+					+ movil.getNombre() + "','" + movil.getPrecio() + "', " + movil.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
 			// obtendo el id de la persona que se ha creado para ponerlo como
@@ -1315,8 +1405,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fijo " + fijo.getNombre()
-					+ "','" + fijo.getPrecio() + "', " + fijo.isEstado() + ")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fijo "
+					+ fijo.getNombre() + "','" + fijo.getPrecio() + "', " + fijo.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
 			// obtendo el id del servicio
@@ -1343,8 +1433,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fibra " + fibra.getNombre()
-					+ "','" + fibra.getPrecio() + "', " + fibra.isEstado() + ")";
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fibra "
+					+ fibra.getNombre() + "','" + fibra.getPrecio() + "', " + fibra.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
 			// obtendo el id del servicio

@@ -19,6 +19,8 @@ public class Incidencia {
 	
 	
 	public Incidencia(){
+		this.setEstado("SinAsignar");
+		this.setIsCliente(false);
 		
 	}
 	

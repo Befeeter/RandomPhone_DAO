@@ -5,6 +5,7 @@ import com.vaadin.annotations.DesignRoot;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.declarative.Design;
@@ -22,6 +23,7 @@ import com.vaadin.ui.declarative.Design;
 @SuppressWarnings("serial")
 public class Contacto_ventana extends CssLayout {
 	protected TextField asuntoTF;
+	protected RadioButtonGroup<java.lang.String> clienteR;
 	protected ComboBox<java.lang.String> tipoCB;
 	protected TextField telefonoTF;
 	protected TextArea mensajeTA;

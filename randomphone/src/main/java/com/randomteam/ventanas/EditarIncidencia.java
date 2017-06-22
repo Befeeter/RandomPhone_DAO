@@ -2,6 +2,7 @@ package com.randomteam.ventanas;
 
 import java.util.Iterator;
 
+import com.vaadin.data.Binder;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
 
@@ -19,30 +20,40 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 	iAdministrador iA = new BD_Principal();
 
 	public EditarIncidencia(Incidencia incidencia) {
+
+		Binder<Incidencia> binder = new Binder<>();
+
+		binder.forField(asuntoTF).asRequired("Asunto Requerido").bind(Incidencia::getAsunto, Incidencia::setAsunto);
+		binder.forField(tipoCB).asRequired("Debe Seleccionar un tipo").bind(Incidencia::getTipo, Incidencia::setTipo);
+		binder.forField(mensajeTA).asRequired("Debe introducir un Mensaje").bind(Incidencia::getTexto,
+				Incidencia::setTexto);
+
+		binder.addStatusChangeListener(event -> enviarB.setEnabled(binder.isValid()));
+
 		// establezco los valores de los campos a editar
 		clienteTF.setValue(incidencia.getCliente().getNombre() + "");
 		asuntoTF.setValue(incidencia.getAsunto() + "");
 		if (incidencia.isCliente())
 			clienteR.setSelectedItem("Option1");
-		else 
+		else
 			clienteR.setSelectedItem("Option2");
 		tipoCB.setEmptySelectionAllowed(false);
 		tipoCB.setValue(incidencia.getTipo());
-		telefonoTF.setValue(incidencia.getTelefono()+"");
-		mensajeTA.setValue(incidencia.getTexto()+"");
-		observacionesTA.setValue(incidencia.getObservaciones()+"");
+		telefonoTF.setValue(incidencia.getTelefono() + "");
+		mensajeTA.setValue(incidencia.getTexto() + "");
+		observacionesTA.setValue(incidencia.getObservaciones() + "");
 		//
 		enviarB.addClickListener(ClickEvent -> {
 			incidencia.setAsunto(asuntoTF.getValue());
 			if (clienteR.getSelectedItem().get().equals("Option1")) {
-				incidencia.setIsCliente(true);System.out.println("holaaaaaaaaaaaaaaaaa");
-			}
-			else
+				incidencia.setIsCliente(true);
+				System.out.println("holaaaaaaaaaaaaaaaaa");
+			} else
 				incidencia.setIsCliente(false);
-			incidencia.setTipo(tipoCB.getValue()+"");
+			incidencia.setTipo(tipoCB.getValue() + "");
 			incidencia.setTelefono(Integer.parseInt(telefonoTF.getValue()));
-			incidencia.setTexto(mensajeTA.getValue()+"");
-			incidencia.setObservaciones(observacionesTA.getValue()+"");
+			incidencia.setTexto(mensajeTA.getValue() + "");
+			incidencia.setObservaciones(observacionesTA.getValue() + "");
 
 			// editar
 			if (iA.editarIncidencia(incidencia)) {

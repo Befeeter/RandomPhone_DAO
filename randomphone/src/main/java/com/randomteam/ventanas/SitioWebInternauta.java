@@ -47,7 +47,7 @@ public class SitioWebInternauta extends sitioWebInternauta_ventana implements Vi
 		ofertasGrid.addItemClickListener(event -> {
 			Window subWindow = new Window("Solicitar LLamada");
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new SolicitarLlamada());
+			subContent.addComponent(new SolicitarLlamada(event.getItem().getNombre()));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);

@@ -12,6 +12,7 @@ public class Comercial extends Persona {
 	public BD_Comerciales bD_Comerciales;
 
 	public Comercial() {
+		this.setId(0);
 
 	}
 
