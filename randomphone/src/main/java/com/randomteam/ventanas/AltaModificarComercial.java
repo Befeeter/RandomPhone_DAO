@@ -92,7 +92,7 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 					comercial.setEstado(false);
 	
 				// crear comercial
-				if (iA.editarComercial(comercial, comercial)) {
+				if (iA.editarComercial(comercial)) {
 					Notification.show("Editado con exito!");
 					// cerrar ventana
 					Iterator<Window> it = this.getUI().getWindows().iterator();

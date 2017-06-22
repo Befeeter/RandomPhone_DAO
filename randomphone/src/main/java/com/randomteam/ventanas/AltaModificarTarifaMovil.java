@@ -70,7 +70,7 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 				movil.setEstado(false);
 
 			// editar tarifa
-			if (iA.editarTarifaMovil(movil, movil)) {
+			if (iA.editarTarifaMovil(movil)) {
 				// cerrar ventana
 				Notification.show("Editada con exito!");
 				Iterator<Window> it = this.getUI().getWindows().iterator();

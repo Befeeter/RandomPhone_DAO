@@ -12,46 +12,48 @@ public class BD_Incidencias {
 	public Incidencia[] incidencia = new Incidencia[0];
 
 	public void crearIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
+		bD_Principal_incidencias.crearIncidencia(incidencia);
 	}
 
 	public boolean asginarIncidencia(Incidencia incidencia, Comercial comercial) {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.asignarIncidencia(incidencia, comercial);
 	}
 
-	public Incidencia cargarIncidencia(int id_incidencia) {
-		throw new UnsupportedOperationException();
-	}
+	/*public Incidencia cargarIncidencia(int id_incidencia) {
+		Incidencia incidencia = new Incidencia();
+		incidencia.setId(id_incidencia);
+		return bD_Principal_incidencias.cargarIncidencia(incidencia);
+	}*/
 
 	public boolean editarIncidencia(Incidencia incidencia, Incidencia nuevaIncidencia) {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.editarIncidencia(incidencia);
 	}
 
 	public Incidencia[] cargarIncidenciasSinAsignarCibernauta() {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.cargarIncidenciasSinAsignarCibernauta();
 	}
 
 	public Incidencia[] cargarIncidenciasSinAsignarClientes() {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.cargarIncidenciasSinAsignarCLientes();
 	}
 
 	public Incidencia[] cargarIncidenciasCompletadas() {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.cargarIncidenciasCompletadas();
 	}
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias) {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.eliminarIncidencias(incidencias);
 	}
-
+/*
 	public Incidencia[] incidenciasActivasComercial(Comercial comercial) {
-		throw new UnsupportedOperationException();
-	}
+		return bD_Principal_incidencias.incidenciasas(comercial);
+	}*/
 
 	public Incidencia[] cargarIncidenciasCliente(int id_cliente) {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.cargarIncidencias(id_cliente);
 	}
 
 	public Incidencia[] cargarIncidenciasComercial(int id_comercial) {
-		throw new UnsupportedOperationException();
+		return bD_Principal_incidencias.cargarIncidenciasCm(id_comercial);
 	}
 }

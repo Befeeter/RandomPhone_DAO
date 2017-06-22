@@ -56,10 +56,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 	}
 
-	public Servicio[] cargarServiciosCliente() {
-		throw new UnsupportedOperationException();
-	}
-
 	public boolean altaTerminal(Terminal[] terminales, int facturaId) {
 		try {
 			conexion = Conexion.getConnection();
@@ -126,10 +122,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			System.out.println(exception.getMessage());
 		}
 		return facturas;
-	}
-
-	public Servicio[] cargarServiciosDisp() {
-		throw new UnsupportedOperationException();
 	}
 
 	public int comprobarUsuario(String email, String contrasenia) {
@@ -251,10 +243,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return serviciosDisp.toArray(new Servicio[serviciosDisp.size()]);
 		}
 		return null;
-	}
-
-	public void resetPass(String email) {
-		throw new UnsupportedOperationException();
 	}
 
 	public Cliente cargarDatosCliente(String dni) {
@@ -386,10 +374,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return servicios;
 	}
 
-	public DB.Paquete[] cargarPaquetes(int id) {
-		throw new UnsupportedOperationException();
-	}
-
 	public Paquete[] cargarPaquetesTV() {
 		Paquete[] paquetes = null;
 		int sizerow;
@@ -419,10 +403,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return paquetes;
 	}
 
-	public void cargarPaquetePersonal(DB.Paquete paquete) {
-		throw new UnsupportedOperationException();
-	}
-
 	public Canal[] cargarCanalesDisp() {
 		Canal[] canales = null;
 		int sizerow;
@@ -449,14 +429,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			System.out.println(exception.getMessage());
 		}
 		return canales;
-	}
-
-	public void addCanalPaquete(Canal[] canales) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void deleteCanalPaquete(Canal[] canales) {
-		throw new UnsupportedOperationException();
 	}
 
 	public Incidencia[] cargarIncidencias(int id_cliente) {
@@ -611,14 +583,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return personaId;
 	}
 
-	public Cliente selecionarCliente(String dni) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void modificarServiciosCliente(Cliente cliente) {
-		throw new UnsupportedOperationException();
-	}
-
 	public DB.Paquete[] cargarPaquetesDisp() {
 		ArrayList<Paquete> paquetesDisp = new ArrayList<>();
 		try {
@@ -644,14 +608,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			System.out.println(exception.getMessage());
 		}
 		return (Paquete[]) paquetesDisp.toArray();
-	}
-
-	public void addPaqueteCliente(Cliente cliente, Paquete paquete) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete) {
-		throw new UnsupportedOperationException();
 	}
 
 	public boolean responderIncidencia(Incidencia incidencia) {
@@ -757,10 +713,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return clientes;
 	}
 
-	public Comercial[] cargarListaDeComerciales() {
-		throw new UnsupportedOperationException();
-	}
-
 	public boolean asignarIncidencia(Incidencia incidencia, Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
@@ -779,10 +731,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return false;
 		}
 		return true;
-	}
-
-	public Incidencia cargarIncidencia(Incidencia incidencia) {
-		throw new UnsupportedOperationException();
 	}
 
 	public boolean editarIncidencia(Incidencia incidencia) {
@@ -987,10 +935,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 
 	}
 
-	public Incidencia[] incidenciasActivasComercial(Comercial comercial) {
-		throw new UnsupportedOperationException();
-	}
-
 	public boolean eliminarComercial(Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
@@ -1009,7 +953,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return true;
 	}
 
-	public boolean editarComercial(Comercial comercial, Comercial comercialMod) {
+	public boolean editarComercial(Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarComercial = "UPDATE comercial " + "SET Fecha_alta='" + comercial.getFecha_alta()
@@ -1092,10 +1036,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return comerciales;
 	}
 
-	public Incidencia[] cargarIncidenciasComercial() {
-		throw new UnsupportedOperationException();
-	}
-
 	public boolean crearCanal(Canal canal) {
 		try {
 			conexion = Conexion.getConnection();
@@ -1113,7 +1053,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 	}
 
-	public boolean editarCanal(Canal canal, Canal canalNuevo) {
+	public boolean editarCanal(Canal canal) {
 		try {
 			conexion = Conexion.getConnection();
 			String editarCanal = "UPDATE `canal` "
@@ -1129,10 +1069,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			System.out.println(exception.getMessage());
 			return false;
 		}
-	}
-
-	public boolean borrarCanal(Canal canal) {
-		throw new UnsupportedOperationException();
 	}
 
 	public Movil[] cargarTarifasMovil() {
@@ -1292,11 +1228,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return false;
 		}
 	}
-
-	public boolean editarPaquete(DB.Paquete paquete, DB.Paquete paqueteNuevo) {
-		throw new UnsupportedOperationException();
-	}
-
+/*
 	public Canal[] cargarCanalesPaquete(DB.Paquete paquete) {
 		Canal[] canales = null;
 		int sizerow;
@@ -1324,7 +1256,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 		return canales;
 	}
-
+*/
 	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
 		try {
 			conexion = Conexion.getConnection();
@@ -1363,10 +1295,6 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return false;
 		}
 		return true;
-	}
-
-	public boolean eliminarCanalesPaquete(Canal[] canales) {
-		throw new UnsupportedOperationException();
 	}
 
 	public boolean eliminarPaquete(DB.Paquete paquete) {
@@ -1529,7 +1457,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 	}
 
-	public boolean editarTarifaMovil(Movil movil, Movil movilNuevo) {
+	public boolean editarTarifaMovil(Movil movil) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + movil.getNombre() + "', Precio="
@@ -1549,7 +1477,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 	}
 
-	public boolean editarTarifaFijo(Fijo fijo, Fijo fijoNuevo) {
+	public boolean editarTarifaFijo(Fijo fijo) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + fijo.getNombre() + "', Precio="
@@ -1570,7 +1498,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 	}
 
-	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo) {
+	public boolean editarTarifaFibra(Fibra fibra) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio " + "SET Nombre='" + fibra.getNombre() + "', Precio="
@@ -1590,4 +1518,107 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 	}
 
+	/*
+	@Override
+	public Comercial[] cargarListaDeComerciales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Incidencia cargarIncidencia(Incidencia incidencia) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Incidencia[] incidenciasActivasComercial(Comercial comercial) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Incidencia[] cargarIncidenciasComercial() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean borrarCanal(Canal canal) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean editarPaquete(Paquete paquete, Paquete paqueteNuevo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean eliminarCanalesPaquete(Canal[] canales) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Servicio[] cargarServiciosDisp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cliente selecionarCliente(String dni) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modificarServiciosCliente(Cliente cliente) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addPaqueteCliente(Cliente cliente, Paquete paquete) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Paquete[] cargarPaquetes(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void cargarPaquetePersonal(Paquete paquete) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addCanalPaquete(Canal[] canales) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCanalPaquete(Canal[] canales) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetPass(String email) {
+		// TODO Auto-generated method stub
+		
+	}
+	 */
 }

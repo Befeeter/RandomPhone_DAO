@@ -12,7 +12,7 @@ public interface iComercial {
 
 	public int altaCliente(Cliente cliente);
 
-	public Servicio[] cargarServiciosDisp();
+	//public Servicio[] cargarServiciosDisp();
 
 	public Movil[] cargarTarifasMovil();
 
@@ -22,19 +22,19 @@ public interface iComercial {
 
 	public Television[] cargarTarifasTelevision();
 
-	public Cliente selecionarCliente(String dni);
+	//public Cliente selecionarCliente(String dni);
 
 	public boolean modificarDatosP(Cliente cliente);
 
-	public void modificarServiciosCliente(Cliente cliente);
+	//public void modificarServiciosCliente(Cliente cliente);
 
 	public DB.Paquete[] cargarPaquetesDisp();
 
 	public Incidencia[] cargarIncidencias(int id_cliente);
 
-	public void addPaqueteCliente(Cliente cliente, Paquete paquete);
+	//public void addPaqueteCliente(Cliente cliente, Paquete paquete);
 
-	public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete);
+	//public void eliminarPaqueteCliente(Cliente cliente, Paquete paquete);
 
 	public Incidencia[] cargarIncidenciasCm(int id_comercial);
 

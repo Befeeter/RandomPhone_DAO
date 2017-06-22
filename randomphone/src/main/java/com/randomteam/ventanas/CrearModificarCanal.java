@@ -65,7 +65,7 @@ public class CrearModificarCanal extends CrearModificarCanal_ventana{
 				} else
 					canal.setEstado(false);
 	
-				if (iA.editarCanal(canal, canal)) {
+				if (iA.editarCanal(canal)) {
 					Notification.show("Editado con exito!");
 					// cerrar ventana
 					Iterator<Window> it = this.getUI().getWindows().iterator();

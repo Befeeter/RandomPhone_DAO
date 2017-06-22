@@ -68,7 +68,7 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 					fijo.setEstado(false);
 
 				// editar tarifa
-				if (iA.editarTarifaFijo(fijo, fijo)) {
+				if (iA.editarTarifaFijo(fijo)) {
 					Notification.show("Editada con exito!");
 					// cerrar ventana
 					Iterator<Window> it = this.getUI().getWindows().iterator();

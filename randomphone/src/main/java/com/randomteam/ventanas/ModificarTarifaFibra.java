@@ -74,7 +74,7 @@ public class ModificarTarifaFibra extends ModificarTarifaFibra_ventana {
 					fibra.setEstado(false);
 
 				// editar tarifa
-				if (iA.editarTarifaFibra(fibra, fibra)) {
+				if (iA.editarTarifaFibra(fibra)) {
 					Notification.show("Editada con exito!");
 					// cerrar ventana
 					Iterator<Window> it = this.getUI().getWindows().iterator();

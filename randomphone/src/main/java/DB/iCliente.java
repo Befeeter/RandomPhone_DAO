@@ -10,15 +10,15 @@ public interface iCliente {
 
 	public boolean modificarServicios(Servicio[] servicio, int idFactura);
 
-	public Paquete[] cargarPaquetes(int id);
+	//public Paquete[] cargarPaquetes(int id);
 
-	public void cargarPaquetePersonal(Paquete paquete);
+	//public void cargarPaquetePersonal(Paquete paquete);
 
 	public Canal[] cargarCanalesDisp();
 
-	public void addCanalPaquete(Canal[] canales);
+	//public void addCanalPaquete(Canal[] canales);
 
-	public void deleteCanalPaquete(Canal[] canales);
+	//public void deleteCanalPaquete(Canal[] canales);
 
 	public Factura[] cargarFacturas(int id_cliente);
 

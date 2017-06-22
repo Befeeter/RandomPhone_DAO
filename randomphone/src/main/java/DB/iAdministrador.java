@@ -4,11 +4,11 @@ public interface iAdministrador {
 
 	public Cliente[] cargarListadoClientes();
 
-	public Comercial[] cargarListaDeComerciales();
+	//public Comercial[] cargarListaDeComerciales();
 
 	public boolean asignarIncidencia(Incidencia incidencia, Comercial comercial);
 
-	public Incidencia cargarIncidencia(Incidencia incidencia);
+	//public Incidencia cargarIncidencia(Incidencia incidencia);
 
 	public boolean editarIncidencia(Incidencia incidencia);
 
@@ -22,23 +22,23 @@ public interface iAdministrador {
 
 	public boolean eliminarIncidencias(Incidencia[] incidencias);
 
-	public Incidencia[] incidenciasActivasComercial(Comercial comercial);
+	//public Incidencia[] incidenciasActivasComercial(Comercial comercial);
 
 	public boolean eliminarComercial(Comercial comercial);
 
-	public boolean editarComercial(Comercial comercial, Comercial comercialMod);
+	public boolean editarComercial(Comercial comercial);
 
 	public boolean altaComercial(Comercial comercial);
 
 	public Comercial[] cargarComerciales();
 
-	public Incidencia[] cargarIncidenciasComercial();
+	//public Incidencia[] cargarIncidenciasComercial();
 
 	public boolean crearCanal(Canal canal);
 
-	public boolean editarCanal(Canal canal, Canal canalNuevo);
+	public boolean editarCanal(Canal canal);
 
-	public boolean borrarCanal(Canal canal);
+	//public boolean borrarCanal(Canal canal);
 
 	public Movil[] cargarTarifasMovil();
 
@@ -58,13 +58,13 @@ public interface iAdministrador {
 
 	public boolean crearPaquete(Paquete paquete);
 
-	public boolean editarPaquete(Paquete paquete, Paquete paqueteNuevo);
+	//public boolean editarPaquete(Paquete paquete, Paquete paqueteNuevo);
 
-	public Canal[] cargarCanalesPaquete(Paquete paquete);
+	//public Canal[] cargarCanalesPaquete(Paquete paquete);
 
 	public boolean añadirCanalesAPaquete(Paquete paquete, Canal[] canales);
 
-	public boolean eliminarCanalesPaquete(Canal[] canales);
+	//public boolean eliminarCanalesPaquete(Canal[] canales);
 
 	public boolean eliminarPaquete(Paquete paquete);
 
@@ -80,11 +80,11 @@ public interface iAdministrador {
 
 	public boolean crearTarifaFibra(Fibra fibra);
 
-	public boolean editarTarifaMovil(Movil movil, Movil movilNuevo);
+	public boolean editarTarifaMovil(Movil movil);
 
-	public boolean editarTarifaFijo(Fijo fijo, Fijo fijoNuevo);
+	public boolean editarTarifaFijo(Fijo fijo);
 
-	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo);
+	public boolean editarTarifaFibra(Fibra fibra);
 	
 	public int comprobarAdmin (String email, String contrasenia);
 }

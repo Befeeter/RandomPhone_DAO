@@ -10,5 +10,5 @@ public interface iInternauta {
 
 	public Servicio[] cargarOfertas(Servicio tipo);
 
-	public void resetPass(String email);
+	//public void resetPass(String email);
 }
