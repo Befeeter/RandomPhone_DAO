@@ -15,7 +15,7 @@ public class Paquete {
 	public Television television;
 
 	public Paquete() {
-
+		this.television = new Television();
 	}
 
 	public Paquete(int id, int idTv, String nombre, float precio, Date fecha_alta, boolean estado) {

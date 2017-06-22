@@ -35,7 +35,6 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 		enviarB.addClickListener(ClickEvent -> {
 			incidencia.setAsunto(asuntoTF.getValue());
 			if (clienteR.getSelectedItem().get().equals("Option1")) {
-				incidencia.setIsCliente(true);System.out.println("holaaaaaaaaaaaaaaaaa");
 			}
 			else
 				incidencia.setIsCliente(false);

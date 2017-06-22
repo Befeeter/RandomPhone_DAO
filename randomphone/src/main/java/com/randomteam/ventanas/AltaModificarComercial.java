@@ -29,27 +29,31 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 
 	public AltaModificarComercial() {
 		aceptarB.addClickListener(ClickEvent -> {
-			Comercial comercial = new Comercial();
-			comercial.setNombre(nombreTF.getValue());
-			comercial.setApellidos(apellidosTF.getValue());
-			comercial.setDocumento(dniTF.getValue());
-			comercial.setContrasena(contrasenaTF.getValue());
-			comercial.setEmail(emailTF.getValue());
-			if (fechacontratacionD.getValue() != null)
-				comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				comercial.setEstado(true);
-			} else
-				comercial.setEstado(false);
-
-			// crear comercial
-			if (iA.altaComercial(comercial)) {
-				Notification.show("Creado con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
+			if (!(nombreTF.isEmpty()||fechacontratacionD.isEmpty()||emailTF.isEmpty()||apellidosTF.isEmpty()||dniTF.isEmpty()||contrasenaTF.isEmpty())) {
+				Comercial comercial = new Comercial();
+				comercial.setNombre(nombreTF.getValue());
+				comercial.setApellidos(apellidosTF.getValue());
+				comercial.setDocumento(dniTF.getValue());
+				comercial.setContrasena(contrasenaTF.getValue());
+				comercial.setEmail(emailTF.getValue());
+				if (fechacontratacionD.getValue() != null)
+					comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					comercial.setEstado(true);
+				} else
+					comercial.setEstado(false);
+	
+				// crear comercial
+				if (iA.altaComercial(comercial)) {
+					Notification.show("Creado con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
 		});
 		
 		cancelarB.addClickListener(ClickEvent -> {
@@ -74,26 +78,30 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 		
 		//aceptar
 		aceptarB.addClickListener(ClickEvent -> {
-			comercial.setNombre(nombreTF.getValue());
-			comercial.setApellidos(apellidosTF.getValue());
-			comercial.setDocumento(dniTF.getValue());
-			comercial.setContrasena(contrasenaTF.getValue());
-			comercial.setEmail(emailTF.getValue());
-			if (fechacontratacionD.getValue() != null)
-				comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				comercial.setEstado(true);
-			} else
-				comercial.setEstado(false);
-
-			// crear comercial
-			if (iA.editarComercial(comercial, comercial)) {
-				Notification.show("Editado con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
+			if (!(nombreTF.isEmpty()||fechacontratacionD.isEmpty()||emailTF.isEmpty()||apellidosTF.isEmpty()||dniTF.isEmpty()||contrasenaTF.isEmpty())) {
+				comercial.setNombre(nombreTF.getValue());
+				comercial.setApellidos(apellidosTF.getValue());
+				comercial.setDocumento(dniTF.getValue());
+				comercial.setContrasena(contrasenaTF.getValue());
+				comercial.setEmail(emailTF.getValue());
+				if (fechacontratacionD.getValue() != null)
+					comercial.setFecha_alta(Date.valueOf(fechacontratacionD.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					comercial.setEstado(true);
+				} else
+					comercial.setEstado(false);
+	
+				// crear comercial
+				if (iA.editarComercial(comercial, comercial)) {
+					Notification.show("Editado con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
 		});
 		
 		cancelarB.addClickListener(ClickEvent -> {
