@@ -12,51 +12,48 @@ import DB.iAdministrador;
 
 public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 	/*
-	private Label minutosL;
-	private TextField minutosTF;
-	private Label datosL;
-	private TextField datosTF;
-	public TarifasMovil vTarifasMovil;
-	*/
+	 * private Label minutosL; private TextField minutosTF; private Label
+	 * datosL; private TextField datosTF; public TarifasMovil vTarifasMovil;
+	 */
 	iAdministrador iA = new BD_Principal();
-	
-	public AltaModificarTarifaMovil () {
-		submit.addClickListener(ClickEvent -> {
-			if (!(nombreTF.isEmpty()||minutosTF.isEmpty()||datosTF.isEmpty()
-					||!Informar.isNumericInt(minutosTF.getValue())||!Informar.isNumericInt(precioTF.getValue())
-					||!Informar.isNumericInt(datosTF.getValue()))) {
-			//obtener datos tarifa
-			Movil tarifa = new Movil();
-			tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
-			tarifa.setDatos(Integer.parseInt(datosTF.getValue()));
-			tarifa.setNombre(nombreTF.getValue());
-			tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				tarifa.setEstado(true);
-			} else
-				tarifa.setEstado(false);
 
-			// crear tarifa
-			if (iA.crearTarifaMovil(tarifa)) {
-				Notification.show("Creada con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
-		} else {
-			Notification.show("Algún campo vacio o incorrecto!");
-		}
+	public AltaModificarTarifaMovil() {
+		submit.addClickListener(ClickEvent -> {
+			if (!(nombreTF.isEmpty() || minutosTF.isEmpty() || datosTF.isEmpty()
+					|| !Informar.isNumericInt(minutosTF.getValue()) || !Informar.isNumeric(precioTF.getValue())
+					|| !Informar.isNumericInt(datosTF.getValue()))) {
+				// obtener datos tarifa
+				Movil tarifa = new Movil();
+				tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
+				tarifa.setDatos(Integer.parseInt(datosTF.getValue()));
+				tarifa.setNombre(nombreTF.getValue());
+				tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					tarifa.setEstado(true);
+				} else
+					tarifa.setEstado(false);
+
+				// crear tarifa
+				if (iA.crearTarifaMovil(tarifa)) {
+					Notification.show("Creada con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
 		});
 	}
-	
-	public AltaModificarTarifaMovil (Movil movil) {
+
+	public AltaModificarTarifaMovil(Movil movil) {
 		// establezco los valores de los campos a editar
-		minutosTF.setValue(movil.getMinutos()+"");
-		datosTF.setValue(movil.getDatos()+"");
-		nombreTF.setValue(movil.getNombre()+"");
-		precioTF.setValue(movil.getPrecio()+"");
+		minutosTF.setValue(movil.getMinutos() + "");
+		datosTF.setValue(movil.getDatos() + "");
+		nombreTF.setValue(movil.getNombre() + "");
+		precioTF.setValue(movil.getPrecio() + "");
 		if (movil.isEstado()) {
 			estadoB.setValue(1.0);
 		} else
@@ -74,7 +71,7 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 
 			// editar tarifa
 			if (iA.editarTarifaMovil(movil, movil)) {
-				//cerrar ventana
+				// cerrar ventana
 				Notification.show("Editada con exito!");
 				Iterator<Window> it = this.getUI().getWindows().iterator();
 				it.next();

@@ -43,13 +43,13 @@ public class TarifasTelevision extends TarifasTelevision_ventana {
 		// grid
 		paquetesLS.addColumn(Paquete::getNombre).setCaption("Nombre").setSortable(true);
 		paquetesLS.setItems(paquetes);
-
+		/*
 		paquetesLS.addItemClickListener(event -> {
 			// Creamos Ventana Emergente
 			// seleccionada en el Grid
 			Window subWindow = new Window("Editar Paquete");
 			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new EditarPaquete(event.getItem()));
+			subContent.addComponent(new CrearPaquete(event.getItem()));
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
@@ -60,7 +60,7 @@ public class TarifasTelevision extends TarifasTelevision_ventana {
 				paquetesLS.setItems(paquetes);
 			});
 			this.getUI().addWindow(subWindow);
-		});
+		});*/
 		MultiSelectionModel<Paquete> selectionModel = (MultiSelectionModel<Paquete>) paquetesLS
 				.setSelectionMode(SelectionMode.MULTI);
 		selectionModel.addMultiSelectionListener(event -> {
@@ -122,7 +122,7 @@ public class TarifasTelevision extends TarifasTelevision_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("800px");
+			subWindow.setHeight("850px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
 				canales = iA.cargarCanalesTv();

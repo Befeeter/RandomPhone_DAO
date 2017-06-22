@@ -2,6 +2,8 @@ package com.randomteam.ventanas;
 
 import java.util.Iterator;
 
+import javax.sound.midi.MidiDevice.Info;
+
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationResult;
 import com.vaadin.data.Validator;
@@ -31,20 +33,9 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 
 	// constructor para eliminar las tarifas moviles
 	public MesesAdaptacion(Movil[] eliminar) {
-		// Validador solo numeros
-		Validator<String> soloNumeros = new Validator<String>() {
-			@Override
-			public ValidationResult apply(String s, ValueContext valueContext) {
-				if (s.matches("/^[0-9]+$/"))
-					return ValidationResult.ok();
-				else
-					return ValidationResult.error("Solo números!");
-			}
-		};
-		binder.forField(mesesTF).withValidator(soloNumeros).bind("");
 
 		mesesTF.addValueChangeListener(Event -> {
-			if (!mesesTF.isEmpty())
+			if (!mesesTF.isEmpty()&&Informar.isNumericInt(mesesTF.getValue()))
 				aceptarB.setEnabled(true);
 			else
 				aceptarB.setEnabled(false);
@@ -53,7 +44,6 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 		aceptarB.addClickListener(ClickEvent -> {
 			boolean correcto = true;
 			// Para cada tarifa seleccionada la elimino
-
 			for (Movil movil : eliminar) {
 				if (!iA.eliminarTarifaMovil(Integer.parseInt(mesesTF.getValue()), movil))
 					correcto = false;
@@ -71,20 +61,9 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 
 	// constructor para eliminar las tarifas fijo
 	public MesesAdaptacion(Fijo[] eliminar) {
-		// Validador solo numeros
-		Validator<String> soloNumeros = new Validator<String>() {
-			@Override
-			public ValidationResult apply(String s, ValueContext valueContext) {
-				if (s.matches("/^[0-9]+$/"))
-					return ValidationResult.ok();
-				else
-					return ValidationResult.error("Solo números!");
-			}
-		};
-		binder.forField(mesesTF).withValidator(soloNumeros);
-
+		
 		mesesTF.addValueChangeListener(Event -> {
-			if (!mesesTF.isEmpty())
+			if (!mesesTF.isEmpty()&&Informar.isNumericInt(mesesTF.getValue()))
 				aceptarB.setEnabled(true);
 			else
 				aceptarB.setEnabled(false);
@@ -110,20 +89,9 @@ public class MesesAdaptacion extends MesesAdaptacion_ventana {
 
 	// constructor para eliminar las tarifas fibra
 	public MesesAdaptacion(Fibra[] eliminar) {
-		// Validador solo numeros
-		Validator<String> soloNumeros = new Validator<String>() {
-			@Override
-			public ValidationResult apply(String s, ValueContext valueContext) {
-				if (s.matches("/^[0-9]+$/"))
-					return ValidationResult.ok();
-				else
-					return ValidationResult.error("Solo números!");
-			}
-		};
-		binder.forField(mesesTF).withValidator(soloNumeros);
 
 		mesesTF.addValueChangeListener(Event -> {
-			if (!mesesTF.isEmpty())
+			if (!mesesTF.isEmpty()&&Informar.isNumericInt(mesesTF.getValue()))
 				aceptarB.setEnabled(true);
 			else
 				aceptarB.setEnabled(false);

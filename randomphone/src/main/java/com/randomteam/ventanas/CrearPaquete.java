@@ -34,6 +34,8 @@ public class CrearPaquete extends CrearPaquete_ventana{
 	}*/
 	iAdministrador iA = new BD_Principal();
 	private Canal[] canales;
+	Canal[] canalesActuales;
+	Canal[] canalesNuevos;
 	
 	public CrearPaquete () {
 		canales = iA.cargarCanalesDisp();
@@ -79,4 +81,62 @@ public class CrearPaquete extends CrearPaquete_ventana{
 			}
 		});
 	}
+	/*
+	public CrearPaquete (Paquete paquete) {
+		canales = iA.cargarCanalesDisp();
+		canalesLS.addColumn(Canal::getNombre).setCaption("Nombre").setSortable(true);
+		canalesLS.setItems(canales);
+		
+		MultiSelectionModel<Canal> selectionModel = (MultiSelectionModel<Canal>) canalesLS
+				.setSelectionMode(SelectionMode.MULTI);
+
+		
+		nombreTF.setValue(paquete.getNombre()+"");
+		precioTF.setValue(paquete.getPrecio()+"");
+		fecha_altaD.setValue(paquete.getFecha_alta().toLocalDate());
+		if (paquete.isEstado()) {
+			estadoB.setValue(1.0);
+		} else
+			estadoB.setValue(0.0);
+		for (Canal canal : iA.cargarCanalesPaquete(paquete)) {
+			canalesLS.select(canal);
+		}
+		// obtenemos los canales actuales del paquete
+
+		int size = canalesLS.getSelectedItems().size();
+		canalesActuales = new Canal[size];
+		canalesActuales = canalesLS.getSelectedItems().toArray(canalesActuales);
+		
+		crearB.addClickListener(ClickEvent -> {
+			//
+			if (!(nombreTF.isEmpty()||precioTF.isEmpty()||fecha_altaD.isEmpty()||!Informar.isNumeric(precioTF.getValue()))) {
+				paquete.setNombre(nombreTF.getValue()+"");
+				paquete.setPrecio(Float.parseFloat(precioTF.getValue()));
+				paquete.setFecha_alta(Date.valueOf(fecha_altaD.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					paquete.setEstado(true);
+				} else
+					paquete.setEstado(false);
+				
+				boolean correcto=false;
+	
+				correcto = iA.editarPaquete(paquete, paquete);
+				
+				if (canalesActuales.length>0) {
+					correcto = iA.añadirCanalesAPaquete(paquete, canalesActuales);
+				}
+	
+				if (correcto) {
+					Notification.show("Creado con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
+		});
+	}*/
 }

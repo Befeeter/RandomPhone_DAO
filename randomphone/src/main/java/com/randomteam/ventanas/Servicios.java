@@ -67,7 +67,7 @@ public class Servicios extends servicios_ventana {
 			subWindow.center();
 			subWindow.setModal(true);
 			subWindow.setHeight("700px");
-			subWindow.setWidth("600px");
+			subWindow.setWidth("750px");
 			this.getUI().addWindow(subWindow);
 		});
 	}

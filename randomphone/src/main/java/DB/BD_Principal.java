@@ -1298,7 +1298,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Canal[] cargarCanalesPaquete(DB.Paquete paquete) {
-		throw new UnsupportedOperationException();
+		Canal[] canales = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM canal inner join paquete_canal on canal.id=paquete_canal.canalid inner join paquete on paquete.id=paquete_canal.paqueteid WHERE paquete.id=" + paquete.getId();
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			canales = new Canal[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Canal canal = new Canal(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+				canales[i - 1] = canal;
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return canales;
 	}
 
 	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
@@ -1348,10 +1372,13 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean eliminarPaquete(DB.Paquete paquete) {
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "DELETE from paquete WHERE id=" + paquete.getId();
-
+			String consulta = "DELETE from paquete_canal WHERE paqueteid=" + paquete.getId();
+			String consulta2 = "DELETE from paquete WHERE id=" + paquete.getId();
+			
 			ps = conexion.prepareStatement(consulta);
 			ps.execute(consulta);
+			ps = conexion.prepareStatement(consulta2);
+			ps.execute(consulta2);
 			ps.close();
 			conexion.close();
 		} catch (SQLException exception) {

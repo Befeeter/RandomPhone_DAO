@@ -19,28 +19,33 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 
 	public AltaModificarTarifaTelefono() {
 		submit.addClickListener(ClickEvent -> {
-			// obtener datos tarifa
-			Fijo tarifa = new Fijo();
-			tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
-			tarifa.setNombre(nombreTF.getValue());
-			tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				tarifa.setEstado(true);
-			} else
-				tarifa.setEstado(false);
+			if (!(nombreTF.isEmpty() || minutosTF.isEmpty() || !Informar.isNumericInt(minutosTF.getValue())
+					|| !Informar.isNumeric(precioTF.getValue()))) {
+				// obtener datos tarifa
+				Fijo tarifa = new Fijo();
+				tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
+				tarifa.setNombre(nombreTF.getValue());
+				tarifa.setPrecio(Float.parseFloat(precioTF.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					tarifa.setEstado(true);
+				} else
+					tarifa.setEstado(false);
 
-			// crear tarifa
-			if (iA.crearTarifaFijo(tarifa)) {
-				Notification.show("Editada con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
+				// crear tarifa
+				if (iA.crearTarifaFijo(tarifa)) {
+					Notification.show("Editada con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
 		});
 	}
-	
+
 	public AltaModificarTarifaTelefono(Fijo fijo) {
 		// establezco los valores de los campos a editar
 		minutosTF.setValue(fijo.getMinutos() + "");
@@ -52,23 +57,28 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 			estadoB.setValue(0.0);
 		//
 		submit.addClickListener(ClickEvent -> {
-			fijo.setMinutos(Integer.parseInt(minutosTF.getValue()));
-			fijo.setNombre(nombreTF.getValue());
-			fijo.setPrecio(Float.parseFloat(precioTF.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				fijo.setEstado(true);
-			} else
-				fijo.setEstado(false);
+			if (!(nombreTF.isEmpty() || minutosTF.isEmpty() || !Informar.isNumericInt(minutosTF.getValue())
+					|| !Informar.isNumeric(precioTF.getValue()))) {
+				fijo.setMinutos(Integer.parseInt(minutosTF.getValue()));
+				fijo.setNombre(nombreTF.getValue());
+				fijo.setPrecio(Float.parseFloat(precioTF.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					fijo.setEstado(true);
+				} else
+					fijo.setEstado(false);
 
-			// editar tarifa
-			if (iA.editarTarifaFijo(fijo, fijo)) {
-				Notification.show("Editada con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
+				// editar tarifa
+				if (iA.editarTarifaFijo(fijo, fijo)) {
+					Notification.show("Editada con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
+			}
 		});
 	}
 
