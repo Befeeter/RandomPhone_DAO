@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
@@ -18,7 +18,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-text-field _id="lastName"></vaadin-text-field>
+      <vaadin-text-field _id="nombreTF"></vaadin-text-field>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper align-bottom">
       <vaadin-label plain-text _id="precioL">
@@ -26,7 +26,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-text-field placeholder=""></vaadin-text-field>
+      <vaadin-text-field placeholder="" _id="precioTF"></vaadin-text-field>
      </vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
@@ -36,7 +36,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-date-field></vaadin-date-field>
+      <vaadin-date-field _id="fecha_altaD"></vaadin-date-field>
      </vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
@@ -46,7 +46,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-slider max="1"></vaadin-slider>
+      <vaadin-slider max="1" _id="estadoB"></vaadin-slider>
      </vaadin-css-layout>
     </vaadin-css-layout>
    </vaadin-css-layout>
@@ -54,7 +54,7 @@
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-css-layout style-name="input-wrapper" width-full>
       <vaadin-button style-name="primary v-window-bottom-toolbar" plain-text _id="crearB">
-        Crear 
+        Aceptar 
       </vaadin-button>
      </vaadin-css-layout>
     </vaadin-css-layout>

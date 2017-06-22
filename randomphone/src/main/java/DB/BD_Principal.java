@@ -1097,11 +1097,38 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean crearCanal(Canal canal) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			// creo el canal
+			String insertar = "INSERT INTO `canal` (`Id`, `Nombre`, `Precio`, `Fecha_alta`, `Estado`) "
+					+ "VALUES (NULL, '"+canal.getNombre()+"', '"+canal.getPrecio()+"', '"+canal.getFecha_alta()+"', "+canal.isEstado()+")";
+			ps = conexion.prepareStatement(insertar);
+			ps.execute(insertar);
+			ps.close();
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean editarCanal(Canal canal, Canal canalNuevo) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String editarCanal = "UPDATE `canal` "
+					+ "SET `Nombre` = '"+canal.getNombre()+"', `Precio` = '"+canal.getPrecio()+"', `"
+							+ "Fecha_alta` = '"+canal.getFecha_alta()+"', `Estado` = "+canal.isEstado()+""
+									+ " WHERE `canal`.`Id` = " + canal.getId();
+			ps = conexion.prepareStatement(editarCanal);
+			ps.execute(editarCanal);
+			ps.close();
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
 	}
 
 	public boolean borrarCanal(Canal canal) {
@@ -1252,10 +1279,9 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	public boolean crearPaquete(DB.Paquete paquete) {
 		try {
 			conexion = Conexion.getConnection();
-			// creo el servicio
-			String insertar = "INSERT INTO paquete (TelevisionServicioId, Nombre, Precio, Fecha_alta, Estado) "
-					+ "VALUES ('" + paquete.getTelevision().getId() + "','" + paquete.getNombre() + "', "
-					+ paquete.getFecha_alta() + "', " + paquete.isEstado() + ")";
+			// creo el paquete
+			String insertar = "INSERT INTO `paquete` (`Id`, `TelevisionServicioId`, `Nombre`, `Precio`, `Fecha_alta`, `Estado`) "
+					+ "VALUES (NULL, '"+paquete.getTelevision().getId()+"', '"+paquete.getNombre()+"', '"+paquete.getPrecio()+"', '"+paquete.getFecha_alta()+"', "+paquete.isEstado()+")";
 			ps = conexion.prepareStatement(insertar);
 			ps.execute(insertar);
 			ps.close();
@@ -1276,7 +1302,27 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
-		throw new UnsupportedOperationException();
+		try {
+			conexion = Conexion.getConnection();
+			String buscarPaquete = "SELECT * from paquete WHERE nombre='" +paquete.getNombre()+"'";
+			ps = conexion.prepareStatement(buscarPaquete);
+			rs = ps.executeQuery();
+			rs.first();
+			int paqueteId = rs.getInt(1);
+			for (Canal canal : canales) {
+				//
+				String añadirCanal = "INSERT INTO paquete_canal (PaqueteId, CanalId) " + "VALUES ('"+paqueteId
+						+ "', '" + canal.getId() + "')";
+				ps = conexion.prepareStatement(añadirCanal);
+				ps.execute(añadirCanal);
+			}
+			ps.close();
+			conexion.close();
+			return true;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage() + "Fallo añadir canales");
+			return false;
+		}
 	}
 
 	public boolean eliminarCanal(Canal canal) {
@@ -1380,9 +1426,8 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 					+ movil.getNombre() + "','" + movil.getPrecio() + "', " + movil.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
-			// obtendo el id de la persona que se ha creado para ponerlo como
-			// persona id para que sea corresponda con el cliente
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + movil.getNombre() + "'";
+			// obtengo id servicio
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='Movil " + movil.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();
@@ -1410,7 +1455,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
 			// obtendo el id del servicio
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fijo.getNombre() + "'";
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='Fijo " + fijo.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();
@@ -1438,7 +1483,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
 			// obtendo el id del servicio
-			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fibra.getNombre() + "'";
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='Fibra " + fibra.getNombre() + "'";
 			ps = conexion.prepareStatement(consultaIdServicio);
 			rs = ps.executeQuery();
 			rs.first();

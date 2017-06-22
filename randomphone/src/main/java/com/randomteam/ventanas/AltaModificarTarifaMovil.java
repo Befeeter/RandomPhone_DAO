@@ -22,6 +22,9 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 	
 	public AltaModificarTarifaMovil () {
 		submit.addClickListener(ClickEvent -> {
+			if (!(nombreTF.isEmpty()||minutosTF.isEmpty()||datosTF.isEmpty()
+					||!Informar.isNumericInt(minutosTF.getValue())||!Informar.isNumericInt(precioTF.getValue())
+					||!Informar.isNumericInt(datosTF.getValue()))) {
 			//obtener datos tarifa
 			Movil tarifa = new Movil();
 			tarifa.setMinutos(Integer.parseInt(minutosTF.getValue()));
@@ -42,6 +45,9 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 				it.next().close();
 			} else
 				Notification.show("Error! Ups algo fue mal!");
+		} else {
+			Notification.show("Algún campo vacio o incorrecto!");
+		}
 		});
 	}
 	

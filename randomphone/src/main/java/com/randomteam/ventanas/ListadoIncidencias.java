@@ -85,7 +85,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			subWindow.setHeight("700px");
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
-				incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCibernauta();
+				incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCLientes();
 				clienteLS.setItems(incidenciasSinAsigClientes);
 			});
 			this.getUI().addWindow(subWindow);
@@ -114,7 +114,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			subWindow.setHeight("700px");
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
-				incidenciasAsig = iA.cargarIncidenciasSinAsignarCibernauta();
+				incidenciasAsig = iA.cargarIncidenciasAsignadas();
 				asignadasLS.setItems(incidenciasAsig);
 			});
 			this.getUI().addWindow(subWindow);
@@ -142,7 +142,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			subWindow.setHeight("700px");
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
-				incidenciasCompletadas = iA.cargarIncidenciasSinAsignarCibernauta();
+				incidenciasCompletadas = iA.cargarIncidenciasCompletadas();
 				completadasLS.setItems(incidenciasCompletadas);
 			});
 			this.getUI().addWindow(subWindow);

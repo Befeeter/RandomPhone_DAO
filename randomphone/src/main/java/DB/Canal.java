@@ -25,6 +25,9 @@ public class Canal {
 		this.estado = estado;
 		//this.paquete = paquete;
 	}
+	public Canal() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getId() {
 		return id;
 	}

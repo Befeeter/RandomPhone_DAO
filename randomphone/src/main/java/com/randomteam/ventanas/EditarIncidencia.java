@@ -14,7 +14,7 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 	/*
 	 * private Label nombreClienteL; public ListadoIncidencias
 	 * vListadoIncidencias;
-	 * 
+	 *
 	 * public void cargarDatos() { throw new UnsupportedOperationException(); }
 	 */
 	iAdministrador iA = new BD_Principal();
@@ -47,7 +47,6 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 			incidencia.setAsunto(asuntoTF.getValue());
 			if (clienteR.getSelectedItem().get().equals("Option1")) {
 				incidencia.setIsCliente(true);
-				System.out.println("holaaaaaaaaaaaaaaaaa");
 			} else
 				incidencia.setIsCliente(false);
 			incidencia.setTipo(tipoCB.getValue() + "");

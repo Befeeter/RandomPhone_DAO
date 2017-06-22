@@ -45,33 +45,38 @@ public class CrearPaquete extends CrearPaquete_ventana{
 		
 		crearB.addClickListener(ClickEvent -> {
 			//
-			Paquete paquete = new Paquete();
-			paquete.setNombre(nombreTF.getValue()+"");
-			paquete.setPrecio(Integer.parseInt(precioTF.getValue()));
-			paquete.setFecha_alta(Date.valueOf(fecha_altaD.getValue()));
-			if (estadoB.getValue() == 1.0) {
-				paquete.setEstado(true);
-			} else
-				paquete.setEstado(false);
-			
-			boolean correcto=false;
-
-			correcto = iA.crearPaquete(paquete);
-			Canal[] canalesAñadir;
-			int size = canalesLS.getSelectedItems().size();
-			canalesAñadir = new Canal[size];
-			canalesAñadir = canalesLS.getSelectedItems().toArray(canalesAñadir);
-			if (canalesAñadir.length>0) {
-				correcto = iA.añadirCanalesAPaquete(paquete, canalesAñadir);
+			if (!(nombreTF.isEmpty()||precioTF.isEmpty()||fecha_altaD.isEmpty()||!Informar.isNumeric(precioTF.getValue()))) {
+				Paquete paquete = new Paquete();
+				paquete.setNombre(nombreTF.getValue()+"");
+				paquete.setPrecio(Float.parseFloat(precioTF.getValue()));
+				paquete.setFecha_alta(Date.valueOf(fecha_altaD.getValue()));
+				if (estadoB.getValue() == 1.0) {
+					paquete.setEstado(true);
+				} else
+					paquete.setEstado(false);
+				
+				boolean correcto=false;
+	
+				correcto = iA.crearPaquete(paquete);
+				Canal[] canalesAñadir;
+				int size = canalesLS.getSelectedItems().size();
+				canalesAñadir = new Canal[size];
+				canalesAñadir = canalesLS.getSelectedItems().toArray(canalesAñadir);
+				if (canalesAñadir.length>0) {
+					correcto = iA.añadirCanalesAPaquete(paquete, canalesAñadir);
+				}
+	
+				if (correcto) {
+					Notification.show("Creado con exito!");
+					// cerrar ventana
+					Iterator<Window> it = this.getUI().getWindows().iterator();
+					it.next();
+					it.next().close();
+				} else
+					Notification.show("Error! Ups algo fue mal!");
+			} else {
+				Notification.show("Algún campo vacio o incorrecto!");
 			}
-
-			if (correcto) {
-				Notification.show("Creado con exito!");
-				// cerrar ventana
-				Iterator<Window> it = this.getUI().getWindows().iterator();
-				it.next().close();
-			} else
-				Notification.show("Error! Ups algo fue mal!");
 		});
 	}
 }
