@@ -10,8 +10,8 @@ public class PaquetesTV extends PaquetesTV_ventana {
 	public PaquetesContratadosCm vPaquetesContratadosCm;
 	public Vector<Paquete> vPaquete = new Vector<Paquete>();
 	*/
-
+/*
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }

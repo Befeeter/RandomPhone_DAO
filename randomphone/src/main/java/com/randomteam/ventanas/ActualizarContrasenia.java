@@ -9,8 +9,8 @@ public class ActualizarContrasenia extends Actualizarcontrasenia_ventana {
 	private TextField actualizaContraseniaTF;
 	public Login vLogin;
 	*/
-
+/*
 	public boolean comprobarContrasenia(Object string_contrasenia) {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }

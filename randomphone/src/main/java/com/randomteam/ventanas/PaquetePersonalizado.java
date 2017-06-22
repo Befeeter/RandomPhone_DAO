@@ -12,8 +12,8 @@ public class PaquetePersonalizado extends PaquetePersonalizado_ventana {
 	public CanalesTV vCanalesTV;
 	public Vector<CanalDisp> vCanalDisp = new Vector<CanalDisp>();
 	*/
-
+/*
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }

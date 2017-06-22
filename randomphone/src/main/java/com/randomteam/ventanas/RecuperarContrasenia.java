@@ -8,8 +8,8 @@ public class RecuperarContrasenia {
 	private Button aceptarB;
 	public Login vLogin;
 	*/
-
+/*
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }

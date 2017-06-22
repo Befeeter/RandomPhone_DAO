@@ -15,12 +15,12 @@ public class EditarPaquete extends EditarPaquete_ventana{
 	public CanalDisp vCanalDisp;
 	public CanalesTV vCanalesTV;
 	*/
-
+/*
 	public EditarPaquete(Paquete item) {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }

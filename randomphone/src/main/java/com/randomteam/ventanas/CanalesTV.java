@@ -10,8 +10,8 @@ public class CanalesTV extends CanalesTV_ventana {
 	public PaquetePersonalizado vPaquetePersonalizado;
 	public EditarPaquete vEditarPaquete;
 	public Vector<CanalD> vCanalD = new Vector<CanalD>();
-*/
+*//*
 	public Informar enviarDatos() {
 		throw new UnsupportedOperationException();
-	}
+	}*/
 }
