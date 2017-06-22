@@ -400,7 +400,31 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 	}
 
 	public Canal[] cargarCanalesDisp() {
-		throw new UnsupportedOperationException();
+		Canal[] canales = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM canal WHERE estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			canales = new Canal[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Canal canal = new Canal(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getDate(4), rs.getBoolean(5));
+				canales[i - 1] = canal;
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return canales;
 	}
 
 	public void addCanalPaquete(Canal[] canales) {
@@ -1262,7 +1286,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + movil.getNombre()
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Movil "+movil.getNombre()
 					+ "','" + movil.getPrecio() + "', " + movil.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
@@ -1291,7 +1315,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + fijo.getNombre()
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fijo " + fijo.getNombre()
 					+ "','" + fijo.getPrecio() + "', " + fijo.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);
@@ -1319,7 +1343,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		try {
 			conexion = Conexion.getConnection();
 			// creo el servicio
-			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + fibra.getNombre()
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) " + "VALUES ('" + "Fibra " + fibra.getNombre()
 					+ "','" + fibra.getPrecio() + "', " + fibra.isEstado() + ")";
 			ps = conexion.prepareStatement(insertarServicio);
 			ps.execute(insertarServicio);

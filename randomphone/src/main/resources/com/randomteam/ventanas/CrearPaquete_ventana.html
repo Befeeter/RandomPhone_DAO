@@ -3,10 +3,10 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
-  <vaadin-css-layout style-name="form-template" responsive size-full>
+  <vaadin-css-layout style-name="form-template" responsive width="608px" height="760px">
    <vaadin-label style-name="title" width-full plain-text>
      Crear Paquete 
    </vaadin-label>
@@ -36,7 +36,7 @@
       </vaadin-label>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-date-field></vaadin-date-field>
+      <vaadin-date-field _id="fecha_altaD"></vaadin-date-field>
      </vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
@@ -52,14 +52,7 @@
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-warper" width-full>
       <vaadin-horizontal-layout width-full>
-       <vaadin-list-select icon="fonticon://Vaadin-Icons/e70b" caption="Canales Disponibles" width="150px" height="115px" data-item-type="java.lang.String" :center>
-        <option item="Option1">Canal 1</option>
-        <option item="Option2">Canal 2</option>
-        <option item="Option3">Canal 3</option>
-        <option item="Option4">Canal 4</option>
-        <option item="Option5">Canal 5</option>
-        <option item="Option6">Canal 6</option>
-       </vaadin-list-select>
+       <vaadin-grid width="286px" height="227px" data-item-type="DB.Canal" _id="canalesLS" :right></vaadin-grid>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
     </vaadin-css-layout>

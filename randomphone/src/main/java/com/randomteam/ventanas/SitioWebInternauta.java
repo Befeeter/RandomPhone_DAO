@@ -97,7 +97,7 @@ public class SitioWebInternauta extends sitioWebInternauta_ventana implements Vi
 				subWindow.setContent(subContent);
 				subWindow.center();
 				subWindow.setModal(true);
-				subWindow.setHeight("600px");
+				subWindow.setHeight("800px");
 				subWindow.setWidth("400px");
 				//Popout Ventana COntacto desde Menú				
 				getUI().addWindow(subWindow);
@@ -127,7 +127,7 @@ public class SitioWebInternauta extends sitioWebInternauta_ventana implements Vi
 				subWindow.setContent(subContent);
 				subWindow.center();
 				subWindow.setModal(true);
-				subWindow.setHeight("400px");
+				subWindow.setHeight("450px");
 				subWindow.setWidth("500px");
 				//Popout Ventana COntacto desde Menú				
 				getUI().addWindow(subWindow);

@@ -19,3 +19,4 @@ Añado metodos en DB.cliente y DB.comercial para devolver el numero de incidenci
 añadir metedos cargarincidenciasasignadas en bd_principal y iadminitrador
 añadimos el campo cliente a la tabla incidencias
 añado metodo eliminarCanal(Canal canal) a bd_principal
+añado Canal[] cargarCanalesDisp() a iadministrador

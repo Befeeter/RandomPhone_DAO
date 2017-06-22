@@ -50,6 +50,8 @@ public interface iAdministrador {
 
 	public Canal[] cargarCanalesTv();
 	
+	public Canal[] cargarCanalesDisp();
+	
 	public boolean eliminarCanal (Canal canal);
 	
 	public Paquete [] cargarPaquetesTV ();
