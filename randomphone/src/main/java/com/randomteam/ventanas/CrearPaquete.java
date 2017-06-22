@@ -60,12 +60,12 @@ public class CrearPaquete extends CrearPaquete_ventana{
 				boolean correcto=false;
 	
 				correcto = iA.crearPaquete(paquete);
-				Canal[] canalesAñadir;
+				Canal[] canalesAnadir;
 				int size = canalesLS.getSelectedItems().size();
-				canalesAñadir = new Canal[size];
-				canalesAñadir = canalesLS.getSelectedItems().toArray(canalesAñadir);
-				if (canalesAñadir.length>0) {
-					correcto = iA.añadirCanalesAPaquete(paquete, canalesAñadir);
+				canalesAnadir = new Canal[size];
+				canalesAnadir = canalesLS.getSelectedItems().toArray(canalesAnadir);
+				if (canalesAnadir.length>0) {
+					correcto = iA.anadirCanalesAPaquete(paquete, canalesAnadir);
 				}
 	
 				if (correcto) {
@@ -123,7 +123,7 @@ public class CrearPaquete extends CrearPaquete_ventana{
 				correcto = iA.editarPaquete(paquete, paquete);
 				
 				if (canalesActuales.length>0) {
-					correcto = iA.añadirCanalesAPaquete(paquete, canalesActuales);
+					correcto = iA.anadirCanalesAPaquete(paquete, canalesActuales);
 				}
 	
 				if (correcto) {

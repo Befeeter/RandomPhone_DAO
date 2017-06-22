@@ -62,7 +62,7 @@ public interface iAdministrador {
 
 	//public Canal[] cargarCanalesPaquete(Paquete paquete);
 
-	public boolean añadirCanalesAPaquete(Paquete paquete, Canal[] canales);
+	public boolean anadirCanalesAPaquete(Paquete paquete, Canal[] canales);
 
 	//public boolean eliminarCanalesPaquete(Canal[] canales);
 

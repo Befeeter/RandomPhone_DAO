@@ -56,7 +56,7 @@ public class Reclamacion extends Reclamacion_ventana {
 		//Boton enviar Observacion
 		this.observacionB.addClickListener(ClickEvent->{
 			iselec.setObservaciones(observacionesTF.getValue());
-			if (iCm.añadirObservacion(iselec) == true)
+			if (iCm.anadirObservacion(iselec) == true)
 				Notification.show("Observación realizada correctamente");
 			else
 				Notification.show("Ups algo fue mal, pongase en contacto con el Administrador");

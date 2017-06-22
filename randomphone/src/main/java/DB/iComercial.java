@@ -44,7 +44,7 @@ public interface iComercial {
 
 	public boolean crearIncidenciaCliente(Incidencia incidencia);
 
-	public boolean añadirObservacion(Incidencia incidencia);
+	public boolean anadirObservacion(Incidencia incidencia);
 
 	public Comercial[] cargarComerciales();
 }

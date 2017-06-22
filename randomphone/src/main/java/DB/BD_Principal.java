@@ -534,7 +534,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			rs = ps.executeQuery();
 			rs.first();
 			facturaId = rs.getInt(1);
-			// añado los servicios del cliente.
+			// anado los servicios del cliente.
 			for (int i = 0; i < serviciosContratados.length; i++) {
 				String consulta = "INSERT INTO `servicio_factura` (`ServicioId`, `FacturaId`) VALUES ('"
 						+ serviciosContratados[i].getId() + "', '" + facturaId + "')";
@@ -657,7 +657,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return true;
 	}
 
-	public boolean añadirObservacion(Incidencia incidencia) {
+	public boolean anadirObservacion(Incidencia incidencia) {
 		try {
 			conexion = Conexion.getConnection();
 			// Actualizamos Respuesta.
@@ -1257,7 +1257,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		return canales;
 	}
 */
-	public boolean añadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
+	public boolean anadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
 		try {
 			conexion = Conexion.getConnection();
 			String buscarPaquete = "SELECT * from paquete WHERE nombre='" +paquete.getNombre()+"'";
@@ -1267,16 +1267,16 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			int paqueteId = rs.getInt(1);
 			for (Canal canal : canales) {
 				//
-				String añadirCanal = "INSERT INTO paquete_canal (PaqueteId, CanalId) " + "VALUES ('"+paqueteId
+				String anadirCanal = "INSERT INTO paquete_canal (PaqueteId, CanalId) " + "VALUES ('"+paqueteId
 						+ "', '" + canal.getId() + "')";
-				ps = conexion.prepareStatement(añadirCanal);
-				ps.execute(añadirCanal);
+				ps = conexion.prepareStatement(anadirCanal);
+				ps.execute(anadirCanal);
 			}
 			ps.close();
 			conexion.close();
 			return true;
 		} catch (SQLException exception) {
-			System.out.println(exception.getMessage() + "Fallo añadir canales");
+			System.out.println(exception.getMessage() + "Fallo anadir canales");
 			return false;
 		}
 	}

@@ -40,8 +40,8 @@ public class BD_Paquetes {
 		bD_Principal_paquetes.cargarCanalesPaquete(paquete);
 	}
 */
-	public boolean añadirCanalesAPaquete(Paquete paquete, Canal[] canales) {
-		return bD_Principal_paquetes.añadirCanalesAPaquete(paquete, canales);
+	public boolean anadirCanalesAPaquete(Paquete paquete, Canal[] canales) {
+		return bD_Principal_paquetes.anadirCanalesAPaquete(paquete, canales);
 	}
 /*
 	public boolean eliminarCanalesPaquete(Canal[] canales) {
