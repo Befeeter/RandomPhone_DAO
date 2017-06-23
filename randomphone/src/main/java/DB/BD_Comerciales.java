@@ -65,7 +65,7 @@ public class BD_Comerciales {
 		return true;
 	}
 
-	public boolean editarComercial(Comercial comercial, Comercial comercialMod) {
+	public boolean editarComercial(Comercial comercial) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarComercial = "UPDATE comercial "

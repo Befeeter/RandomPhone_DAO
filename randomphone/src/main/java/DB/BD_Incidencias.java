@@ -119,7 +119,7 @@ public class BD_Incidencias {
 		return incidencias;
 	}
 
-	public boolean editarIncidencia(Incidencia incidencia, Incidencia nuevaIncidencia) {
+	public boolean editarIncidencia(Incidencia incidencia) {
 		return bD_Principal_incidencias.editarIncidencia(incidencia);
 	}
 

@@ -92,7 +92,7 @@ public class BD_fibras {
         }
 	}
 
-	public boolean editarTarifaFibra(Fibra fibra, Fibra fibraNuevo) {
+	public boolean editarTarifaFibra(Fibra fibra) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "

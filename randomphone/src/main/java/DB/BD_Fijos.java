@@ -92,7 +92,7 @@ public class BD_Fijos {
         }
 	}
 
-	public boolean editarTarifaFijo(Fijo fijo, Fijo fijoNuevo) {
+	public boolean editarTarifaFijo(Fijo fijo) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
