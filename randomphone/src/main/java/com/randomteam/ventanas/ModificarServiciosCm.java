@@ -130,7 +130,7 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 				nServicios.add(televisionCB.getValue());
 			servicios = nServicios.toArray(new Servicio[nServicios.size()]);
 			int idFactura = c.getFactura()[0].getId();
-			if(iC.modificarServicios(servicios, idFactura)){
+			if(iCm.modificarServicios(servicios, idFactura)){
 				Notification.show("Servicios Actualizados Correctamente");
 				this.removeAllComponents();
 				this.addComponent(new ModificarServiciosCm());

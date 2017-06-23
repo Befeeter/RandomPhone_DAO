@@ -25,6 +25,8 @@ public interface iComercial {
 	//public Cliente selecionarCliente(String dni);
 
 	public boolean modificarDatosP(Cliente cliente);
+	
+	public boolean modificarServicios(Servicio[] servicios, int idFactura);
 
 	//public void modificarServiciosCliente(Cliente cliente);
 
