@@ -83,11 +83,11 @@ public class BD_Canales {
 		return true;
 	}
 
-	public boolean EditarCanal(Canal canal, Canal canalNuevo) {
+	public boolean EditarCanal(Canal canal) {
 		try {
 			conexion = Conexion.getConnection();
 			String consulta = "UPDATE canal "
-					+ "SET Id="+canalNuevo.getId()+", Nombre='"+canalNuevo.getNombre()+"', Precio="+canalNuevo.getPrecio()+", Fecha_alta='"+canalNuevo.getFecha_alta()+"', Estado="+canalNuevo.isEstado()+" WHERE id="+ canal.getId();
+					+ "SET Id="+canal.getId()+", Nombre='"+canal.getNombre()+"', Precio="+canal.getPrecio()+", Fecha_alta='"+canal.getFecha_alta()+"', Estado="+canal.isEstado()+" WHERE id="+ canal.getId();
 			ps = conexion.prepareStatement(consulta);
             ps.execute(consulta);
 			ps.close();

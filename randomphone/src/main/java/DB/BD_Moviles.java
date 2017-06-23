@@ -94,7 +94,7 @@ public class BD_Moviles {
         }
 	}
 
-	public boolean editarTarifaMovil(Movil movil, Movil movilNuevo) {
+	public boolean editarTarifaMovil(Movil movil) {
 		try {
 			conexion = Conexion.getConnection();
 			String modificarServicio = "UPDATE servicio "
