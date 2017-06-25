@@ -3,11 +3,11 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-vertical-layout size-full>
-   <vaadin-grid-layout spacing width="100px" height="30px">
+   <vaadin-grid-layout spacing :center>
     <row>
      <column>
       <vaadin-label style-name="bold h3" plain-text _id="tituloL">
@@ -22,16 +22,12 @@
     </row>
     <row>
      <column>
-      <vaadin-list-select width="185px" data-item-type="java.lang.String" _id="paquetesLS">
-       <option item="Paquete1">Paquete 1</option>
-       <option item="Paquete2">Paquete 2</option>
-       <option item="Paquete3">Paquete 3</option>
-      </vaadin-list-select>
+      <vaadin-grid data-item-type="DB.Paquete" _id="paquetesLS"></vaadin-grid>
      </column>
     </row>
     <row>
      <column>
-      <vaadin-button style-name="primary" plain-text _id="guardarB">
+      <vaadin-button icon="fonticon://Vaadin-Icons/e801" style-name="primary" plain-text _id="guardarB" :center>
         Guardar 
       </vaadin-button>
      </column>
