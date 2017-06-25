@@ -1228,7 +1228,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return false;
 		}
 	}
-/*
+
 	public Canal[] cargarCanalesPaquete(DB.Paquete paquete) {
 		Canal[] canales = null;
 		int sizerow;
@@ -1256,7 +1256,7 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 		}
 		return canales;
 	}
-*/
+
 	public boolean anadirCanalesAPaquete(DB.Paquete paquete, Canal[] canales) {
 		try {
 			conexion = Conexion.getConnection();

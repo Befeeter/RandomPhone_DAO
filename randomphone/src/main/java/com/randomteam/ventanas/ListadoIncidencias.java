@@ -185,17 +185,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 			subWindow.setWidth("600px");
 			subWindow.addCloseListener(Event -> {
 				// recargar
-				incidenciasSinAsigCiber = iA.cargarIncidenciasSinAsignarCibernauta();
-				cibernautaLS.setItems(incidenciasSinAsigCiber);
-				//
-				incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCLientes();
-				clienteLS.setItems(incidenciasSinAsigClientes);
-				//
-				incidenciasAsig = iA.cargarIncidenciasAsignadas();
-				asignadasLS.setItems(incidenciasAsig);
-				//
-				incidenciasCompletadas = iA.cargarIncidenciasCompletadas();
-				completadasLS.setItems(incidenciasCompletadas);
+				recargarIncidencias();
 			});
 			this.getUI().addWindow(subWindow);
 		});
@@ -244,11 +234,11 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 	private void recargarIncidencias () {
 		incidenciasSinAsigCiber = iA.cargarIncidenciasSinAsignarCibernauta();
 		cibernautaLS.setItems(incidenciasSinAsigCiber);
-		incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCibernauta();
+		incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCLientes();
 		clienteLS.setItems(incidenciasSinAsigClientes);
-		incidenciasAsig = iA.cargarIncidenciasSinAsignarCibernauta();
+		incidenciasAsig = iA.cargarIncidenciasAsignadas();
 		asignadasLS.setItems(incidenciasAsig);
-		incidenciasCompletadas = iA.cargarIncidenciasSinAsignarCibernauta();
+		incidenciasCompletadas = iA.cargarIncidenciasCompletadas();
 		completadasLS.setItems(incidenciasCompletadas);
 	}
 }

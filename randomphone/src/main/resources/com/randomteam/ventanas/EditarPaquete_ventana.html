@@ -3,36 +3,34 @@
  <head>
   <meta charset="UTF-8">
   <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;mytheme&quot;}">
-  <meta name="vaadin-version" content="8.0.0">
+  <meta name="vaadin-version" content="8.0.5">
  </head>
  <body>
   <vaadin-css-layout style-name="form-template" responsive size-full>
-   <vaadin-button icon="fonticon://Vaadin-Icons/e771" style-name="borderless" width="25%" plain-text></vaadin-button>
-   <vaadin-text-field style-name="borderless" width="75%" readonly value="NombrePaquete" _id="nombreTF"></vaadin-text-field>
+   <vaadin-button visible="false" icon="fonticon://Vaadin-Icons/e771" style-name="borderless" width="25%" plain-text></vaadin-button>
+   <vaadin-label plain-text _id="nombreL">
+     Label 
+   </vaadin-label>
+   <vaadin-text-field visible="false" style-name="borderless" width="75%" readonly value="NombrePaquete" _id="nombreTF"></vaadin-text-field>
    <vaadin-css-layout style-name="form-section">
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper" width="50%">
-      <vaadin-label plain-text _id="estadoL">
+      <vaadin-label visible="false" plain-text _id="estadoL">
         Estado: 
       </vaadin-label>
+      <vaadin-slider visible="false" max="1" _id="estadoB"></vaadin-slider>
      </vaadin-css-layout>
-     <vaadin-css-layout style-name="input-wrapper" width="50%">
-      <vaadin-slider max="1" _id="estadoB"></vaadin-slider>
-     </vaadin-css-layout>
+     <vaadin-css-layout style-name="input-wrapper" width="50%"></vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper" width-full>
       <vaadin-horizontal-layout width-full>
-       <vaadin-list-select caption="Canales" width-full data-item-type="java.lang.String" :center>
-        <option item="Option1">Option 1</option>
-        <option item="Option2">Option 2</option>
-        <option item="Option3">Option 3</option>
-       </vaadin-list-select>
+       <vaadin-grid width="500px" data-item-type="DB.Canal" _id="canalesLS"></vaadin-grid>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
-     <vaadin-horizontal-layout width-full>
+     <vaadin-horizontal-layout visible="false" width-full>
       <vaadin-button icon="fonticon://Vaadin-Icons/e801" style-name="tiny" plain-text :right></vaadin-button>
-      <vaadin-button icon="fonticon://Vaadin-Icons/e7f6" style-name="tiny" plain-text></vaadin-button>
+      <vaadin-button visible="false" icon="fonticon://Vaadin-Icons/e7f6" style-name="tiny" plain-text></vaadin-button>
      </vaadin-horizontal-layout>
     </vaadin-css-layout>
    </vaadin-css-layout>
@@ -40,8 +38,8 @@
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-css-layout style-name="input-wrapper">
       <vaadin-horizontal-layout width-full>
-       <vaadin-button style-name="primary" plain-text _id="guardarB" :center>
-         Guardar 
+       <vaadin-button style-name="primary" plain-text _id="aceptarB" :center>
+         Aceptar 
        </vaadin-button>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
