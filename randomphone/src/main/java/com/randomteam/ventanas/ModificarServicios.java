@@ -146,6 +146,8 @@ public class ModificarServicios extends ModificarServicios_ventana {
 				}
 			televisionCB.setItems(sTvD);
 		}
+		else
+			televisionB.setEnabled(false);
 		
 		movilCB.addValueChangeListener(ClickEvent -> {
 			modMovil=true;
