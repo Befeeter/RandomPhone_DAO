@@ -29,7 +29,7 @@ public class ModificarServiciosCm_ventana extends CssLayout {
 	protected Label televisionL;
 	protected ComboBox<DB.Servicio> televisionCB;
 	protected Button terminalesB;
-	protected Label televisionB;
+	protected Button televisionB;
 	protected Button aceptarB;
 
 	public ModificarServiciosCm_ventana() {

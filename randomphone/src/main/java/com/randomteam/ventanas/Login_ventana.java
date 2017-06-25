@@ -23,6 +23,7 @@ public class Login_ventana extends CssLayout {
 	protected TextField emailTF;
 	protected PasswordField passwordTF;
 	protected CssLayout resetpassL;
+	protected Button resetPassLk;
 	protected Button iniciarSesionB;
 
 	public Login_ventana() {

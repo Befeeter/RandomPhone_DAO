@@ -2,6 +2,7 @@ package com.randomteam.ventanas;
 
 import java.util.ArrayList;
 
+import com.vaadin.event.ContextClickEvent;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinService;
 import com.vaadin.shared.ui.ContentMode;
@@ -45,17 +46,13 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 		this.fibraL.setValue(VaadinIcons.BUILDING.getHtml());
 		this.televisionL.setContentMode(ContentMode.HTML);
 		this.televisionL.setValue(VaadinIcons.MOVIE.getHtml());
-		this.televisionB.setContentMode(ContentMode.HTML);
-		this.televisionB.setValue(VaadinIcons.MODAL_LIST.getHtml());
-
 		movilCB.setItemCaptionGenerator(Servicio::getNombre);
 
 		fijoCB.setItemCaptionGenerator(Servicio::getNombre);
-	
+
 		fibraCB.setItemCaptionGenerator(Servicio::getNombre);
 
 		televisionCB.setItemCaptionGenerator(Servicio::getNombre);
-		
 
 		// Establecemos El Servicio Que ya tiene contratado el usuario
 		for (Servicio servicio : servicios) {
@@ -116,31 +113,44 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 				sTvD.add(aux);
 			}
 		televisionCB.setItems(sTvD);
-		
-		//Boton Aceptar
-		aceptarB.addClickListener(ClickEvent->{
+
+		// Boton Aceptar
+		aceptarB.addClickListener(ClickEvent -> {
 			ArrayList<Servicio> nServicios = new ArrayList<>();
 			if (!movilCB.isEmpty())
 				nServicios.add(movilCB.getValue());
-			if(!fijoCB.isEmpty())
+			if (!fijoCB.isEmpty())
 				nServicios.add(fijoCB.getValue());
-			if(!fibraCB.isEmpty())
+			if (!fibraCB.isEmpty())
 				nServicios.add(fibraCB.getValue());
-			if(!televisionCB.isEmpty())
+			if (!televisionCB.isEmpty())
 				nServicios.add(televisionCB.getValue());
 			servicios = nServicios.toArray(new Servicio[nServicios.size()]);
 			int idFactura = c.getFactura()[0].getId();
-			if(iCm.modificarServicios(servicios, idFactura)){
+			if (iCm.modificarServicios(servicios, idFactura)) {
 				Notification.show("Servicios Actualizados Correctamente");
 				this.removeAllComponents();
 				this.addComponent(new ModificarServiciosCm());
-			}
-			else
+			} else
 				Notification.show("Ups Algo fue mal, habla con un Administrador");
-			
+
 		});
-		
-		//Botón Terminales
+
+		//Boton PaquetesCliente
+		televisionB.addClickListener(ClickEvent -> {
+			Window subWindow = new Window("Paquetes Contratados Cliente");
+			VerticalLayout subcontent = new VerticalLayout();
+			subcontent.addComponent(new PaquetesContratadosCm());
+			subWindow.setContent(subcontent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("700px");
+			subWindow.setWidth("700px");
+
+			this.getUI().addWindow(subWindow);
+		});
+
+		// Botón Terminales
 		this.terminalesB.addClickListener(ClickEvent -> {
 			Window subWindow = new Window("Terminales");
 			VerticalLayout subcontent = new VerticalLayout();

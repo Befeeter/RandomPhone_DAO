@@ -18,6 +18,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinService;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import DB.Conexion;
@@ -109,6 +110,24 @@ public class Login extends Login_ventana {
 				iniciarSesionB.setEnabled(false);
 		});
 
+		//He olvidado la contraseña
+		
+		resetPassLk.addClickListener(ClickEvent->{
+			// Creamos Ventana Emergente para crear reclamación
+			Window subWindow = new Window("Recuperar Contraseña");
+			VerticalLayout subContent = new VerticalLayout();
+			subContent.addComponent(new RecuperarContrasenia());
+			subWindow.setContent(subContent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("600px");
+			subWindow.setWidth("400px");
+			subWindow.addCloseListener(Event ->{
+				Notification.show("Revise su e-mail");
+			});
+			this.getUI().addWindow(subWindow);
+		});
+		
 		
 		
 		//pulsar enter ejecuta el click

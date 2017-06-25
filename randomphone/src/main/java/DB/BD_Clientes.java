@@ -77,7 +77,25 @@ public class BD_Clientes {
 			System.out.println(exception.getMessage());
 		}
 		return -1;
-	}    
+	}
+    
+	public String comprobarUsuario (String email){
+		String dni = null;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM cliente INNER JOIN persona ON cliente.PersonaId=cliente.PersonaId WHERE persona.Email='"+email+"' and cliente.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery(consulta);
+			rs.first();
+			dni = rs.getString("Documento");
+			if (dni != null)
+				return dni;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return dni;
+		}
+		return dni;
+	}
     
 	public Cliente[] cargarListadoClientes() {
 		Cliente [] clientes = null;

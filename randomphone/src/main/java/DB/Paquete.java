@@ -17,6 +17,10 @@ public class Paquete {
 	public Paquete() {
 		this.television = new Television();
 	}
+	
+	public Paquete(String nombre){
+		this.nombre = nombre;
+	}
 
 	public Paquete(int id, int idTv, String nombre, float precio, Date fecha_alta, boolean estado) {
 		this.id = id;

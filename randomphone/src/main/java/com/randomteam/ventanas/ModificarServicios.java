@@ -163,6 +163,20 @@ public class ModificarServicios extends ModificarServicios_ventana {
 			modTelevision=true;
 		});
 		
+		//Botón Television
+		televisionB.addClickListener(ClickEvent -> {
+			Window subWindow = new Window("Paquetes Contratados Cliente");
+			VerticalLayout subcontent = new VerticalLayout();
+			subcontent.addComponent(new PaquetesContratados());
+			subWindow.setContent(subcontent);
+			subWindow.center();
+			subWindow.setModal(true);
+			subWindow.setHeight("700px");
+			subWindow.setWidth("700px");
+
+			this.getUI().addWindow(subWindow);
+		});
+		
 		//Botón Aceptar
 		aceptarB.addClickListener(ClickEvent->{
 			ArrayList<Servicio> nServicios = new ArrayList<>();
@@ -203,16 +217,8 @@ public class ModificarServicios extends ModificarServicios_ventana {
 			this.getUI().setContent(new SitioWebCliente());
 		});
 
-		// Botón Paquete Personalizado
-		televisionB.addClickListener(ClickEvent -> {
-			Window subWindow = new Window("Paquete Personalizado");
-			VerticalLayout subContent = new VerticalLayout();
-			subContent.addComponent(new PaquetePersonalizado());
-			subWindow.setContent(subContent);
-			subWindow.center();
-			subWindow.setModal(true);
-			this.getUI().addWindow(subWindow);
-		});
+		
+	
 	}
 
 	public Informar enviarDatos() {

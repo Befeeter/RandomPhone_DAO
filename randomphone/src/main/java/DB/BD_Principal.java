@@ -1517,6 +1517,50 @@ public class BD_Principal implements iInternauta, iCliente, iComercial, iAdminis
 			return false;
 		}
 	}
+	
+	public String comprobarUsuario (String email){
+		String dni = null;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM cliente INNER JOIN persona ON cliente.PersonaId=cliente.PersonaId WHERE persona.Email='"+email+"' and cliente.Estado=1";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery(consulta);
+			rs.first();
+			dni = rs.getString("Documento");
+			if (dni != null)
+				return dni;
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return dni;
+		}
+		return dni;
+	}
+	
+	public Paquete[] cargarPaquetesCliente(int idCliente) {
+		ArrayList<Paquete> paquetesCliente = new ArrayList<>();
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT paquete.Nombre FROM paquete INNER JOIN television ON paquete.TelevisionServicioId=television.ServicioId INNER JOIN servicio ON television.ServicioId=servicio.Id INNER JOIN cliente WHERE cliente.PersonaId="
+					+ idCliente;
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas paquetes como resultados tiene la consulta
+				paquetesCliente.add(new Paquete(rs.getString("Nombre")));
+				rs.next();
+			}
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return null;
+		}
+		return paquetesCliente.toArray(new Paquete[paquetesCliente.size()]);
+
+	}
 
 	/*
 	@Override

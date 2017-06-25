@@ -10,7 +10,7 @@ public interface iCliente {
 
 	public boolean modificarServicios(Servicio[] servicio, int idFactura);
 
-	//public Paquete[] cargarPaquetes(int id);
+	public Paquete[] cargarPaquetesCliente(int idCliente);
 
 	//public void cargarPaquetePersonal(Paquete paquete);
 
