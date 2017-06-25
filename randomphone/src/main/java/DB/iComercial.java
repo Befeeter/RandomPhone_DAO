@@ -31,6 +31,8 @@ public interface iComercial {
 	//public void modificarServiciosCliente(Cliente cliente);
 
 	public DB.Paquete[] cargarPaquetesDisp();
+	
+	public Paquete[] cargarPaquetesTV();
 
 	public Incidencia[] cargarIncidencias(int id_cliente);
 	
