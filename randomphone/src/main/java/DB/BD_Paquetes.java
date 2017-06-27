@@ -25,7 +25,7 @@ public class BD_Paquetes {
 		ArrayList<Paquete> paquetesCliente = new ArrayList<>();
 		try {
 			conexion = Conexion.getConnection();
-			String consulta = "SELECT paquete.Nombre FROM paquete INNER JOIN television ON paquete.TelevisionServicioId=television.ServicioId INNER JOIN servicio ON television.ServicioId=servicio.Id INNER JOIN cliente WHERE cliente.PersonaId="
+			String consulta = "SELECT paquete.Nombre FROM paquete INNER JOIN television ON paquete.TelevisionServicioId=television.ServicioId INNER JOIN servicio ON television.ServicioId=servicio.Id INNER JOIN servicio_factura on servicio_factura.ServicioId=television.ServicioId INNER JOIN factura ON factura.Id=servicio_factura.FacturaId INNER JOIN cliente on cliente.PersonaId=factura.ClientePersonaId WHERE cliente.PersonaId="
 					+ idCliente;
 			ps = conexion.prepareStatement(consulta);
 			rs = ps.executeQuery();
