@@ -25,8 +25,10 @@ public class EditarPaquete_ventana extends CssLayout {
 	protected Label nombreL;
 	protected TextField nombreTF;
 	protected Label estadoL;
-	protected Slider estadoB;
+	protected Slider estadoSlider;
 	protected Grid<DB.Canal> canalesLS;
+	protected Button addCanalB;
+	protected Button rmCanalB;
 	protected Button aceptarB;
 
 	public EditarPaquete_ventana() {

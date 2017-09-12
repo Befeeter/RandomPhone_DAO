@@ -11,7 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.renderers.ButtonRenderer;
 
-import DB.BD_Incidencias;
+
 import DB.BD_Principal;
 import DB.Comercial;
 import DB.Incidencia;
@@ -33,15 +33,15 @@ public class IncidenciasEnCurso extends IncidenciasEnCurso_ventana {
 
 	public IncidenciasEnCurso() {
 
-		incidencias = iC.cargarIncidenciasCm(cm.getId());
-		incidenciasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		incidencias = iC.cargarIncidenciasCm(cm.getORMID()); //Usar GetID en caso de fallo
+		incidenciasLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
 		incidenciasLS.addColumn(Incidencia::getEstado).setCaption("Estado").setSortable(true);
 		incidenciasLS.addColumn(Incidencia -> "Completar", new ButtonRenderer(ClickEvent -> {
 			iselec = (Incidencia) ClickEvent.getItem();
 			iselec.setEstado("Completada");
 			if (iC.editarEstadoIncidencia(iselec) == true) {
 				Notification.show("Completada Con existo");
-				incidencias = iC.cargarIncidenciasCm(cm.getId());
+				incidencias = iC.cargarIncidenciasCm(cm.getORMID());
 				incidenciasLS.setItems(incidencias);
 			} else
 				Notification.show("Error al actualizar Estado");
@@ -51,7 +51,7 @@ public class IncidenciasEnCurso extends IncidenciasEnCurso_ventana {
 			iselec = event.getItem();
 			// Creamos Ventana Emergente con los detalles de la reclamación
 			// seleccionada en el Grid
-			Window subWindow = new Window(iselec.getAsunto());
+			Window subWindow = new Window(iselec.getAusnto());
 			VerticalLayout subContent = new VerticalLayout();
 			subContent.addComponent(new Reclamacion(iselec));
 			subWindow.setContent(subContent);
@@ -72,7 +72,7 @@ public class IncidenciasEnCurso extends IncidenciasEnCurso_ventana {
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event ->{
-				incidencias = iC.cargarIncidenciasCm(cm.getId());
+				incidencias = iC.cargarIncidenciasCm(cm.getORMID());
 				incidenciasLS.setItems(incidencias);
 			});
 			this.getUI().addWindow(subWindow);

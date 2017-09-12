@@ -1,38 +1,53 @@
+/**
+ * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
+ * 
+ * This is an automatic generated file. It will be regenerated every time 
+ * you generate persistence class.
+ * 
+ * Modifying its content may cause the program not work, or your work may lost.
+ */
+
+/**
+ * Licensee: University of Almeria
+ * License Type: Academic
+ */
 package DB;
 
 import java.io.Serializable;
-
-public class Movil extends Servicio implements Serializable{
-	private int minutos;
-	private int datos;
-	public BD_Moviles bD_Moviles;
-	
-	public Movil(int minutos, int datos, int id, String nombre, float precio, boolean estado) {
-		super(id, nombre, precio, estado);
-		this.minutos = minutos;
-		this.datos = datos;
-	}
-	
+import javax.persistence.*;
+@Entity
+@org.hibernate.annotations.Proxy(lazy=false)
+@Table(name="Movil")
+@Inheritance(strategy=InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name="ServicioID", referencedColumnName="ID")
+public class Movil extends DB.Servicio implements Serializable {
 	public Movil() {
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Column(name="Minutos", nullable=false, length=10)	
+	private int minutos;
+	
+	@Column(name="Datos", nullable=false, length=10)	
+	private int datos;
+	
+	public void setMinutos(int value) {
+		this.minutos = value;
+	}
+	
 	public int getMinutos() {
 		return minutos;
 	}
+	
+	public void setDatos(int value) {
+		this.datos = value;
+	}
+	
 	public int getDatos() {
 		return datos;
 	}
-	public BD_Moviles getbD_Moviles() {
-		return bD_Moviles;
+	
+	public String toString() {
+		return super.toString();
 	}
-	public void setMinutos(int minutos) {
-		this.minutos = minutos;
-	}
-	public void setDatos(int datos) {
-		this.datos = datos;
-	}
-	public void setbD_Moviles(BD_Moviles bD_Moviles) {
-		this.bD_Moviles = bD_Moviles;
-	}
+	
 }

@@ -15,22 +15,22 @@
    <vaadin-css-layout style-name="form-section">
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper" width="50%">
-      <vaadin-label visible="false" plain-text _id="estadoL">
+      <vaadin-label plain-text _id="estadoL">
         Estado: 
       </vaadin-label>
-      <vaadin-slider visible="false" max="1" _id="estadoB"></vaadin-slider>
+      <vaadin-slider max="1" _id="estadoSlider"></vaadin-slider>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper" width="50%"></vaadin-css-layout>
     </vaadin-css-layout>
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper" width-full>
       <vaadin-horizontal-layout width-full>
-       <vaadin-grid width="500px" data-item-type="DB.Canal" _id="canalesLS"></vaadin-grid>
+       <vaadin-grid width-full data-item-type="DB.Canal" _id="canalesLS"></vaadin-grid>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
-     <vaadin-horizontal-layout visible="false" width-full>
-      <vaadin-button icon="fonticon://Vaadin-Icons/e801" style-name="tiny" plain-text :right></vaadin-button>
-      <vaadin-button visible="false" icon="fonticon://Vaadin-Icons/e7f6" style-name="tiny" plain-text></vaadin-button>
+     <vaadin-horizontal-layout width-full>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e801" style-name="tiny" plain-text _id="addCanalB" :right></vaadin-button>
+      <vaadin-button icon="fonticon://Vaadin-Icons/e7f6" enabled="false" style-name="tiny" plain-text _id="rmCanalB"></vaadin-button>
      </vaadin-horizontal-layout>
     </vaadin-css-layout>
    </vaadin-css-layout>

@@ -1,5 +1,7 @@
 package DB;
 
+import org.orm.PersistentException;
+
 public interface iAdministrador {
 
 	public Cliente[] cargarListadoClientes();
@@ -63,10 +65,14 @@ public interface iAdministrador {
 	public Canal[] cargarCanalesPaquete(Paquete paquete);
 
 	public boolean anadirCanalesAPaquete(Paquete paquete, Canal[] canales);
+	
+	public boolean eliminarCanalesAPaquete(Paquete paquete, Canal[] canales);
 
 	//public boolean eliminarCanalesPaquete(Canal[] canales);
 
 	public boolean eliminarPaquete(Paquete paquete);
+	
+	public boolean eidtarEstadoPaquete(Paquete paquete, boolean estado);
 
 	public boolean eliminarTarifaMovil(int mesesAdaptacion, Movil movil);
 

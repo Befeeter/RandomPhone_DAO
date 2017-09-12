@@ -42,7 +42,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 		buscarTF.addValueChangeListener(this::onNameFilterTextChange);
 
 		// Creamos Grid cibernauta sin asignar cibernauta
-		cibernautaLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		cibernautaLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
 		cibernautaLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha alta").setSortable(true);
 		cibernautaLS.setItems(incidenciasSinAsigCiber);
 		cibernautaLS.addItemClickListener(event -> {
@@ -70,7 +70,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 		});
 
 		// Creamos Grid sin asignar cliente
-		clienteLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		clienteLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
 		clienteLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha alta").setSortable(true);
 		clienteLS.setItems(incidenciasSinAsigClientes);
 		clienteLS.addItemClickListener(event -> {
@@ -98,8 +98,8 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 		});
 
 		// Creamos Grid asignadas
-		asignadasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
-		asignadasLS.addColumn(Incidencia::getIdComercial).setCaption("Comercial").setSortable(true);
+		asignadasLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
+		asignadasLS.addColumn(Incidencia::getIDComercial).setCaption("Comercial").setSortable(true);
 		asignadasLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha alta").setSortable(true);
 		asignadasLS.setItems(incidenciasAsig);
 		asignadasLS.addItemClickListener(event -> {
@@ -127,7 +127,7 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 		});
 
 		// Creamos Grid completadas
-		completadasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		completadasLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
 		completadasLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha alta").setSortable(true);
 		completadasLS.setItems(incidenciasCompletadas);
 		completadasLS.addItemClickListener(event -> {
@@ -195,16 +195,16 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 	// para filtrar los grid
 	private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
 		ListDataProvider<Incidencia> dataProvider = (ListDataProvider<Incidencia>) cibernautaLS.getDataProvider();
-		dataProvider.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+		dataProvider.setFilter(Incidencia::getAusnto, s -> caseInsensitiveContains(s, event.getValue()));
 
 		ListDataProvider<Incidencia> dataProvider2 = (ListDataProvider<Incidencia>) clienteLS.getDataProvider();
-		dataProvider2.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+		dataProvider2.setFilter(Incidencia::getAusnto, s -> caseInsensitiveContains(s, event.getValue()));
 
 		ListDataProvider<Incidencia> dataProvider3 = (ListDataProvider<Incidencia>) asignadasLS.getDataProvider();
-		dataProvider3.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+		dataProvider3.setFilter(Incidencia::getAusnto, s -> caseInsensitiveContains(s, event.getValue()));
 
 		ListDataProvider<Incidencia> dataProvider4 = (ListDataProvider<Incidencia>) completadasLS.getDataProvider();
-		dataProvider4.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+		dataProvider4.setFilter(Incidencia::getAusnto, s -> caseInsensitiveContains(s, event.getValue()));
 	}
 
 	private Boolean caseInsensitiveContains(String where, String what) {
@@ -213,16 +213,43 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 
 	private void eliminarIncidencias(Grid<Incidencia> grid) {
 		// obtener elementos a eliminar
-		Incidencia[] incidenciasEliminar;
-		int size = grid.getSelectedItems().size();
-		incidenciasEliminar = new Incidencia[size];
-		incidenciasEliminar = grid.getSelectedItems().toArray(incidenciasEliminar);
+		/*
+		 * Incidencia[] incidenciasEliminar; int size =
+		 * grid.getSelectedItems().size(); incidenciasEliminar = new
+		 * Incidencia[size]; incidenciasEliminar =
+		 * grid.getSelectedItems().toArray(incidenciasEliminar);
+		 */
+		// obtener elementos a asignar
+		Incidencia[] incidenciasAsignarCiber;
+		int size = cibernautaLS.getSelectedItems().size();
+		incidenciasAsignarCiber = new Incidencia[size];
+		incidenciasAsignarCiber = cibernautaLS.getSelectedItems().toArray(incidenciasAsignarCiber);
+
+		Incidencia[] incidenciasAsignarCli;
+		size = clienteLS.getSelectedItems().size();
+		incidenciasAsignarCli = new Incidencia[size];
+		incidenciasAsignarCli = clienteLS.getSelectedItems().toArray(incidenciasAsignarCli);
+
+		Incidencia[] incidenciasAsigar;
+		size = asignadasLS.getSelectedItems().size();
+		incidenciasAsigar = new Incidencia[size];
+		incidenciasAsigar = asignadasLS.getSelectedItems().toArray(incidenciasAsigar);
 		//
 		boolean correcto = true;
-		
-		// Para cada incidencia seleccionada la elimino
-		if (!iA.eliminarIncidencias(incidenciasEliminar)) {
-			correcto = false;
+		if (incidenciasAsignarCiber.length!=0) {
+			if (!iA.eliminarIncidencias(incidenciasAsignarCiber)) {
+				correcto = false;
+			}
+		}
+		if (incidenciasAsignarCli.length!=0) {
+			if (!iA.eliminarIncidencias(incidenciasAsignarCli)) {
+				correcto = false;
+			}
+		}
+		if (incidenciasAsigar.length!=0) {
+			if (!iA.eliminarIncidencias(incidenciasAsigar)) {
+				correcto = false;
+			}
 		}
 		if (correcto) {
 			recargarIncidencias();
@@ -230,8 +257,8 @@ public class ListadoIncidencias extends ListadoIncidencias_ventana {
 		} else
 			Notification.show("Error! Ups algo fue mal!");
 	}
-	
-	private void recargarIncidencias () {
+
+	private void recargarIncidencias() {
 		incidenciasSinAsigCiber = iA.cargarIncidenciasSinAsignarCibernauta();
 		cibernautaLS.setItems(incidenciasSinAsigCiber);
 		incidenciasSinAsigClientes = iA.cargarIncidenciasSinAsignarCLientes();

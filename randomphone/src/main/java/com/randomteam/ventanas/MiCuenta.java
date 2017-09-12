@@ -36,7 +36,11 @@ public class MiCuenta extends MiCuenta_ventana {
 		
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 		cargarCuenta();
-		c.setIncidencia(ic.cargarIncidencias(c.getId()));
+		
+		// NO SABEMOS SI AHORA CARGA DIRECTAMENTE LAS INCIDENCIAS !!!!!!!!
+		//c.setIncidencia(ic.cargarIncidencias(c.getORMID()));
+		
+		
 		// Botón ModificarDatosPersonales
 		mDatosPersonales.addClickListener(ClickEvent -> {
 			this.removeAllComponents();
@@ -66,7 +70,7 @@ public class MiCuenta extends MiCuenta_ventana {
 
 		Comercial cM = comercial;
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
-		Incidencia[] incidencias = ic.cargarIncidencias(c.getId());
+		Incidencia[] incidencias = ic.cargarIncidencias(c.getORMID());
 		cargarCuenta();
 		this.incidenciasL.setVisible(true);
 		this.incidenciasL.setValue(incidenciasL.getValue()+" "+incidencias.length);
@@ -99,7 +103,7 @@ public class MiCuenta extends MiCuenta_ventana {
 	
 	public MiCuenta(int administrador) {
 		c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
-		Incidencia[] incidencias = ic.cargarIncidencias(c.getId());
+		Incidencia[] incidencias = ic.cargarIncidencias(c.getORMID());
 		cargarCuenta();
 		this.incidenciasL.setVisible(true);
 		this.incidenciasL.setValue(incidenciasL.getValue()+" "+incidencias.length);
@@ -107,7 +111,7 @@ public class MiCuenta extends MiCuenta_ventana {
 		// Botón ModificarDatosPersonales
 		mDatosPersonales.addClickListener(ClickEvent -> {
 			this.removeAllComponents();
-			this.addComponent(new ModificarDatosPersonalesCm());
+			this.addComponent(new ModificarDatosPersonalesCm(0));
 		});
 
 		// Botón MisServicios
@@ -134,9 +138,9 @@ public class MiCuenta extends MiCuenta_ventana {
 		consumo = randomgenerator.nextInt(1024);
 		consumocss.setCaption(consumo + " MB de 1024MB");
 		consumoBar.setValue((consumo * 100) / 102400);
-		Cliente cliente = ic.cargarDatosCliente(c.getId());
+		Cliente cliente = ic.cargarDatosCliente(c.getORMID());
 		this.nombreL.setValue(cliente.getNombre() + " " + cliente.getApellidos());
-		servicios = ic.cargarServiciosCliente(c.getId());
+		servicios = ic.cargarServiciosCliente(c.getORMID());
 		this.serviciosLS.addColumn(Servicio::getNombre).setCaption("Servicio")
 				.setStyleGenerator(item -> "v-align-center");
 		this.serviciosLS.addColumn(Servicio::getPrecio).setCaption("Precio")

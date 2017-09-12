@@ -55,7 +55,7 @@ public class ModificarTarifaFibra extends ModificarTarifaFibra_ventana {
 		bajadaTF.setValue(fibra.getVbaj() + "");
 		nombreTF.setValue(fibra.getNombre() + "");
 		precioTF.setValue(fibra.getPrecio() + "");
-		if (fibra.isEstado()) {
+		if (fibra.getEstado()) {
 			estadoB.setValue(1.0);
 		} else
 			estadoB.setValue(0.0);

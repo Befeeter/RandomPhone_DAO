@@ -29,7 +29,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 	private Incidencia iselec = null;
 	iCliente c = new BD_Principal();
 	Cliente cliente = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
-	Incidencia[] incidencias = c.cargarIncidencias(cliente.getId());
+	Incidencia[] incidencias = c.cargarIncidencias(cliente.getORMID());
 
 	public MisIncidencias() {
 
@@ -40,7 +40,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 		
 		
 		// Creamos Grid Incidencias
-		incidenciasLS.addColumn(Incidencia::getAsunto).setCaption("Asunto").setSortable(true);
+		incidenciasLS.addColumn(Incidencia::getAusnto).setCaption("Asunto").setSortable(true);
 		incidenciasLS.addColumn(Incidencia::getEstado).setCaption("Estado").setSortable(true);
 		incidenciasLS.addColumn(Incidencia::getFecha_alta).setCaption("Fecha Alta").setSortable(true);
 		incidenciasLS.setItems(incidencias);
@@ -48,7 +48,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 			iselec = event.getItem();
 			// Creamos Ventana Emergente con los detalles de la reclamación
 			// seleccionada en el Grid
-			Window subWindow = new Window(iselec.getAsunto());
+			Window subWindow = new Window(iselec.getAusnto());
 			VerticalLayout subContent = new VerticalLayout();
 			subContent.addComponent(new Reclamacion(iselec));
 			subWindow.setContent(subContent);
@@ -70,7 +70,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 			eliminar = incidenciasLS.getSelectedItems().toArray(eliminar);
 			if (c.eliminarIncidencias(eliminar) == true) {
 				Notification.show("Eliminadas Con exito!");
-				incidencias = c.cargarIncidencias(cliente.getId());
+				incidencias = c.cargarIncidencias(cliente.getORMID());
 				incidenciasLS.setItems(incidencias);
 
 			} else
@@ -91,7 +91,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 			subWindow.setHeight("600px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event ->{
-				incidencias = c.cargarIncidencias(cliente.getId());
+				incidencias = c.cargarIncidencias(cliente.getORMID());
 				incidenciasLS.setItems(incidencias);
 			});
 			this.getUI().addWindow(subWindow);
@@ -100,7 +100,7 @@ public class MisIncidencias extends MisIncidencias_ventana {
 	
 	 private void onNameFilterTextChange(HasValue.ValueChangeEvent<String> event) {
 	        ListDataProvider<Incidencia> dataProvider = (ListDataProvider<Incidencia>) incidenciasLS.getDataProvider();
-	        dataProvider.setFilter(Incidencia::getAsunto, s -> caseInsensitiveContains(s, event.getValue()));
+	        dataProvider.setFilter(Incidencia::getAusnto, s -> caseInsensitiveContains(s, event.getValue()));
 	    }
 	 
 	 private Boolean caseInsensitiveContains(String where, String what) {

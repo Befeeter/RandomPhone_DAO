@@ -31,11 +31,23 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 	iCliente iC = new BD_Principal();
 	iComercial iCm = new BD_Principal();
 	private Cliente c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
-	private Servicio[] servicios = iC.cargarServiciosCliente(c.getId());
+	private Servicio[] servicios = iC.cargarServiciosCliente(c.getID());
 	private ArrayList<Servicio> sMovilD = new ArrayList<>();
 	private ArrayList<Servicio> sFijoD = new ArrayList<>();
 	private ArrayList<Servicio> sFibraD = new ArrayList<>();
 	private ArrayList<Servicio> sTvD = new ArrayList<>();
+
+	// para controlar si se ha modificado el servicio
+	private boolean modMovil = false;
+	private boolean modFijo = false;
+	private boolean modFibra = false;
+	private boolean modTelevision = false;
+
+	// para guardar los servicios actuales
+	private Servicio movilActual = null;
+	private Servicio fijoActual = null;
+	private Servicio fibraActual = null;
+	private Servicio televisionActual = null;
 
 	public ModificarServiciosCm() {
 		this.movilL.setContentMode(ContentMode.HTML);
@@ -55,19 +67,24 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 		televisionCB.setItemCaptionGenerator(Servicio::getNombre);
 
 		// Establecemos El Servicio Que ya tiene contratado el usuario
+		// Establecemos El Servicio Que ya tiene contratado el usuario
 		for (Servicio servicio : servicios) {
 			if (servicio.getNombre().contains("Movil")) {
 				movilCB.setValue(servicio);
+				movilActual = servicio;
 			}
 
 			if (servicio.getNombre().contains("Fijo")) {
 				fijoCB.setValue(servicio);
+				fijoActual = servicio;
 			}
 			if (servicio.getNombre().contains("Fibra")) {
 				fibraCB.setValue(servicio);
+				fibraActual = servicio;
 			}
 			if (servicio.getNombre().contains("Televisión")) {
 				televisionCB.setValue(servicio);
+				televisionActual = servicio;
 			}
 		}
 
@@ -76,67 +93,117 @@ public class ModificarServiciosCm extends ModificarServiciosCm_ventana {
 
 		Movil[] tMovil = iCm.cargarTarifasMovil();
 		for (Movil movil : tMovil)
-			if (movil.isEstado()) {
-				Servicio aux = new Servicio();
-				aux.setId(movil.getId());
-				aux.setNombre(movil.getNombre());
-				sMovilD.add(aux);
+			if (movil.getEstado()) {
+				/*
+				 * Servicio aux = new Servicio(); aux.setId(movil.getId());
+				 * aux.setNombre(movil.getNombre());
+				 */
+				sMovilD.add(movil);
 			}
 		movilCB.setItems(sMovilD);
 
 		Fijo[] tFijo = iCm.cargarTarifasFijo();
 		for (Fijo fijo : tFijo)
-			if (fijo.isEstado()) {
-				Servicio aux = new Servicio();
-				aux.setId(fijo.getId());
-				aux.setNombre(fijo.getNombre());
-				sFijoD.add(aux);
+			if (fijo.getEstado()) {
+				/*
+				 * Servicio aux = new Servicio(); aux.setId(fijo.getID());
+				 * aux.setNombre(fijo.getNombre());
+				 */
+				sFijoD.add(fijo);
 			}
 		fijoCB.setItems(sFijoD);
 
 		Fibra[] tFibra = iCm.cargarTarifasFibra();
 		for (Fibra fibra : tFibra)
-			if (fibra.isEstado()) {
-				Servicio aux = new Servicio();
-				aux.setId(fibra.getId());
-				aux.setNombre(fibra.getNombre());
-				sFibraD.add(aux);
+			if (fibra.getEstado()) {
+				/*
+				 * Servicio aux = new Servicio(); aux.setId(fibra.getID());
+				 * aux.setNombre(fibra.getNombre());
+				 */
+				sFibraD.add(fibra);
 			}
 		fibraCB.setItems(sFibraD);
 
 		Television[] tTelevision = iCm.cargarTarifasTelevision();
 		for (Television tv : tTelevision)
-			if (tv.isEstado()) {
-				Servicio aux = new Servicio();
-				aux.setId(tv.getId());
-				aux.setNombre(tv.getNombre());
-				sTvD.add(aux);
+			if (tv.getEstado()) {
+				/*
+				 * Servicio aux = new Servicio(); aux.setId(tv.getID());
+				 * aux.setNombre(tv.getNombre());
+				 */
+				sTvD.add(tv);
 			}
 		televisionCB.setItems(sTvD);
+
+		movilCB.addValueChangeListener(ClickEvent -> {
+			modMovil = true;
+		});
+
+		fijoCB.addValueChangeListener(ClickEvent -> {
+			modFijo = true;
+		});
+
+		fibraCB.addValueChangeListener(ClickEvent -> {
+			modFibra = true;
+		});
+
+		televisionCB.addValueChangeListener(ClickEvent -> {
+			modTelevision = true;
+		});
 
 		// Boton Aceptar
 		aceptarB.addClickListener(ClickEvent -> {
 			ArrayList<Servicio> nServicios = new ArrayList<>();
-			if (!movilCB.isEmpty())
+			if (!movilCB.isEmpty() && modMovil)
 				nServicios.add(movilCB.getValue());
-			if (!fijoCB.isEmpty())
+			else if (movilActual != null && !modMovil)
+				nServicios.add(movilActual);
+			if (!fijoCB.isEmpty() && modFijo)
 				nServicios.add(fijoCB.getValue());
-			if (!fibraCB.isEmpty())
+			else if (fijoActual != null && !modFijo)
+				nServicios.add(fijoActual);
+			if (!fibraCB.isEmpty() && modFibra)
 				nServicios.add(fibraCB.getValue());
-			if (!televisionCB.isEmpty())
+			else if (fibraActual != null && !modFibra)
+				nServicios.add(fibraActual);
+			if (!televisionCB.isEmpty() && modTelevision)
 				nServicios.add(televisionCB.getValue());
+			else if (televisionActual != null && !modTelevision)
+				nServicios.add(televisionActual);
 			servicios = nServicios.toArray(new Servicio[nServicios.size()]);
-			int idFactura = c.getFactura()[0].getId();
-			if (iCm.modificarServicios(servicios, idFactura)) {
-				Notification.show("Servicios Actualizados Correctamente");
+			// mod
+			int idFactura = c.factura.toArray()[0].getID();
+			if (modMovil || modFijo || modFibra || modTelevision) {
+				if (iC.modificarServicios(servicios, idFactura)) {
+					Notification.show("Servicios Actualizados Correctamente");
+					this.removeAllComponents();
+					this.addComponent(new ModificarServiciosCm());
+				} else
+					Notification.show("Ups Algo fue mal, habla con un Administrador");
+			} else {
 				this.removeAllComponents();
 				this.addComponent(new ModificarServiciosCm());
-			} else
-				Notification.show("Ups Algo fue mal, habla con un Administrador");
-
+			}
 		});
+		/*
+		 * aceptarB.addClickListener(ClickEvent -> { ArrayList<Servicio>
+		 * nServicios = new ArrayList<>(); if (!movilCB.isEmpty())
+		 * nServicios.add(movilCB.getValue()); if (!fijoCB.isEmpty())
+		 * nServicios.add(fijoCB.getValue()); if (!fibraCB.isEmpty())
+		 * nServicios.add(fibraCB.getValue()); if (!televisionCB.isEmpty())
+		 * nServicios.add(televisionCB.getValue()); servicios =
+		 * nServicios.toArray(new Servicio[nServicios.size()]); int idFactura =
+		 * c.factura.toArray()[0].getID(); if (iCm.modificarServicios(servicios,
+		 * idFactura)) {
+		 * Notification.show("Servicios Actualizados Correctamente");
+		 * this.removeAllComponents(); this.addComponent(new
+		 * ModificarServiciosCm()); } else
+		 * Notification.show("Ups Algo fue mal, habla con un Administrador");
+		 * 
+		 * });
+		 */
 
-		//Boton PaquetesCliente
+		// Boton PaquetesCliente
 		televisionB.addClickListener(ClickEvent -> {
 			Window subWindow = new Window("Paquetes Contratados Cliente");
 			VerticalLayout subcontent = new VerticalLayout();

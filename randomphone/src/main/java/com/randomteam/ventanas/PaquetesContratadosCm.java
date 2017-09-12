@@ -6,7 +6,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import DB.BD_Principal;
-import DB.BD_Televisiones;
 import DB.Cliente;
 import DB.Paquete;
 import DB.iComercial;
@@ -20,7 +19,7 @@ public class PaquetesContratadosCm extends PaquetesContratadosCm_ventana {
 
 	private Cliente c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 	private iComercial iCm = new BD_Principal();
-	private Paquete[] paquetesContratados = iCm.cargarPaquetesCliente(c.getId());
+	private Paquete[] paquetesContratados = iCm.cargarPaquetesCliente(c.getORMID());
 
 	public PaquetesContratadosCm() {
 		paquetesGrid.addColumn(Paquete::getNombre).setCaption("Nombre");

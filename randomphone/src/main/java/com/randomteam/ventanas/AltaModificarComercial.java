@@ -69,9 +69,10 @@ public class AltaModificarComercial extends AltaModificarComercial_ventana {
 		dniTF.setValue(comercial.getDocumento());
 		contrasenaTF.setValue(comercial.getContrasena());
 		emailTF.setValue(comercial.getEmail());
-		if (comercial.getFecha_alta() != null)
-			fechacontratacionD.setValue(comercial.getFecha_alta().toLocalDate());
-		if (comercial.isEstado()) {
+		if (comercial.getFecha_alta() != null) {
+			fechacontratacionD.setValue(LocalDate.of(comercial.getFecha_alta().getYear(), 
+					comercial.getFecha_alta().getMonth()+1, comercial.getFecha_alta().getDate()));
+		} if (comercial.getEstado()) {
 			estadoB.setValue(1.0);
 		} else
 			estadoB.setValue(0.0);

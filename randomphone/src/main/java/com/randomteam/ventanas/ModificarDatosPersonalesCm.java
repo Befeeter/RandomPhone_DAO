@@ -42,6 +42,30 @@ public class ModificarDatosPersonalesCm extends ModificarDatosPersonalesCM_venta
 
 	}
 
+	public ModificarDatosPersonalesCm(int i) {
+		this.nombreTF.setValue(c.getNombre());
+		this.apellidoTF.setValue(c.getApellidos());
+		this.correoTF.setValue(c.getEmail());
+		this.telefonoTF.setValue(String.valueOf(c.getTelefono()));
+		this.passwordTF.setValue(c.getContrasena());
+
+		aceptarB.addClickListener(ClickEvent -> {
+			c.setNombre(this.nombreTF.getValue());
+			c.setApellidos(this.apellidoTF.getValue());
+			c.setEmail(this.correoTF.getValue());
+			c.setTelefono(Integer.parseInt(this.telefonoTF.getValue()));
+			c.setContrasena(this.passwordTF.getValue());
+
+			if (comprobarContrasenia(c.getContrasena()))
+				if (iCm.modificarDatosP(c)) {
+					Notification.show("Datos Actualizados Correctamente");
+				} else
+					Notification.show("Error al actualizar los datos");
+			else
+				Notification.show("La contraseña no cumple el formato adecuado");
+		});
+	}
+
 	public boolean comprobarContrasenia(String contrasenia) {
 		if (contrasenia.length() >= 8)
 			if (contrasenia.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}"))

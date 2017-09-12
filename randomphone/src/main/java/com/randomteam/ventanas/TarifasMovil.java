@@ -25,7 +25,7 @@ public class TarifasMovil extends TarifasMovil_ventana {
 		tarifas = iA.cargarTarifasMovil();
 		// grid
 		tarifasLS.addColumn(Movil::getNombre).setCaption("Nombre").setSortable(true);
-		tarifasLS.addColumn(Movil::isEstado).setCaption("Estado").setSortable(true);
+		tarifasLS.addColumn(Movil::getEstado).setCaption("Estado").setSortable(true);
 		tarifasLS.setItems(tarifas);
 
 		tarifasLS.addItemClickListener(event -> {

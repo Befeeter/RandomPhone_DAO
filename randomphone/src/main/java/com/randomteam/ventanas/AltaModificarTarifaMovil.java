@@ -54,7 +54,7 @@ public class AltaModificarTarifaMovil extends AltaModificarTarifaMovil_ventana {
 		datosTF.setValue(movil.getDatos() + "");
 		nombreTF.setValue(movil.getNombre() + "");
 		precioTF.setValue(movil.getPrecio() + "");
-		if (movil.isEstado()) {
+		if (movil.getEstado()) {
 			estadoB.setValue(1.0);
 		} else
 			estadoB.setValue(0.0);

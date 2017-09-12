@@ -24,9 +24,9 @@ public class ListadoClientes extends ListadoClientes_ventana {
 	 * Vector<ClienteE> vClienteE = new Vector<ClienteE>();
 	 */
 	iAdministrador iA = new BD_Principal();
+	Cliente[] clientes = iA.cargarListadoClientes();
 
 	public ListadoClientes() {
-		Cliente[] clientes = iA.cargarListadoClientes();
 		// Busqueda
 		buscarTF.setPlaceholder("Nombre...");
 		buscarTF.addValueChangeListener(this::onNameFilterTextChange);
@@ -48,6 +48,10 @@ public class ListadoClientes extends ListadoClientes_ventana {
 			subWindow.center();
 			subWindow.setSizeFull();
 			subWindow.setModal(true);
+			subWindow.addCloseListener(Event ->{
+				clientes = iA.cargarListadoClientes();
+				clientesLS.setItems(clientes);
+			});
 			this.getUI().addWindow(subWindow);
 			/*
 			this.removeAllComponents();

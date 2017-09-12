@@ -24,7 +24,7 @@ public class Reclamacion extends Reclamacion_ventana {
 	iComercial iCm = new BD_Principal();
 	
 	public Reclamacion(DB.Incidencia iselec) {
-		this.tituloL.setValue(iselec.getAsunto());
+		this.tituloL.setValue(iselec.getAusnto());
 		this.consultaT.setValue(iselec.getTexto());
 		this.respuestaT.setValue(iselec.getRespuesta());
 		

@@ -21,7 +21,7 @@ public class MisFacturas extends MisFacturas_ventana {
 	 */
 
 	public MisFacturas() {
-		Factura[] facturas = c.cargarFacturas(cliente.getId());
+		Factura[] facturas = c.cargarFacturas(cliente.getORMID());
 		this.facturasLS.addColumn(Factura::getFecha_ini).setCaption("Fecha Inicio").setSortable(true);
 		this.facturasLS.addColumn(Factura::getFecha_fin).setCaption("Fecha fin").setSortable(true);
 		this.facturasLS.addColumn(Factura::getTotal).setCaption("Total").setSortable(true);

@@ -20,7 +20,7 @@ public class TarifasTelefono extends tarifasTelefono_ventana {
 		tarifas = iA.cargarTarifasFijo();
 		// grid
 		tarifasLS.addColumn(Fijo::getNombre).setCaption("Nombre").setSortable(true);
-		tarifasLS.addColumn(Fijo::isEstado).setCaption("Estado").setSortable(true);
+		tarifasLS.addColumn(Fijo::getEstado).setCaption("Estado").setSortable(true);
 		tarifasLS.setItems(tarifas);
 
 		tarifasLS.addItemClickListener(event -> {

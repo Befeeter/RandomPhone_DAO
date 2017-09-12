@@ -1,5 +1,7 @@
 package DB;
 
+import org.orm.PersistentException;
+
 public interface iCliente {
 
 	public Cliente cargarDatosCliente(int id);
@@ -24,7 +26,7 @@ public interface iCliente {
 
 	public Incidencia[] cargarIncidencias(int id_cliente);
 
-	public boolean crearIncidencia(Incidencia incidencia);
+	public boolean crearIncidencia(Incidencia incidencia) throws PersistentException;
 
 	public boolean actualizarIncidencia(Incidencia incidencia);
 	

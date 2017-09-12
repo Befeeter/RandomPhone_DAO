@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import org.orm.PersistentException;
+
 import com.randomteam.randomphone.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationResult;
@@ -21,12 +23,13 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-import DB.Conexion;
+
 import DB.Cliente;
 import DB.Comercial;
 import DB.Persona;
 import DB.iAdministrador;
 import DB.iInternauta;
+import DB.AdministradorDAO;
 import DB.BD_Principal;
 import DB.iInternauta;
 import DB.iCliente;
@@ -46,7 +49,7 @@ public class Login extends Login_ventana {
 	String email = "";
 	String password = "";
 	String debug = "";
-	int idcliente = -1;
+	int idPersona = -1;
 	iInternauta it = new BD_Principal();
 	iCliente ic = new BD_Principal();
 	iComercial iCm = new BD_Principal();
@@ -135,7 +138,12 @@ public class Login extends Login_ventana {
 		iniciarSesionB.addClickListener(ClickEvent -> {
 			email = emailTF.getValue();
 			password = passwordTF.getValue();
-			idcliente = it.comprobarUsuario(email, password);
+			try {
+				idPersona = it.comprobarUsuario(email, password);
+			} catch (PersistentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			// Necesario revisar expresión regular para @Comercial.es
 			if (email.contains("@comercial.es")) {
 				Notification.show("Usuario Comercial!");
@@ -158,22 +166,27 @@ public class Login extends Login_ventana {
 				} else
 					Notification.show("Comercial No Encontrado!");
 			} else if (email.contains("@administrador.es")) {
-				int idAdmin = iA.comprobarAdmin(email, password);
-				if (idAdmin != -1) {
+				if (idPersona != -1) {
 					Notification.show("Administrador!");
-					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", idAdmin);
-					DB.Administrador administrador = new DB.Administrador();
-					administrador.setId(idAdmin);
+					VaadinService.getCurrentRequest().getWrappedSession().setAttribute("administrador", idPersona);
+					DB.Administrador administrador = null;
+					try {
+						administrador = AdministradorDAO.getAdministradorByORMID(idPersona);
+					} catch (PersistentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//DB.Administrador administrador = new DB.Administrador();
+					//administrador.setId(idAdmin);
 					this.getUI().setContent(new SitioWeb(administrador));
 					Collection<Window> win =this.getUI().getCurrent().getWindows();
 					win.iterator().next().close();
 
 				} else
 					Notification.show("Usuario o Contraseña Erroneo!");
-			} else if (idcliente != -1) {
-				
+			} else if (idPersona != -1) {
 				// Creamos un objeto cliente que se mantiene en la sesión HTML
-				cliente = ic.cargarDatosCliente(idcliente);
+				cliente = ic.cargarDatosCliente(idPersona);
 				VaadinService.getCurrentRequest().getWrappedSession().setAttribute("usuario", cliente);
 				Notification.show("Bienvenido "+cliente.getNombre());
 				// recuperamos objeto cliente de la sesión HTML

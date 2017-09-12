@@ -1,0 +1,116 @@
+package db_old;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import DB.Fibra;
+
+public class BD_fibras {
+	public BD_Principal bD_Principal_fibras;
+	public Fibra[] fibra = new Fibra[0];
+	Connection conexion;
+    PreparedStatement ps;
+    ResultSet rs;
+
+	public Servicio[] cargarOfertas() {
+		throw new UnsupportedOperationException();
+	}
+
+	public Fibra[] cargarTarifasFibra() {
+		Fibra[] tarifasFibra = null;
+		int sizerow;
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "SELECT * FROM servicio INNER JOIN fibra ON servicio.id=fibra.servicioid";
+			ps = conexion.prepareStatement(consulta);
+			rs = ps.executeQuery();
+			rs.last();
+			sizerow = rs.getRow();
+			tarifasFibra = new Fibra[sizerow];
+			rs.first();
+			for (int i = 1; i <= sizerow; i++) {
+				// Creamos Tantas tarifas como resultados tiene la consulta
+				Fibra fibra = new Fibra(rs.getInt(5), rs.getInt(6), rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getBoolean(4));
+				tarifasFibra[i - 1] = fibra;
+				rs.next();
+			}
+
+		} catch (SQLException exception) {
+			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
+			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
+			System.out.println(exception.getMessage());
+		}
+		return tarifasFibra;
+	}
+
+	public boolean eliminarTarifaFibra(Fibra fibra, int mesesAdaptacion) {
+		try {
+			conexion = Conexion.getConnection();
+			String consulta = "DELETE from fibra " + "WHERE ServicioId=" + fibra.getId();
+			String consulta2 = "DELETE from servicio " + "WHERE id=" + fibra.getId();
+
+			ps = conexion.prepareStatement(consulta);
+			ps.execute(consulta);
+			ps = conexion.prepareStatement(consulta2);
+			ps.execute(consulta2);
+			ps.close();
+			conexion.close();
+		} catch (SQLException exception) {
+			System.out.println(exception.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean crearTarifaFibra(Fibra fibra) {
+		try {
+			conexion = Conexion.getConnection();
+			// creo el servicio
+			String insertarServicio = "INSERT INTO servicio (Nombre, Precio, Estado) "
+					+ "VALUES ('"+fibra.getNombre()+"','"+fibra.getPrecio()+"', "+fibra.isEstado()+")";
+			ps = conexion.prepareStatement(insertarServicio);
+            ps.execute(insertarServicio);
+			// obtendo el id del servicio
+			String consultaIdServicio = "SELECT id FROM servicio WHERE Nombre='" + fibra.getNombre()+"'";
+			ps = conexion.prepareStatement(consultaIdServicio);
+			rs = ps.executeQuery();
+			rs.first();
+			int servicioId = rs.getInt(1);
+			// creo la tarifa
+			String insertarTarifa = "INSERT INTO fibra (Vsub, Vbaj, ServicioId) "
+					+ "VALUES ('"+fibra.getVsub()+"', '"+fibra.getVsub()+"', '"+servicioId+"')";
+            ps = conexion.prepareStatement(insertarTarifa);
+            ps.execute(insertarTarifa);
+			ps.close();
+            conexion.close();
+            return true;
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+	}
+
+	public boolean editarTarifaFibra(Fibra fibra) {
+		try {
+			conexion = Conexion.getConnection();
+			String modificarServicio = "UPDATE servicio "
+					+ "SET Nombre='"+fibra.getNombre()+"', Precio="+fibra.getPrecio()+", Estado="+fibra.isEstado()+" "
+							+ "WHERE id="+ fibra.getId();
+			String modificarTarifa = "UPDATE fibra "
+					+ "SET Vsub='"+fibra.getVsub()+"', Vbaj='"+fibra.getVbaj()+"' "
+							+ "WHERE servicioid="+ fibra.getId();
+			ps = conexion.prepareStatement(modificarServicio);
+            ps.execute(modificarServicio);
+            ps = conexion.prepareStatement(modificarTarifa);
+            ps.execute(modificarTarifa);
+			ps.close();
+            conexion.close();
+            return true;
+        } catch (SQLException exception) {
+        	System.out.println(exception.getMessage());
+        	return false;
+        }
+	}
+}

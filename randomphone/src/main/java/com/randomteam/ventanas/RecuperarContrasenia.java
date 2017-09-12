@@ -3,6 +3,7 @@ package com.randomteam.ventanas;
 import java.util.Iterator;
 
 import org.omg.CORBA.Environment;
+import org.orm.PersistentException;
 
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
@@ -39,18 +40,21 @@ public class RecuperarContrasenia extends recuperarContrasenia_ventana{
 			dni = iI.comprobarUsuario(email);
 			if (dni != null){
 				resetpass = new Incidencia();
-				resetpass.setIsCliente(true);
-				resetpass.setAsunto("Recuperar Contrasenia");
+				resetpass.setCliente(true);
+				resetpass.setAusnto("Recuperar Contrasenia");
 				resetpass.setTexto("Usuario Solicita Recuperar su contrasena");
 				c = iI.cargarDatosCliente(dni);
-				resetpass.setCliente(c);
-				if(iI.crearIncidencia(resetpass)){
-					Iterator<Window> it = this.getUI().getWindows().iterator();
-					it.next();
-					it.next().close();
+				resetpass.setTiene(c);
+				try {
+					if(iI.crearIncidencia(resetpass)){
+						Iterator<Window> it = this.getUI().getWindows().iterator();
+						it.next();
+						it.next().close();
+					}
+				} catch (PersistentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-					
-				
 			}
 			else
 				Notification.show("Usuario Introducido no existe!");

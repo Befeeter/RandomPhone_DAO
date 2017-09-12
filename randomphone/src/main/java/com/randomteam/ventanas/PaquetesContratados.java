@@ -22,7 +22,7 @@ public class PaquetesContratados extends PaquetesContratados_ventana {
 	
 	private Cliente c =(Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
 	private iCliente iC = new BD_Principal();
-	private Paquete[] paquetesContratados = iC.cargarPaquetesCliente(c.getId());
+	private Paquete[] paquetesContratados = iC.cargarPaquetesCliente(c.getORMID());
 	public PaquetesContratados(){
 	paquetesGrid.addColumn(Paquete::getNombre).setCaption("Nombre");
 	paquetesGrid.setItems(paquetesContratados);

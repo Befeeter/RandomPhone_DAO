@@ -1,5 +1,7 @@
 package DB;
 
+import org.orm.PersistentException;
+
 // import BD.Cliente.Paquete;
 // import DB.Cliente.Paquete;
 
@@ -9,6 +11,8 @@ public interface iComercial {
 	public int crearFacturaServicios(Cliente cliente, Servicio[] serviciosContratados, int total);
 
 	public boolean altaTerminal(Terminal[] terminales, int facturaId);
+	
+	public boolean modificarTerminal(Terminal[] terminales, int facturaId);
 
 	public int altaCliente(Cliente cliente);
 

@@ -1,6 +1,9 @@
 package com.randomteam.ventanas;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 import com.vaadin.data.Binder;
 import com.vaadin.server.VaadinService;
@@ -33,7 +36,7 @@ public class NuevaReclamacionComercial extends NuevaReclamacionComercial_ventana
 		
 		Binder<Incidencia> binder = new Binder<>();
 		//Establecemos como requerido rellenar los campos.
-		binder.forField(asuntoTF).asRequired("No puede estar vacío").bind(Incidencia::getAsunto, Incidencia::setAsunto);
+		binder.forField(asuntoTF).asRequired("No puede estar vacío").bind(Incidencia::getAusnto, Incidencia::setAusnto);
 		binder.forField(tipoLS).asRequired("Debe selecionar Tipo de incidencia").bind(Incidencia::getTipo, Incidencia::setTipo);
 		binder.forField(mensajeTA).asRequired("Debe Describir la incidencia").bind(Incidencia::getTexto, Incidencia::setTexto);
 		
@@ -44,12 +47,19 @@ public class NuevaReclamacionComercial extends NuevaReclamacionComercial_ventana
 		
 		enviarB.addClickListener(ClickEvent ->{
 			c = iC.cargarDatosCliente(this.documentoTF.getValue());
-			incidencia.setCliente(c);
-			incidencia.setIsCliente(true);
+			incidencia.setTiene(c);
+			incidencia.setCliente(true);
+			incidencia.setRespuesta("");
+			incidencia.setObservaciones("");
 			incidencia.setComercial(cm);
-			incidencia.setAsunto(this.asuntoTF.getValue());
+			incidencia.setEstado("Asignada");
+			incidencia.setAusnto(this.asuntoTF.getValue());
 			incidencia.setTipo(this.tipoLS.getValue().toString());
 			incidencia.setTexto(this.mensajeTA.getValue());
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			Date date = new Date();
+			incidencia.setFecha_alta(date);
 			
 			if (iC.crearIncidenciaCliente(incidencia) == true){
 				Notification.show("Incidencia creada con Exito!!");

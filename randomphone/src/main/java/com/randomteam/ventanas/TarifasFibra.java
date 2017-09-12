@@ -27,7 +27,7 @@ public class TarifasFibra extends TarifasFibra_ventana {
 		tarifas = iA.cargarTarifasFibra();
 		// grid
 		tarifasLS.addColumn(Fibra::getNombre).setCaption("Nombre").setSortable(true);
-		tarifasLS.addColumn(Fibra::isEstado).setCaption("Estado").setSortable(true);
+		tarifasLS.addColumn(Fibra::getEstado).setCaption("Estado").setSortable(true);
 		tarifasLS.setItems(tarifas);
 
 		tarifasLS.addItemClickListener(event -> {

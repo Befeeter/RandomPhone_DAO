@@ -1,48 +1,113 @@
+/**
+ * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
+ * 
+ * This is an automatic generated file. It will be regenerated every time 
+ * you generate persistence class.
+ * 
+ * Modifying its content may cause the program not work, or your work may lost.
+ */
+
+/**
+ * Licensee: University of Almeria
+ * License Type: Academic
+ */
 package DB;
 
-public class Terminal {
-	private int id;
+import java.io.Serializable;
+import javax.persistence.*;
+@Entity
+@org.hibernate.annotations.Proxy(lazy=false)
+@Table(name="Terminal")
+public class Terminal implements Serializable {
+	public Terminal() {
+	}
+	
+	private void this_setOwner(Object owner, int key) {
+		if (key == DB.ORMConstants.KEY_TERMINAL_FACTURA) {
+			this.factura = (DB.Factura) owner;
+		}
+	}
+	
+	@Transient	
+	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
+		public void setOwner(Object owner, int key) {
+			this_setOwner(owner, key);
+		}
+		
+	};
+	
+	@Column(name="ID", nullable=false, length=10)	
+	@Id	
+	@GeneratedValue(generator="DB_TERMINAL_ID_GENERATOR")	
+	@org.hibernate.annotations.GenericGenerator(name="DB_TERMINAL_ID_GENERATOR", strategy="native")	
+	private int ID;
+	
+	@ManyToOne(targetEntity=DB.Factura.class, fetch=FetchType.LAZY)	
+	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.LOCK})	
+	@JoinColumns({ @JoinColumn(name="FacturaID", referencedColumnName="ID", nullable=false) })	
+	@org.hibernate.annotations.LazyToOne(value=org.hibernate.annotations.LazyToOneOption.NO_PROXY)	
+	private DB.Factura factura;
+	
+	@Column(name="Tipo", nullable=true, length=255)	
 	private String tipo;
+	
+	@Column(name="Estado", nullable=false, length=1)	
 	private boolean estado;
-	public Factura factura;
-	public BD_Terminales bD_Terminales;
 	
-	public Terminal(String tipo, boolean estado){
-		this.tipo = tipo;
-		this.estado = estado;
+	private void setID(int value) {
+		this.ID = value;
 	}
 	
-	public int getId() {
-		return id;
+	public int getID() {
+		return ID;
 	}
-	public void setId(int id) {
-		this.id = id;
+	
+	public int getORMID() {
+		return getID();
 	}
+	
+	public void setTipo(String value) {
+		this.tipo = value;
+	}
+	
 	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	
+	public void setEstado(boolean value) {
+		this.estado = value;
 	}
-	public boolean isEstado() {
+	
+	public boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
-		this.estado = estado;
+	
+	public void setFactura(DB.Factura value) {
+		if (factura != null) {
+			factura.terminal.remove(this);
+		}
+		if (value != null) {
+			value.terminal.add(this);
+		}
 	}
-	public Factura getFactura() {
+	
+	public DB.Factura getFactura() {
 		return factura;
 	}
-	public void setFactura(Factura factura) {
-		this.factura = factura;
-	}
-	public BD_Terminales getbD_Terminales() {
-		return bD_Terminales;
-	}
-	public void setbD_Terminales(BD_Terminales bD_Terminales) {
-		this.bD_Terminales = bD_Terminales;
+	
+	/**
+	 * This method is for internal use only.
+	 */
+	public void setORM_Factura(DB.Factura value) {
+		this.factura = value;
 	}
 	
+	private DB.Factura getORM_Factura() {
+		return factura;
+	}
 	
+	public String toString() {
+		return String.valueOf(getID());
+	}
 	
 }

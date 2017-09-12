@@ -23,7 +23,7 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 
 		Binder<Incidencia> binder = new Binder<>();
 
-		binder.forField(asuntoTF).asRequired("Asunto Requerido").bind(Incidencia::getAsunto, Incidencia::setAsunto);
+		binder.forField(asuntoTF).asRequired("Asunto Requerido").bind(Incidencia::getAusnto, Incidencia::setAusnto);
 		binder.forField(tipoCB).asRequired("Debe Seleccionar un tipo").bind(Incidencia::getTipo, Incidencia::setTipo);
 		binder.forField(mensajeTA).asRequired("Debe introducir un Mensaje").bind(Incidencia::getTexto,
 				Incidencia::setTexto);
@@ -31,9 +31,9 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 		binder.addStatusChangeListener(event -> enviarB.setEnabled(binder.isValid()));
 
 		// establezco los valores de los campos a editar
-		clienteTF.setValue(incidencia.getCliente().getNombre() + "");
-		asuntoTF.setValue(incidencia.getAsunto() + "");
-		if (incidencia.isCliente())
+		clienteTF.setValue(incidencia.getTiene().getNombre() + "");
+		asuntoTF.setValue(incidencia.getAusnto() + "");
+		if (incidencia.getCliente())
 			clienteR.setSelectedItem("Option1");
 		else
 			clienteR.setSelectedItem("Option2");
@@ -44,11 +44,11 @@ public class EditarIncidencia extends EditarIncidencia_ventana {
 		observacionesTA.setValue(incidencia.getObservaciones() + "");
 		//
 		enviarB.addClickListener(ClickEvent -> {
-			incidencia.setAsunto(asuntoTF.getValue());
+			incidencia.setAusnto(asuntoTF.getValue());
 			if (clienteR.getSelectedItem().get().equals("Option1")) {
-				incidencia.setIsCliente(true);
+				incidencia.setCliente(true);
 			} else
-				incidencia.setIsCliente(false);
+				incidencia.setCliente(false);
 			incidencia.setTipo(tipoCB.getValue() + "");
 			incidencia.setTelefono(Integer.parseInt(telefonoTF.getValue()));
 			incidencia.setTexto(mensajeTA.getValue() + "");

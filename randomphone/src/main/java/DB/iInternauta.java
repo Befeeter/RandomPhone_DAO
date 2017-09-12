@@ -1,12 +1,14 @@
 package DB;
 
+import org.orm.PersistentException;
+
 public interface iInternauta {
 	
 	public Cliente cargarDatosCliente(String dni);
 
-	public int comprobarUsuario(String email, String contrasenia);
+	public int comprobarUsuario(String email, String contrasenia) throws PersistentException;
 
-	public boolean crearIncidencia(Incidencia incidencia);
+	public boolean crearIncidencia(Incidencia incidencia) throws PersistentException;
 
 	public Servicio[] cargarOfertas();
 

@@ -51,7 +51,7 @@ public class AltaModificarTarifaTelefono extends AltaModificarTarifaTelefono_ven
 		minutosTF.setValue(fijo.getMinutos() + "");
 		nombreTF.setValue(fijo.getNombre() + "");
 		precioTF.setValue(fijo.getPrecio() + "");
-		if (fijo.isEstado()) {
+		if (fijo.getEstado()) {
 			estadoB.setValue(1.0);
 		} else
 			estadoB.setValue(0.0);

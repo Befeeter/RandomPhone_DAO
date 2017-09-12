@@ -3,6 +3,8 @@ package com.randomteam.ventanas;
 import java.sql.Date;
 import java.util.Iterator;
 
+import org.orm.PersistentException;
+
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Grid.SelectionMode;
@@ -12,6 +14,8 @@ import DB.BD_Principal;
 import DB.Canal;
 import DB.Movil;
 import DB.Paquete;
+import DB.Television;
+import DB.TelevisionDAO;
 import DB.iAdministrador;
 
 public class CrearPaquete extends CrearPaquete_ventana{
@@ -50,6 +54,15 @@ public class CrearPaquete extends CrearPaquete_ventana{
 				paquete.setNombre(nombreTF.getValue()+"");
 				paquete.setPrecio(Float.parseFloat(precioTF.getValue()));
 				paquete.setFecha_alta(Date.valueOf(fecha_altaD.getValue()));
+				// television
+				Television tv = null;
+				try {
+					tv = TelevisionDAO.getTelevisionByORMID(1);
+				} catch (PersistentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				paquete.setTelevision(tv);
 				if (estadoB.getValue() == 1.0) {
 					paquete.setEstado(true);
 				} else

@@ -2,6 +2,8 @@ package com.randomteam.ventanas;
 
 import java.util.Collection;
 
+import org.orm.PersistentException;
+
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Window;
@@ -27,14 +29,22 @@ public class SolicitarLlamada extends solicitarLlamada_ventana{
 		telefono = Integer.parseInt(telefonoTF.getValue());
 		solCall.setTelefono(telefono);
 		solCall.setTipo("Informacion");
-		solCall.setAsunto(asunto);
-		if (iIn.crearIncidencia(solCall)){
-			Notification.show("Llamada registrada con Exito!");
-			Collection<Window> win =this.getUI().getCurrent().getWindows();
-			win.iterator().next().close();
+		solCall.setAusnto(asunto);
+		solCall.setTexto("");
+		solCall.setObservaciones("");
+		solCall.setRespuesta("");
+		try {
+			if (iIn.crearIncidencia(solCall)){
+				Notification.show("Llamada registrada con Exito!");
+				Collection<Window> win =this.getUI().getCurrent().getWindows();
+				win.iterator().next().close();
+			}
+			else
+				Notification.show("Ups!! Algo fue mal, lo sentimos, muerase");
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else
-			Notification.show("Ups!! Algo fue mal, lo sentimos, muerase");
 		});
 		
 		

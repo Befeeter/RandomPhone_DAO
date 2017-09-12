@@ -53,7 +53,7 @@ public class TarifasTelevision extends TarifasTelevision_ventana {
 			subWindow.setContent(subContent);
 			subWindow.center();
 			subWindow.setModal(true);
-			subWindow.setHeight("750px");
+			subWindow.setHeight("500px");
 			subWindow.setWidth("400px");
 			subWindow.addCloseListener(Event -> {
 				paquetes = iA.cargarPaquetesTV();

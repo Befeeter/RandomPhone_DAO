@@ -12,3 +12,5 @@ randomphone/.settings/com.vaadin.designer.prefs
 randomphone/.settings/com.vaadin.designer.prefs
 randomphone/.settings/com.vaadin.designer.prefs
 *.prefs
+randomphone/src/main/webapp/VAADIN/themes/mytheme/styles.css
+randomphone/.settings/com.vaadin.designer.prefs

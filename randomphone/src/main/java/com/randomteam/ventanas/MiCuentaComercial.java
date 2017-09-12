@@ -29,7 +29,7 @@ public class MiCuentaComercial extends MiCuentaComercial_ventana {
 		
 	Comercial cM = (Comercial) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("comercial");
 	c = (Cliente) VaadinService.getCurrentRequest().getWrappedSession().getAttribute("usuario");
-	Incidencia[] incidencias = ic.cargarIncidencias(c.getId());
+	Incidencia[] incidencias = ic.cargarIncidencias(c.getORMID());
 	cargarCuenta();
 	this.incidenciasL.setVisible(true);
 	this.incidenciasL.setValue(incidenciasL.getValue()+" "+incidencias.length);
@@ -63,9 +63,9 @@ public class MiCuentaComercial extends MiCuentaComercial_ventana {
 		consumo = randomgenerator.nextInt(1024);
 		consumocss.setCaption(consumo + " MB de 1024MB");
 		consumoBar.setValue((consumo * 100) / 102400);
-		Cliente cliente = ic.cargarDatosCliente(c.getId());
+		Cliente cliente = ic.cargarDatosCliente(c.getORMID());
 		this.nombreL.setValue(cliente.getNombre() + " " + cliente.getApellidos());
-		servicios = ic.cargarServiciosCliente(c.getId());
+		servicios = ic.cargarServiciosCliente(c.getORMID());
 		this.serviciosLS.addColumn(Servicio::getNombre).setCaption("Servicio")
 				.setStyleGenerator(item -> "v-align-center");
 		this.serviciosLS.addColumn(Servicio::getPrecio).setCaption("Precio")

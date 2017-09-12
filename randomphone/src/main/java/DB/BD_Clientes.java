@@ -1,283 +1,191 @@
 package DB;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
+
+
+
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
 
 import DB.Cliente;
 
-public class BD_Clientes {
+public class BD_Clientes implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6214867971413961118L;
 	public BD_Principal bD_Principal_clientes;
 	public Cliente[] cliente = new Cliente[0];
-	
-	Connection conexion;
-    PreparedStatement ps;
-    ResultSet rs;
-    
-    public int altaCliente(Cliente cliente) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		int personaId = -1;
-		try {
-			conexion = Conexion.getConnection();
-			// creo la persona
-			String insertarPersona = "INSERT INTO persona (Documento, Nombre, Apellidos, Contrasena, Email) "
-					+ "VALUES ('" + cliente.getDocumento() + "','" + cliente.getNombre() + "', '"
-					+ cliente.getApellidos() + "', '" + cliente.getContrasena() + "', '" + cliente.getEmail() + "')";
-			ps = conexion.prepareStatement(insertarPersona);
-			ps.execute(insertarPersona);
-			// obtendo el id de la persona que se ha creado para ponerlo como
-			// persona id para que sea corresponda con el cliente
-			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + cliente.getDocumento() + "'";
-			ps = conexion.prepareStatement(consultaIdPersona);
-			rs = ps.executeQuery();
-			rs.first();
-			personaId = rs.getInt(1);
-			// creo el cliente
-			String insertarCliente = "INSERT INTO cliente (Fecha_altta, Estado, Telefono, PersonaId) " + "VALUES ('"
-					+ dateFormat.format(cliente.getFecha_altta()) + "'," + cliente.isEstado() + ", "
-					+ cliente.getTelefono() + ", " + personaId + ")";
-			ps = conexion.prepareStatement(insertarCliente);
-			ps.execute(insertarCliente);
-			ps.close();
-			conexion.close();
-		} catch (SQLException exception) {
-			System.out.println(exception.getMessage());
-			return -1;
-		}
-		return personaId;
-	}
-    
-    public int comprobarUsuario(String email, String contrasenia) {
-		int idCliente = -1;
-		ResultSet rs;
-		String password = "";
-		try {
-			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM persona INNER JOIN cliente ON persona.Id=cliente.PersonaId WHERE cliente.Estado=1 AND persona.Email='"
-					+ email + "'";
-			ps = conexion.prepareStatement(consulta);
-			rs = ps.executeQuery();
-			rs.first();
-			password = rs.getString(5);
-			idCliente = rs.getInt(1);
-			ps.close();
-			conexion.close();
-			if (contrasenia.equals(password))
-				return idCliente;
-			else
-				return -1;
 
-		} catch (SQLException exception) {
-			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
-			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
-			System.out.println(exception.getMessage());
+
+	public int altaCliente(Cliente cliente) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
+		try {
+			ClienteDAO.save(cliente);
+			t.commit();
+			return cliente.getORMID();
+		} catch (PersistentException e) {
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			t.rollback();
+		} catch (Exception e) {
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
 		}
 		return -1;
 	}
-    
-	public String comprobarUsuario (String email){
-		String dni = null;
+
+	public int comprobarUsuario(String email, String contrasenia) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
+		Cliente cliente = null;
+		Comercial comercial = null;
+		Administrador[] administradores = AdministradorDAO.listAdministradorByQuery(null, null);
+		Administrador admin = null;
+
 		try {
-			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM cliente INNER JOIN persona ON cliente.PersonaId=cliente.PersonaId WHERE persona.Email='"+email+"' and cliente.Estado=1";
-			ps = conexion.prepareStatement(consulta);
-			rs = ps.executeQuery(consulta);
-			rs.first();
-			dni = rs.getString("Documento");
-			if (dni != null)
-				return dni;
-		} catch (SQLException exception) {
-			System.out.println(exception.getMessage());
-			return dni;
+			cliente = ClienteDAO.loadClienteByQuery("Estado=1 AND Email='" + email + "'", null);
+			comercial = ComercialDAO.loadComercialByQuery("Email='" + email + "'", null);
+			t.commit();
+			for (Administrador administrador : administradores) {
+				if (administrador.getEmail().equals(email)) {
+					admin = administrador;
+					break;
+				}
+
+			}
+
+			if (cliente != null) {
+				System.out.println(cliente.getID());
+				if (contrasenia.equals(cliente.getContrasena()))
+					return cliente.getORMID();
+				else
+					return -1;
+			}
+
+			if (comercial != null) {
+				if (contrasenia.equals(comercial.getContrasena()))
+					return comercial.getORMID();
+				else
+					return -1;
+			}
+			if (admin != null) {
+				if (contrasenia.equals(admin.getContrasena()))
+					return admin.getORMID();
+				else
+					return -1;
+			}
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			t.rollback();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ProyectoFinalPersistentManager.instance().getSession().close();
+		}
+		return -1;
+	}
+
+	public String comprobarUsuario(String email) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
+		String dni = null;
+		Cliente cliente;
+
+		try {
+			cliente = ClienteDAO.loadClienteByQuery("Email='" + email + "' and Estado=1", null);
+			dni = cliente.getDocumento();
+			t.commit();
+		} catch (PersistentException e) {
+			t.rollback();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 		return dni;
 	}
-    
-	public Cliente[] cargarListadoClientes() {
-		Cliente [] clientes = null;
-		try {
-			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM persona INNER JOIN cliente "
-					+ "ON persona.Id=cliente.PersonaId INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId "
-					+ "INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId "
-					+ "INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id AND cliente.Estado=1";
-			ps = conexion.prepareStatement(consulta);
-            rs = ps.executeQuery();
-            rs.last();
-            int sizerow = rs.getRow();
-            clientes = new Cliente [sizerow];
-            rs.first();
-            for (int i=0; i <sizerow; i++) {
-        		Cliente cliente = new Cliente();
-        		cliente.setId(rs.getInt(1));
-            	cliente.setDocumento(rs.getString(2));
-    			cliente.setNombre(rs.getString(3));
-    			cliente.setApellidos(rs.getString(4));
-    			cliente.setContrasena(rs.getString(5));
-    			cliente.setEmail(rs.getString(6));
-    			cliente.setFecha_altta(rs.getDate(7));
-    			cliente.setEstado(true);
-    			cliente.setTelefono(rs.getInt(9));
-            	clientes[i] = cliente;
-            	rs.next();
-            }
-            ps.close();
-            conexion.close();
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        }
-        return clientes;
-	}
 
-	public Cliente cargarDatosCliente(int id) {
-		Cliente cliente = new Cliente();
-		cliente.setId(id);
-		Connection conexion;
-		PreparedStatement ps;
-		ResultSet rs;
+	public Cliente[] cargarListadoClientes() throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
 		try {
-			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM persona "
-					+ "INNER JOIN cliente ON persona.Id=cliente.PersonaId "
-					+ "INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId "
-					+ "INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId "
-					+ "INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id "
-					+ "WHERE persona.Id= "+ id + " AND cliente.Estado=1";
-			ps = conexion.prepareStatement(consulta);
-			rs = ps.executeQuery();
-			rs.first();
-			//Cargamos El cliente
-			cliente.setDocumento(rs.getString(2));
-			cliente.setNombre(rs.getString(3));
-			cliente.setApellidos(rs.getString(4));
-			cliente.setContrasena(rs.getString(5));
-			cliente.setEmail(rs.getString(6));
-			cliente.setFecha_altta(rs.getDate(7));
-			cliente.setEstado(true);
-			cliente.setTelefono(rs.getInt(9));
-			
-		} catch (SQLException exception) {
-			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
-			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
-			System.out.println(exception.getMessage());
+			Cliente[] clientes = ClienteDAO.listClienteByQuery(null, null);
+			t.commit();
+			return clientes;
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			t.rollback();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-		return cliente;
+		return null;
 	}
 
-	public boolean modificarDatosP(Cliente cliente) {
+	public Cliente cargarDatosCliente(int id) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
 		try {
-			conexion = Conexion.getConnection();
-			// Actualizamos Telefono.
-			String consulta = "UPDATE `cliente` SET `Telefono` = '" + cliente.getTelefono()
-					+ "' WHERE `cliente`.`PersonaId` ='" + cliente.getId() + "'";
-			ps = conexion.prepareStatement(consulta);
-			ps.executeUpdate();
-			// Actualizamos Resto de datos
-			consulta = "UPDATE `persona` SET `Apellidos` = '" + cliente.getApellidos() + "', `Nombre` = '"
-					+ cliente.getNombre() + "', `Email` = '" + cliente.getEmail() + "', `Contrasena` = '"
-					+ cliente.getContrasena() + "' WHERE `persona`.`Id` = '" + cliente.getId() + "'";
-			ps = conexion.prepareStatement(consulta);
-			ps.executeUpdate();
-			ps.close();
-			conexion.close();
-		} catch (SQLException exception) {
-			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
-			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
-			System.out.println(exception.getMessage());
+			Cliente cliente = ClienteDAO.loadClienteByQuery("Id='" + id + "' AND Estado=1", null);
+			t.commit();
+			return cliente;
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			t.rollback();
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+
+	public boolean modificarDatosP(Cliente cliente) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
+		try {
+			PersonaDAO.save(cliente);
+			ClienteDAO.save(cliente);			
+			t.commit();
+			return true;
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			t.rollback();
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
 		}
-		return true;
+		return false;
 	}
 
 	public void crearCliente(Cliente cliente) {
-		try {
-			conexion = Conexion.getConnection();
-			// creo la persona
-			String insertarPersona = "INSERT INTO persona (Documento, Nombre, Apellidos, Contrasena, Email) "
-					+ "VALUES ('"+cliente.getDocumento()+"','"+cliente.getNombre()+"', '"+cliente.getApellidos()+"', '"+cliente.getContrasena()+"', '"+cliente.getEmail()+"')";
-			ps = conexion.prepareStatement(insertarPersona);
-            ps.execute(insertarPersona);
-			// obtendo el id de la persona que se ha creado para ponerlo como persona id para que sea corresponda con el cliente
-			String consultaIdPersona = "SELECT id FROM persona WHERE Documento='" + cliente.getDocumento()+"'";
-			ps = conexion.prepareStatement(consultaIdPersona);
-			rs = ps.executeQuery();
-			rs.first();
-			int personaId = rs.getInt(1);
-			// creo el cliente
-			String insertarCliente = "INSERT INTO cliente (Fecha_altta, Estado, Telefono, PersonaId) "
-					+ "VALUES ('"+cliente.getFecha_altta()+"',"+cliente.isEstado()+", "+cliente.getTelefono()+", "+personaId+")";
-            ps = conexion.prepareStatement(insertarCliente);
-            ps.execute(insertarCliente);
-			ps.close();
-            conexion.close();
-        } catch (SQLException exception) {
-        	System.out.println(exception.getMessage());
-        }
+
 	}
 
-	public Cliente cargarDatosCliente(String dni) {
-		Cliente cliente = new Cliente();
-		cliente.setDocumento(dni);
-		Connection conexion;
-		PreparedStatement ps;
-		ResultSet rs;
+	public Cliente cargarDatosCliente(String dni) throws PersistentException {
+		PersistentTransaction t = ProyectoFinalPersistentManager.instance().getSession().beginTransaction();
 		try {
-			conexion = Conexion.getConnection();
-			String consulta = "SELECT * FROM persona "
-					+ "INNER JOIN cliente ON persona.Id=cliente.PersonaId "
-					+ "INNER JOIN factura ON cliente.PersonaId=factura.ClientePersonaId "
-					+ "INNER JOIN servicio_factura ON factura.Id=servicio_factura.FacturaId "
-					+ "INNER JOIN servicio on servicio_factura.ServicioId=servicio.Id "
-					+ "WHERE persona.Documento= '"+ dni + "' AND cliente.Estado=1";
-			ps = conexion.prepareStatement(consulta);
-			rs = ps.executeQuery();
-			rs.first();
-			//Cargamos El cliente
-			cliente.setId(rs.getInt(1));
-			cliente.setDocumento(rs.getString(2));
-			cliente.setNombre(rs.getString(3));
-			cliente.setApellidos(rs.getString(4));
-			cliente.setContrasena(rs.getString(5));
-			cliente.setEmail(rs.getString(6));
-			cliente.setFecha_altta(rs.getDate(7));
-			cliente.setEstado(true);
-			cliente.setTelefono(rs.getInt(9));
-			
-		} catch (SQLException exception) {
-			// JOptionPane.showMessageDialog(null, "Impossivel registar armazém
-			// " + exception, "Armazém", JOptionPane.ERROR_MESSAGE);
-			System.out.println(exception.getMessage());
+			Cliente cliente = ClienteDAO.loadClienteByQuery("Documento='" + dni + "' AND Estado=1", null);
+			t.commit();
+			return cliente;
+		} catch (PersistentException e) {
+			// TODO Auto-generated catch block
+			t.rollback();
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-		return cliente;
+		return null;
 	}
 
-	public void modificarPaquetesCliente(Cliente cliente) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean modificarServicios(Servicio[] servicios, int idFactura) {
-
-		try {
-			conexion = Conexion.getConnection();
-			String consulta = "DELETE FROM servicio_factura WHERE servicio_factura.FacturaId='" + idFactura + "'";
-			ps = conexion.prepareStatement(consulta);
-			ps.executeUpdate();
-			for (int i = 0; i < servicios.length; i++) {
-				consulta = "INSERT INTO `servicio_factura` (`ServicioId`, `FacturaId`) VALUES ('" + servicios[i].getId()
-						+ "', '" + idFactura + "')";
-				ps = conexion.prepareStatement(consulta);
-				ps.executeUpdate();
-			}
-			ps.close();
-			conexion.close();
-		} catch (SQLException exception) {
-			System.out.println(exception.getMessage());
-			return false;
-		}
-		return true;
-	}
 }

@@ -48,8 +48,9 @@ public class CrearModificarCanal extends CrearModificarCanal_ventana{
 		// cargar datos
 		nombreTF.setValue(canal.getNombre()+"");
 		precioTF.setValue(canal.getPrecio()+"");
-		fecha_altaD.setValue(canal.getFecha_alta().toLocalDate());
-		if (canal.isEstado()) {
+		fecha_altaD.setValue(LocalDate.of(canal.getFecha_alta().getYear(), 
+				canal.getFecha_alta().getMonth()+1, canal.getFecha_alta().getDate()));
+		if (canal.getEstado()) {
 			estadoB.setValue(1.0);
 		} else
 			estadoB.setValue(0.0);
